@@ -56,65 +56,85 @@ def test_codec( chunk, codec, filter, clevel ):
     t0 = time.clock()
     blosc.decompress_ptr( c, out.__array_interface__['data'][0] )
     td = time.clock() - t0
-    rate = ( N * 8. / len(c) )
+    rate = ( chunk.size * chunk.dtype.itemsize / len(c) )
     assert ( ( chunk == out ).all() )
-    # print( "  *** %-8s, %-10s *** %6.3f s / %5.3f s " %
-    #        ( codec, blosc.filters[filter], tc, td), end='')
-    # print( "\tCompr. ratio: %5.1fx" % rate )
+    print( "  *** %-8s, %-10s, CL%d *** %6.4f s / %5.4f s " %
+           ( codec, blosc.filters[filter], clevel, tc, td), end='')
+    print( "\tCompr. ratio: %5.1fx" % rate )
     return ( tc, rate )
 
-N = int(1e6)
-N_CHUNKS = 63
-buffer = np.empty(int(N_CHUNKS * 1e6), dtype=np.int64)
-for i in range(1, N_CHUNKS+1 ):
-    buffer[ (i-1)*N : (i)*N ] = np.random.randint( 0, 2**i, N, dtype = np.int64 )
-C_LEVELS = (1,9)
-CODECS = ('blosclz', 'lz4')
+if __name__ == "__main__":
+    N = int(1e6)
+    N_CHUNKS = 63
+    buffer = np.empty(int(N_CHUNKS * 1e6), dtype=np.int64)
+    for i in range(1, N_CHUNKS+1 ):
+        buffer[ (i-1)*N : (i)*N ] = np.random.randint( 0, 2**i, N, dtype = np.int64 )
+    C_LEVELS = (1,9)
+    CODECS = ('blosclz', 'lz4')
 
-for codec in CODECS:
-    for c_level in C_LEVELS:
-        print('CORRELATIONS WITH ', codec.upper(), ' AND COMPRESSION LEVEL ', c_level)
-        tblz = np.empty(N_CHUNKS, dtype=float)
-        rblz = np.empty(N_CHUNKS, dtype=float)
-        tzstd = np.empty(N_CHUNKS, dtype=float)
-        rzstd = np.empty(N_CHUNKS, dtype=float)
-        tlz4 = np.empty(N_CHUNKS, dtype=float)
-        rlz4 = np.empty(N_CHUNKS, dtype=float)
-        tlz4hc = np.empty(N_CHUNKS, dtype=float)
-        rlz4hc = np.empty(N_CHUNKS, dtype=float)
-        tsnappy = np.empty(N_CHUNKS, dtype=float)
-        rsnappy = np.empty(N_CHUNKS, dtype=float)
-        tzlib = np.empty(N_CHUNKS, dtype=float)
-        rzlib = np.empty(N_CHUNKS, dtype=float)
+    tblz = np.empty(N_CHUNKS, dtype=float)
+    rblz = np.empty(N_CHUNKS, dtype=float)
+    tblz9 = np.empty(N_CHUNKS, dtype=float)
+    rblz9 = np.empty(N_CHUNKS, dtype=float)
+    tzstd = np.empty(N_CHUNKS, dtype=float)
+    rzstd = np.empty(N_CHUNKS, dtype=float)
+    tlz4 = np.empty(N_CHUNKS, dtype=float)
+    rlz4 = np.empty(N_CHUNKS, dtype=float)
+    tlz49 = np.empty(N_CHUNKS, dtype=float)
+    rlz49 = np.empty(N_CHUNKS, dtype=float)
+    tlz4hc = np.empty(N_CHUNKS, dtype=float)
+    rlz4hc = np.empty(N_CHUNKS, dtype=float)
+    tsnappy = np.empty(N_CHUNKS, dtype=float)
+    rsnappy = np.empty(N_CHUNKS, dtype=float)
+    tzlib = np.empty(N_CHUNKS, dtype=float)
+    rzlib = np.empty(N_CHUNKS, dtype=float)
 
-        for i, chunk in enumerate(chunk_generator()):
-            tblz[i], rblz[i] = test_codec(chunk, codec, blosc.SHUFFLE, c_level)
-            tzstd[i], rzstd[i] = test_codec(chunk, 'zstd', blosc.SHUFFLE, 1)
-            if (codec != 'lz4'):
-                tlz4[i], rlz4[i] = test_codec(chunk, 'lz4', blosc.SHUFFLE, 1)
+    for i, chunk in enumerate(chunk_generator()):
+        tblz[i], rblz[i] = test_codec(chunk, 'blosclz', blosc.SHUFFLE, 1)
+        tblz9[i], rblz9[i] = test_codec(chunk, 'blosclz', blosc.SHUFFLE, 9)
+        tzstd[i], rzstd[i] = test_codec(chunk, 'zstd', blosc.SHUFFLE, 1)
+        tlz4[i], rlz4[i] = test_codec(chunk, 'lz4', blosc.SHUFFLE, 1)
+        tlz49[i], rlz49[i] = test_codec(chunk, 'lz4', blosc.SHUFFLE, 9)
+        tlz4hc[i], rlz4hc[i] = test_codec(chunk, 'lz4hc', blosc.SHUFFLE, 1)
+        tsnappy[i], rsnappy[i] = test_codec(chunk, 'snappy', blosc.SHUFFLE, 1)
+        tzlib[i], rzlib[i] = test_codec(chunk, 'zlib', blosc.SHUFFLE, 1)
+
+    for codec in CODECS:
+        for c_level in C_LEVELS:
+            print('CORRELATIONS WITH ', codec.upper(), ' AND COMPRESSION LEVEL ', c_level)
+            # PEARSON R
+            if (codec == 'lz4'):
+                codec_aux = 'blosclz'
+                raux = rblz
+                taux = tblz
+                if (c_level == 1):
+                    rates = rlz4
+                    times = tlz4
+                else:
+                    rates = rlz49
+                    times = tlz49
             else:
-                tlz4[i], rlz4[i] = test_codec(chunk, 'blosclz', blosc.SHUFFLE, 1)
-            tlz4hc[i], rlz4hc[i] = test_codec(chunk, 'lz4hc', blosc.SHUFFLE, 1)
-            tsnappy[i], rsnappy[i] = test_codec(chunk, 'snappy', blosc.SHUFFLE, 1)
-            tzlib[i], rzlib[i] = test_codec(chunk, 'zlib', blosc.SHUFFLE, 1)
-        # PEARSON R
-        print("-------COMPRESSION RATES---------")
-        codec_aux = 'lz4'
-        if (codec == 'lz4'):
-            codec_aux = 'blosclz'
-        print("Pearson ", codec, "-zstd: ", pearsonr(rblz, rzstd))
-        print("Pearson ", codec, "-", codec_aux, ": ", pearsonr(rblz, rlz4))
-        print("Pearson ", codec, "-lz4hc: ", pearsonr(rblz, rlz4hc))
-        print("Pearson ", codec, "-snappy: ", pearsonr(rblz, rsnappy))
-        print("Pearson ", codec, "-zlib: ", pearsonr(rblz, rzlib))
-        print("-------COMPRESSION TIMES---------")
-        print("Pearson ", codec, "-zstd: ", pearsonr(tblz, tzstd))
-        print("Pearson ", codec, "-", codec_aux, ": ", pearsonr(tblz, tlz4))
-        print("Pearson ", codec, "-lz4hc: ", pearsonr(tblz, tlz4hc))
-        print("Pearson ", codec, "-snappy: ", pearsonr(tblz, tsnappy))
-        print("Pearson ", codec, "-zlib: ", pearsonr(tblz, tzlib), '\n')
-
-
+                codec_aux = 'lz4'
+                raux = rlz4
+                taux = tlz4
+                if (c_level == 1):
+                    rates = rblz
+                    times = tblz
+                else:
+                    rates = rblz9
+                    times = tblz9
+            print("-------COMPRESSION RATES---------")
+            print("Pearson ", codec, "- zstd: ", pearsonr(rates, rzstd))
+            print("Pearson ", codec, "-", codec_aux, ": ", pearsonr(rates, raux))
+            print("Pearson ", codec, "- lz4hc: ", pearsonr(rates, rlz4hc))
+            print("Pearson ", codec, "- snappy: ", pearsonr(rates, rsnappy))
+            print("Pearson ", codec, "- zlib: ", pearsonr(rates, rzlib))
+            print("-------COMPRESSION TIMES---------")
+            print("Pearson ", codec, "- zstd: ", pearsonr(times, tzstd))
+            print("Pearson ", codec, "-", codec_aux, ": ", pearsonr(times, taux))
+            print("Pearson ", codec, "- lz4hc: ", pearsonr(times, tlz4hc))
+            print("Pearson ", codec, "- snappy: ", pearsonr(times, tsnappy))
+            print("Pearson ", codec, "- zlib: ", pearsonr(times, tzlib), '\n')
 
         # 2D GRAPHICS
         # f, axarr = plt.subplots(3,2)
