@@ -127,7 +127,7 @@ def extract_features(buffer):
     """
     return (np.mean(buffer), np.median(buffer), np.std(buffer), stats.skew(buffer), stats.kurtosis(buffer))
 
-FILENAMES = ['F:DADES/WRF_India-LSD1.h5']
+FILENAMES = ['WRF_India-LSD1.h5']
 COLS = ['DataID', 'mean', 'median', 'sd', 'skew', 'kurt']
 col_labels()
 
