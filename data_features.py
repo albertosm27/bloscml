@@ -5,6 +5,7 @@ import functools
 import numpy as np
 import scipy.stats as stats
 import pandas as pd
+import os.path
 from sys import platform
 if platform == 'win32':
     from time import clock as time
@@ -131,7 +132,10 @@ FILENAMES = ['WRF_India-LSD1.h5']
 COLS = ['DataID', 'mean', 'median', 'sd', 'skew', 'kurt']
 col_labels()
 
-df = pd.DataFrame()
+if os.path.isfile('out.csv'):
+    df = pd.read_csv('out.csv', sep='\t')
+else:
+    df = pd.DataFrame()
 
 for filename in FILENAMES:
     for k, buffer in enumerate(file_reader(filename)):
@@ -158,4 +162,4 @@ for filename in FILENAMES:
                     row_data.append(d_time)
         df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
         print('\n\nROW ADDED\n', df)
-        df.to_csv('out.csv', sep='\t')
+        df.to_csv('out.csv', sep='\t', index=False)
