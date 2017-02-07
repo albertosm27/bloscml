@@ -83,6 +83,14 @@ def mega_chunk_generator(buffer):
     if (r != 0):
         yield buffer[max * mega: buffer.size]
 
+def chunk_generator(buffer, size):
+    mega = int((2 ** 20) / buffer.dtype.itemsize)
+    max, r = divmod(buffer.size, mega)
+    for i in range(max):
+        yield buffer[i * mega: (i + 1) * mega]
+    if (r != 0):
+        yield buffer[max * mega: buffer.size]
+
 def file_reader(filename):
     """
     Given an HDF5 file generates the buffers of data contained
@@ -126,10 +134,12 @@ def extract_features(buffer):
     out : tuple
         A tuple containing the mean, median and standard deviation.
     """
-    return (np.mean(buffer), np.median(buffer), np.std(buffer), stats.skew(buffer), stats.kurtosis(buffer))
+    return (np.mean(buffer), np.median(buffer), np.std(buffer), stats.skew(buffer), stats.kurtosis(buffer),
+            np.min(buffer), np.max(buffer), np.percentile(buffer, 25), np.percentile(buffer, 75))
 
 FILENAMES = ['WRF_India-LSD1.h5']
-COLS = ['DataID', 'mean', 'median', 'sd', 'skew', 'kurt']
+COLS = ['DataID', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt', 'Min', 'Max', 'Q1', 'Q3']
+
 col_labels()
 
 if os.path.isfile('out.csv'):
