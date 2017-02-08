@@ -15,7 +15,7 @@ else:
 def test_codec(chunk, codec, filter, clevel):
     """
     Compresses the array chunk with the given codec, filter and clevel
-    and return the compression time and rate.
+    and return the compressions speeds and rate.
 
     Parameters
     ----------
@@ -35,7 +35,8 @@ def test_codec(chunk, codec, filter, clevel):
     Returns
     -------
     out : tuple
-        The associated compression time, rate and decompression time.
+        The associated compression rate, compression speed and
+        decompression speed (speed in GB/s).
 
     Raises
     ------
@@ -56,16 +57,19 @@ def test_codec(chunk, codec, filter, clevel):
     t0 = time()
     blosc.decompress_ptr(c, out.__array_interface__['data'][0])
     td = time() - t0
-    rate = (chunk.size * chunk.dtype.itemsize / len(c))
+    chunk_byte_size = chunk.size * chunk.dtype.itemsize
+    rate = (chunk_byte_size / len(c))
     assert ((chunk == out).all())
+    c_speed = (chunk_byte_size / tc / 2**30)
+    d_speed = (chunk_byte_size / td / 2**30)
     # print("  *** %-8s, %-10s, CL%d *** %6.4f s / %5.4f s " %
     #        ( codec, blosc.filters[filter], clevel, tc, td), end='')
     # print("\tCompr. ratio: %5.1fx" % rate)
-    return (rate, tc, td)
+    return (rate, c_speed, d_speed)
 
-def chunk_generator(buffer, size):
+def chunk_generator(buffer):
     """
-    Given a buffer array generates data chunks of 2^(size) bytes.
+    Given a buffer array generates data chunks of 16MB.
 
     Parameters
     ----------
@@ -75,9 +79,9 @@ def chunk_generator(buffer, size):
     Returns
     -------
     out : array
-        A part of 2^(size) bytes of extracted from the original buffer.
+        A part of 16MB extracted from the original buffer.
     """
-    mega = int((2 ** size) / buffer.dtype.itemsize)
+    mega = int(2**24  / buffer.dtype.itemsize)
     max, r = divmod(buffer.size, mega)
     for i in range(max):
         yield buffer[i * mega: (i + 1) * mega]
@@ -99,20 +103,19 @@ def file_reader(filename):
     out : array
         A buffer of data contained in the file.
     """
+    # TODO IMPROVE DEEP BEHAVIOUR
     with tables.open_file(filename) as f:
         for child in f.root:
             if (child.size_in_memory > 10 * 2**20):
                 yield (child._v_pathname, child[:].reshape(functools.reduce(lambda x, y: x * y, child.shape)))
 
 
-def calculate_nchunks(chunk_size, type_size, buffer_size):
+def calculate_nchunks(type_size, buffer_size):
     """
     Calculates the number of chunks for the buffer.
 
     Parameters
     ----------
-    chunk_size : int
-        The power of the chunk size.
     type_size : int
         The type size in bytes.
     buffer_size : int
@@ -123,97 +126,108 @@ def calculate_nchunks(chunk_size, type_size, buffer_size):
     out : int
         The number of chunks associated with the buffer and chunk size.
     """
-    chunks_aux = int((2 ** chunk_size) / type_size)
+    chunks_aux = int(2**24 / type_size)
     q, r = divmod(buffer_size, chunks_aux)
     n_chunks = q
     if (r != 0):
         n_chunks += 1
     return n_chunks
 
-def extract_data_features(buffer):
+def extract_chunk_features(chunk):
     """
-    Extracts the statistics features from the data in the buffer.
+    Extracts the statistics features from the data in the chunk.
 
     Parameters
     ----------
-    buffer : array
-        A buffer array of numbers.
+    chunk : array
+        An array of numbers.
 
     Returns
     -------
     out : array
-        An array containing the mean, median, standard deviation, skewness,
+        A tuple containing the mean, median, standard deviation, skewness,
         kurtosis, minimum, maximum and quartiles.
     """
-    return [np.mean(buffer), np.median(buffer), np.std(buffer), stats.skew(buffer), stats.kurtosis(buffer),
-            np.min(buffer), np.max(buffer), np.percentile(buffer, 25), np.percentile(buffer, 75)]
+    return (np.mean(chunk), np.median(chunk), np.std(chunk), stats.skew(chunk), stats.kurtosis(chunk),
+            np.min(chunk), np.max(chunk), np.percentile(chunk, 25), np.percentile(chunk, 75))
 
-def extract_test_features(rates, c_times, d_times):
-    """
-    Extracts the statistics features from the arrays of the compression tests.
-
-    Parameters
-    ----------
-    rates : array
-        A buffer array with the compression rates tested.
-    c_times : array
-        A buffer array with the compression times tested.
-    d_times : array
-        A buffer array with the decompression times tested.
-
-    Returns
-    -------
-    out : array
-        An array containing the mean, standard deviation, quartiles, minimum
-        and maximum of each test array.
-    """
-    return [np.mean(rates), np.std(rates), np.percentile(rates, 25), np.percentile(rates, 75),
-            np.min(rates), np.max(rates), np.mean(c_times), np.std(c_times), np.percentile(c_times, 25),
-            np.percentile(c_times, 75), np.min(c_times), np.max(c_times), np.mean(d_times), np.std(d_times),
-            np.percentile(d_times, 25), np.percentile(d_times, 75), np.min(d_times), np.max(d_times)]
+# def extract_test_features(rates, c_vel, d_vel):
+#     """
+#     Extracts the statistics features from the arrays of the compression tests.
+#
+#     Parameters
+#     ----------
+#     rates : array
+#         A buffer array with the compression rates tested.
+#     c_vel : array
+#         A buffer array with the compression velocities tested.
+#     d_vel : array
+#         A buffer array with the decompression velocities tested.
+#
+#     Returns
+#     -------
+#     out : array
+#         An array containing the mean, standard deviation, quartiles, minimum
+#         and maximum of each test array.
+#     """
+#     return [np.mean(rates), np.std(rates), np.percentile(rates, 25), np.percentile(rates, 75),
+#             np.min(rates), np.max(rates), np.mean(c_vel), np.std(c_vel), np.percentile(c_vel, 25),
+#             np.percentile(c_vel, 75), np.min(c_vel), np.max(c_vel), np.mean(d_vel), np.std(d_vel),
+#             np.percentile(d_vel, 25), np.percentile(d_vel, 75), np.min(d_vel), np.max(d_vel)]
 
 # FILENAMES = ['F:DADES/WRF_India.h5']
 FILENAMES = ['WRF_India.h5', 'WRF_India-LSD3.h5', 'WRF_India-LSD2.h5', 'WRF_India-LSD1.h5',
-             'GSSTF_NCEP.3-2000-zlib-5.h5', '/home/francesc/AHMHighResPointCloud.f5']
-CHUNK_SIZES = [15, 17, 19, 21]
+             'GSSTF_NCEP.3-2000-zlib-5.h5']
+BLOCK_SIZES = [2**13, 2**15, 2**17, 2**20, 0]
 C_LEVELS = range(10)
-COLS = ['Filename', 'Dataset', 'Chunk size', 'Codec', 'Filter', 'CL','Mean', 'Median', 'Sd', 'Skew', 'Kurt',
-        'Min', 'Max', 'Q1', 'Q3', 'CR_mean', 'CR_sd', 'CR_q1', 'CR_q3', 'CR_min', 'CR_max', 'CT_mean', 'CT_sd',
-        'CT_q1', 'CT_q3', 'CT_min', 'CT_max', 'DT_mean', 'DT_sd', 'DT_q1', 'DT_q3', 'DT_min', 'DT_max']
+COLS = ['Filename', 'DataSet', 'Chunk Number','Mean', 'Median', 'Sd', 'Skew', 'Kurt', 'Min', 'Max',
+        'Q1', 'Q3', 'Block Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed']
+blosc.set_nthreads(4)
 
 if os.path.isfile('blosc_test_data.csv'):
     df = pd.read_csv('blosc_test_data.csv', sep='\t')
 else:
     df = pd.DataFrame()
 
-test_id = np.empty(6, dtype=object)
 for filename in FILENAMES:
-    test_id[0] = filename
     for reading in file_reader(filename):
-        buffer = reading[1]
-        test_id[1] = reading[0]
-        for chunk_size in CHUNK_SIZES:
-            test_id[2] = (2**chunk_size/2**10)
-            data_features = extract_data_features(buffer)
-            count = 1
-            n_chunks = calculate_nchunks(chunk_size, buffer.dtype.itemsize, buffer.size)
-            # print("------------", chunk_size, filename.upper(), "------------")
-            for codec in blosc.compressor_list():
-                test_id[3] = codec
-                for filter in [blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE]:
-                    test_id[4] = blosc.filters[filter]
-                    for clevel in C_LEVELS:
-                        test_id[5] = clevel
-                        rates = np.empty(n_chunks, dtype=float)
-                        c_times = np.empty(n_chunks, dtype=float)
-                        d_times = np.empty(n_chunks, dtype=float)
-                        for i, chunk in enumerate(chunk_generator(buffer, chunk_size)):
-                            test = test_codec(chunk, codec, filter, clevel)
-                            rates[i], c_times[i], d_times[i] = test[0], test[1], test[2]
-                        print("%-10s  %5.2f%% %-s %-s %d" % ((codec + str(filter) + str(clevel)), count/180*100, filename, reading[0], chunk_size))
-                        count += 1
-                        test_features = extract_test_features(rates, c_times, d_times)
-                        row_data = np.append(np.append(test_id, data_features), test_features)
-                        df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
-                        # print('\n\nROW ADDED\n', df)
-                        df.to_csv('blosc_test_data.csv', sep='\t', index=False)
+        n_chunks = calculate_nchunks(reading[1].dtype.itemsize, reading[1].size)
+        print("Starting tests with", filename, reading[0])
+        for i, chunk in enumerate(chunk_generator(reading[1])):
+            chunk_features = extract_chunk_features(chunk)
+            for block_size in BLOCK_SIZES:
+                blosc.set_blocksize(block_size)
+                for codec in blosc.compressor_list():
+                    for filter in [blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE]:
+                        for clevel in C_LEVELS:
+                            row_data = (filename, reading[0], i + 1) + chunk_features +\
+                                       (block_size / 2**10, codec, blosc.filters[filter], clevel) +\
+                                        test_codec(chunk, codec, filter, clevel)
+                            df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
+            print("%5.2f%% %-s %-s chunk %d completed" % ((i + 1)/n_chunks*100, filename, reading[0], (i + 1)))
+            df.to_csv('blosc_test_data.csv', sep='\t', index=False)
+
+# for block_size in BLOCK_SIZES:
+#     blosc.set_blocksize(block_size)
+#     data_features = extract_data_features(buffer)
+#     count = 1
+#     n_chunks = calculate_nchunks(buffer.dtype.itemsize, buffer.size)
+#     # print("------------", chunk_size, filename.upper(), "------------")
+#     for codec in blosc.compressor_list():
+#         for filter in [blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE]:
+#             for clevel in C_LEVELS:
+#                 rates = np.empty(n_chunks, dtype=float)
+#                 c_vel = np.empty(n_chunks, dtype=float)
+#                 d_vel = np.empty(n_chunks, dtype=float)
+#
+#                 # TODO EXTRACT
+#                 for i, chunk in enumerate(chunk_generator(buffer)):
+#                     test = test_codec(chunk, codec, filter, clevel)
+#                     rates[i], c_vel[i], d_vel[i] = test[0], test[1], test[2]
+#                 print("%-10s  %5.2f%% %-s %-s %d" % ((codec + str(filter) + str(clevel)), count/180*100, filename, reading[0], chunk_size))
+#                 count += 1
+#                 test_features = extract_test_features(rates, c_vel, d_vel)
+#                 row_data = np.append(np.append(heading, data_features), test_features)
+#                 df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
+#                 # print('\n\nROW ADDED\n', df)
+#                 df.to_csv('blosc_test_data.csv', sep='\t', index=False)
