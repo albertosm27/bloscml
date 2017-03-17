@@ -22,7 +22,7 @@ KB64, KB256, MB2 = 2**16, 2**18, 2**21
 KB16, KB512 = 2**14, 2**19
 
 
-def test_codec(chunk, codec, filter, clevel):
+def test_codec(chunk, codec, filter_name, clevel):
     """
     Compress the chunk and return tested data.
 
@@ -34,7 +34,7 @@ def test_codec(chunk, codec, filter, clevel):
         The name of the compressor used internally in Blosc. It can be
         any of the supported by Blosc ('blosclz', 'lz4', 'lz4hc',
         'snappy', 'zlib', 'zstd' and maybe others too).
-    filter : int
+    filter_name : int
         The shuffle filter to be activated.  Allowed values are
         blosc.NOSHUFFLE, blosc.SHUFFLE and blosc.BITSHUFFLE.
     clevel : int
@@ -58,16 +58,18 @@ def test_codec(chunk, codec, filter, clevel):
     t0 = time()
     c = blosc.compress_ptr(chunk.__array_interface__['data'][0],
                            chunk.size, chunk.dtype.itemsize,
-                           clevel=clevel, shuffle=filter, cname=codec)
+                           clevel=clevel, shuffle=filter_name, cname=codec)
     tc = time() - t0
     out = np.empty(chunk.size, dtype=chunk.dtype)
-    t0 = time()
-    blosc.decompress_ptr(c, out.__array_interface__['data'][0])
-    td = time() - t0
+    times = []
+    for i in range(3):
+        t0 = time()
+        blosc.decompress_ptr(c, out.__array_interface__['data'][0])
+        times.append(time() - t0)
     chunk_byte_size = chunk.size * chunk.dtype.itemsize
     rate = chunk_byte_size / len(c)
     c_speed = chunk_byte_size / tc / SPEED_UNIT
-    d_speed = chunk_byte_size / td / SPEED_UNIT
+    d_speed = chunk_byte_size / min(times) / SPEED_UNIT
     # print("  *** %-8s, %-10s, CL%d *** %6.4f s / %5.4f s " %
     #        ( codec, blosc.filters[filter], clevel, tc, td), end='')
     # print("\tCompr. ratio: %5.1fx" % rate)
@@ -126,7 +128,7 @@ def file_reader(filename):
                                         yield child._v_pathname + '.' + col_name, col.dtype, 1, \
                                               col[:].reshape(functools.reduce(lambda x, y: x * y, col.shape))
                                         col_shape = child.description.__getattribute__(col_name).shape
-                                        if (len(col_shape) > 1 or (len(col_shape) > 0 and col_shape[0] > 1)):
+                                        if len(col_shape) > 1 or (len(col_shape) > 0 and col_shape[0] > 1):
                                             yield child._v_pathname + '.' + col_name, col.dtype, 2, \
                                                   np.moveaxis(col, 0, -1)[:]\
                                                   .reshape(functools.reduce(lambda x, y: x * y, col.shape))
@@ -189,38 +191,58 @@ def extract_chunk_features(chunk):
             np.min(chunk), np.max(chunk), np.percentile(chunk, 25), np.percentile(chunk, 75)
 
 
-# FILENAMES = ('WRF_India.h5',)
-FILENAMES = ('WRF_India.h5', 'WRF_India-LSD1.h5', 'WRF_India-LSD2.h5', 'WRF_India-LSD3.h5',
-             '3B-MO.GPM-blosc-lz4-9.h5', 'GSSTF_NCEP.3-2000-zlib-5.h5', 'msft-dc-blosc9.h5')
-# FILENAMES = ('msft-dc-blosc9.h5',)
-# PATH = './'
+def calculate_streaks(chunk, median):
+    """
+    Calculate number of streaks.
+
+    Parameters
+    ----------
+    chunk : numpy.array
+        An array of numbers.
+    median : number
+        The median of the chunk.
+
+    Returns
+    -------
+    out : int
+        Number of streaks above/below median of the chunk.
+    """
+    streaks = 1
+    above = chunk[0] > median
+    for number in chunk[1:]:
+        if above != (number > median):
+            streaks += 1
+            above = not above
+    return streaks
+
+FILENAMES = ('WRF_India.h5', '3B-MO.GPM-blosc-lz4-9.h5', 'GSSTF_NCEP.3-2000-zlib-5.h5', 'msft-dc-blosc9.h5')
 PATH = '/home/francesc/datasets/'
-BLOCK_SIZES = (KB16, KB512)
-C_LEVELS = range(10)
+BLOCK_SIZES = (0, MINIMUM_SIZE, KB16, KB32, KB64, KB128, KB256, KB512, MB, MB2)
+C_LEVELS = range(1, 10)
 COLS = ('Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt',
-        'Min', 'Max', 'Q1', 'Q3', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed')
+        'Min', 'Max', 'Q1', 'Q3', 'N_Streaks', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed')
 blosc.set_nthreads(4)
 
-if os.path.isfile('blosc_test_data.csv.bz2'):
-    df = pd.read_csv('blosc_test_data.csv.bz2', sep='\t')
-else:
-    df = pd.DataFrame()
+if not os.path.isfile('blosc_test_data_v_streak.csv'):
+    pd.DataFrame(columns=COLS).to_csv('blosc_test_data_v_streak.csv', sep='\t', index=False)
 
 for filename in FILENAMES:
     for path, d_type, table, buffer in file_reader(PATH + filename):
         n_chunks = calculate_nchunks(buffer.dtype.itemsize, buffer.size)
         print("Starting tests with %-s %-s t%-s" % (filename, path, table))
-        if (buffer.dtype.kind in ('S', 'U')):
+        if buffer.dtype.kind in ('S', 'U'):
             is_string = True
             filters = (blosc.NOSHUFFLE,)
         else:
             is_string = False
             filters = (blosc.NOSHUFFLE, blosc.SHUFFLE, blosc.BITSHUFFLE)
         for i, chunk in enumerate(chunk_generator(buffer)):
-            if (is_string):
-                chunk_features = (0, 0, 0, 0, 0, 0, 0, 0, 0)
+            if is_string:
+                chunk_features = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             else:
                 chunk_features = extract_chunk_features(chunk)
+                chunk_features + (calculate_streaks(chunk, chunk_features[1]),)
+            df = pd.DataFrame()
             for block_size in BLOCK_SIZES:
                 blosc.set_blocksize(block_size)
                 for codec in blosc.compressor_list():
@@ -233,4 +255,6 @@ for filename in FILENAMES:
                                        + test_codec(chunk, codec, filter, clevel)
                             df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
             print("%5.2f%% %-s %-s t%-s chunk %d completed" % ((i + 1)/n_chunks*100, filename, path, table, (i + 1)))
-            df.to_csv('blosc_test_data.csv', sep='\t', index=False)
+            with open('blosc_test_data_v_streak.csv.csv', 'a') as f:
+                df.to_csv(f, sep='\t', index=False, header=False)
+            print('CHUNK WRITED')
