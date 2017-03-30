@@ -255,6 +255,6 @@ for filename in FILENAMES:
                                        + test_codec(chunk, codec, filter, clevel)
                             df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
             print("%5.2f%% %-s %-s t%-s chunk %d completed" % ((i + 1)/n_chunks*100, filename, path, table, (i + 1)))
-            with open('blosc_test_data_v_streak.csv.csv', 'a') as f:
+            with open('blosc_test_data_v_streak.csv', 'a') as f:
                 df.to_csv(f, sep='\t', index=False, header=False)
             print('CHUNK WRITED')
