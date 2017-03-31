@@ -219,12 +219,12 @@ FILENAMES = ('WRF_India.h5', '3B-MO.GPM-blosc-lz4-9.h5', 'GSSTF_NCEP.3-2000-zlib
 PATH = '/home/francesc/datasets/'
 BLOCK_SIZES = (0, MINIMUM_SIZE, KB16, KB32, KB64, KB128, KB256, KB512, MB, MB2)
 C_LEVELS = range(1, 10)
-COLS = ('Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt',
-        'Min', 'Max', 'Q1', 'Q3', 'N_Streaks', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed')
+COLS = ['Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt',
+        'Min', 'Max', 'Q1', 'Q3', 'N_Streaks', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed']
 blosc.set_nthreads(4)
 
-if not os.path.isfile('blosc_test_data_v_streak.csv'):
-    pd.DataFrame(columns=COLS).to_csv('blosc_test_data_v_streak.csv', sep='\t', index=False)
+if not os.path.isfile('blosc_test_data.csv'):
+    pd.DataFrame(columns=COLS).to_csv('blosc_test_data.csv', sep='\t', index=False)
 
 for filename in FILENAMES:
     for path, d_type, table, buffer in file_reader(PATH + filename):
@@ -241,7 +241,7 @@ for filename in FILENAMES:
                 chunk_features = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             else:
                 chunk_features = extract_chunk_features(chunk)
-                chunk_features + (calculate_streaks(chunk, chunk_features[1]),)
+                chunk_features += (calculate_streaks(chunk, chunk_features[1]),)
             df = pd.DataFrame()
             for block_size in BLOCK_SIZES:
                 blosc.set_blocksize(block_size)
@@ -255,6 +255,7 @@ for filename in FILENAMES:
                                        + test_codec(chunk, codec, filter, clevel)
                             df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
             print("%5.2f%% %-s %-s t%-s chunk %d completed" % ((i + 1)/n_chunks*100, filename, path, table, (i + 1)))
-            with open('blosc_test_data_v_streak.csv', 'a') as f:
+            with open('blosc_test_data.csv', 'a') as f:
+                df = df[COLS]
                 df.to_csv(f, sep='\t', index=False, header=False)
             print('CHUNK WRITED')
