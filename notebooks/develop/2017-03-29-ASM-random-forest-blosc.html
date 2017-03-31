@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>2017-03-29-ASM-random-forest-blosc</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2017-03-29-ASM-random-forest-blosc</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -13,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1109,7 +1107,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2538,7 +2535,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3029,7 +3025,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8760,6 +8755,9 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
+[dir="rtl"] #ipython_notebook {
+  float: right !important;
+}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8962,8 +8960,14 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
+[dir="rtl"] #tabs li {
+  float: right;
+}
 ul#tabs {
   margin-bottom: 4px;
+}
+[dir="rtl"] ul#tabs {
+  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8986,6 +8990,16 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
+}
+[dir="rtl"] .list_toolbar .tree-buttons {
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-right {
+  padding-top: 1px;
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-left {
+  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9122,6 +9136,9 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
+[dir="rtl"] #tree-selector a {
+  float: right;
+}
 #button-select-all {
   min-width: 50px;
 }
@@ -9211,6 +9228,9 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
+[dir="rtl"] #new-menu {
+  text-align: right;
+}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9255,6 +9275,9 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
+}
+[dir="rtl"] #running .col-sm-8 {
+  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9551,6 +9574,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9571,11 +9595,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11246,7 +11265,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 20ex;
+  width: 21ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11558,6 +11577,7 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
+  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11571,6 +11591,9 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
+}
+.terminal-app .terminal .xterm-rows {
+  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11631,8 +11654,10 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11643,9 +11668,11 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -11689,28 +11716,34 @@ ul.typeahead-list > li > a {
     </style>
 <style type="text/css">
     @font-face {
- font-family: 'Lora';
+ font-family: 'Source Code Pro';
  font-weight: normal;
  font-style: normal;
- src: local('Lora'), url('fonts/Lora-Regular.ttf') format('truetype');
+ src: local('Source Code Pro'), url('fonts/source-code-pro.otf') format('opentype');
 }
 @font-face {
- font-family: 'Fira Code';
+ font-family: 'Source Code Pro';
  font-weight: normal;
- font-style: normal;
- src: local('Fira Code'), url('fonts/firacode.otf') format('opentype');
-}
-@font-face {
- font-family: 'Droid Sans Mono';
- font-weight: normal;
- font-style: normal;
- src: local('Droid Sans Mono'), url('fonts/droid-sans-mono.woff') format('woff');
+ font-style: italic;
+ src: local('Source Code Pro'), url('fonts/source-code-pro-italic.otf') format('opentype');
 }
 @font-face {
  font-family: 'Exo_2';
  font-weight: normal;
  font-style: normal;
  src: local('Exo_2'), url('fonts/exo-II-regular.ttf') format('truetype');
+}
+@font-face {
+ font-family: 'Merriweather';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Merriweather'), url('fonts/Merriweather-Regular.ttf') format('truetype');
+}
+@font-face {
+ font-family: 'Fira Code';
+ font-weight: normal;
+ font-style: normal;
+ src: local('Fira Code'), url('fonts/firacode.otf') format('opentype');
 }
 div#notebook {
  font-family: "Exo_2", sans-serif;
@@ -11797,7 +11830,7 @@ div.running_list_info.toolbar_info {
  font-size: 12.0pt;
  padding: 4px 0 4px 0;
  height: inherit;
- line-height: inherit;
+ line-height: 1.5;
  text-shadow: none;
 }
 .list_placeholder {
@@ -11807,7 +11840,7 @@ div.running_list_info.toolbar_info {
  padding: 0px;
 }
 #project_name > ul > li > a > i.fa.fa-home {
- color: #ff7823;
+ color: #2c85f7;
  font-size: 17pt;
  display: inline-block;
  position: static;
@@ -11974,19 +12007,19 @@ div#notebook {
  background-color: #ffffff;
  min-height: 0px;
  box-shadow: none;
- width: 75%;
+ width: 1280px;
  margin-right: auto;
  margin-left: auto;
 }
 div#ipython-main-app.container {
- width: 980px;
+ width: 1280px;
  margin-right: auto;
  margin-left: auto;
  margin-right: auto;
  margin-left: auto;
 }
 .container {
- width: 980px;
+ width: 1280px;
  margin-right: auto;
  margin-left: auto;
 }
@@ -12080,7 +12113,6 @@ div.navbar-text,
 .item_buttons .kernel-name {
  font-size: 13pt;
  color: #126dce;
- line-height: 22px;
 }
 .running_notebook_icon:before {
  color: #009e07 !important;
@@ -12097,15 +12129,15 @@ div.navbar-text,
 }
 #kernel_indicator {
  float: right !important;
- color: #ff7823;
+ color: #126dce;
  background: #ffffff;
  background-color: #ffffff;
  font-size: 15pt;
- border-left: 2px solid #ff7823;
+ border-left: 2px solid #126dce;
  padding-bottom: 2px;
 }
 #kernel_indicator .kernel_indicator_name {
- color: #ff7823;
+ color: #126dce;
  background: #ffffff;
  background-color: #ffffff;
  font-size: 15pt;
@@ -12116,7 +12148,7 @@ div.navbar-text,
  padding-bottom: 0px;
 }
 #kernel_indicator .kernel_indicator_name {
- color: #ff7823;
+ color: #126dce;
  background: #ffffff;
  background-color: #ffffff;
  font-size: 13.5pt;
@@ -12191,7 +12223,7 @@ i.fa.fa-icon {
  font-family: "Exo_2", sans-serif;
  font-size: 13pt;
  display: block;
- color: #ff7823;
+ color: #2c85f7;
  text-decoration: underline;
  white-space: nowrap;
  padding: 8px 0px 0px 6px;
@@ -12207,7 +12239,8 @@ i.fa.fa-icon {
  background-color: #ffffff;
  background: #ffffff;
 }
-.dropdown-menu > li > a:hover {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
  color: #2f2f2f;
  background-color: rgba(180,180,180,.14);
  background: rgba(180,180,180,.14);
@@ -12247,7 +12280,7 @@ i.fa.fa-icon {
 .dropdown-submenu:active > a:after,
 .dropdown-submenu:focus > a:after,
 .dropdown-submenu:visited > a:after {
- color: #ff7823;
+ color: #2c85f7;
  margin-right: -16px;
 }
 div.kse-dropdown > .dropdown-menu,
@@ -12335,6 +12368,7 @@ div.kse-dropdown > .dropdown-menu,
 .btn-group-vertical {
  font-size: 12.0pt;
  font-weight: normal;
+ height: inherit;
 }
 .btn-xs,
 .btn-group-xs > .btn {
@@ -12349,14 +12383,14 @@ div.kse-dropdown > .dropdown-menu,
 }
 .alternate_upload input.fileinput {
  text-align: center;
- vertical-align: bottom;
+ vertical-align: baseline;
  margin-left: -.5ex;
- display: -webkit-inline-box;
- border: soldi 1px #ebebeb;
+ display: inline-table;
+ border: solid 0px #ebebeb;
+ margin-bottom: -1ex;
 }
 .alternate_upload .btn-upload {
- height: 22px;
- padding: 0px 6px 0px 5px;
+ display: inline-table;
 }
 button.close {
  border: 0px none;
@@ -12419,10 +12453,10 @@ fieldset[disabled] .btn-default.focus {
  padding-left: 8px;
  padding-right: 8px;
  height: 100%;
- border-left: 2px solid #ff7823 !important;
+ border-left: 2px solid #2c85f7 !important;
 }
 .btn-group > .btn + .dropdown-toggle:hover {
- border-left: 2px solid #ff7823 !important;
+ border-left: 2px solid #2c85f7 !important;
 }
 .input-group-btn {
  position: relative;
@@ -12519,8 +12553,8 @@ div.modal-footer > button:hover {
 }
 .modal-backdrop,
 .modal-backdrop.in {
- opacity: 0.85;
- background-color: #d6d6d6;
+ opacity: 0.7;
+ background-color: #c4c4c4;
 }
 div.panel,
 div.panel-default,
@@ -12591,14 +12625,14 @@ div.output.output_scroll {
  border-radius: 6px;
 }
 ::-webkit-scrollbar {
- width: 14px;
- height: 20px;
+ width: 12px;
+ height: 12px;
  background-color: #d0d0d0;
  border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb {
  background-color: #ffffff;
- background-image: -webkit-gradient(linear,40% 0%,75% 86%,from(#ff6b0f ),color-stop(0.5,#ff8b42 ),to(#ff6b0f ));
+ background-image: -webkit-gradient(linear,40% 0%,75% 86%,from(#126dce ),color-stop(0.5,#1288ce ),to(#126dce ));
  min-height: 100px;
  border-radius: 2px;
 }
@@ -12622,7 +12656,7 @@ div.cell {
 div.cell.selected {
  background: #efefef;
  background-color: #efefef;
- border: medium solid #ff7823;
+ border: medium solid #2c85f7;
  padding: 0px;
  border-top-right-radius: 2px;
  border-top-left-radius: 2px;
@@ -12676,7 +12710,7 @@ div.prompt.input_prompt {
  width: 12ex !important;
 }
 div.cell.code_cell .input_prompt {
- border-right: 2px solid rgba(240,147,43,.50);
+ border-right: 2px solid #126dce;
 }
 div.output_wrapper {
  background-color: #ffffff;
@@ -12690,7 +12724,7 @@ div.output_wrapper {
 }
 div.output_subarea.output_text.output_stream.output_stdout,
 div.output_subarea.output_text {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 10.0pt;
  line-height: 150% !important;
  background-color: #ffffff;
@@ -12701,7 +12735,7 @@ div.output_subarea.output_text {
  border-bottom-right-radius: 2px;
 }
 div.output_area pre {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 10.0pt;
  line-height: 150% !important;
  color: #303030;
@@ -12714,7 +12748,7 @@ div.output_area {
  display: -webkit-box;
 }
 div.output_html {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 10.0pt;
  color: #353535;
  background-color: #ffffff;
@@ -12722,12 +12756,13 @@ div.output_html {
 }
 div.output_subarea {
  overflow-x: auto;
- padding: .8em;
+ padding: 0.3em;
+ padding-left: 0em;
  -webkit-box-flex: 1;
  -moz-box-flex: 1;
  box-flex: 1;
  flex: 1;
- max-width: 90%;
+ max-width: 95%;
 }
 div.prompt.output_prompt {
  font-family: "Fira Code", monospace;
@@ -12766,7 +12801,7 @@ div.out_prompt_overlay.prompt:hover {
 div.text_cell,
 div.text_cell_render pre,
 div.text_cell_render {
- font-family: "Lora", serif;
+ font-family: "Merriweather", serif;
  font-size: 13pt;
  line-height: 170% !important;
  color: #353535;
@@ -12775,7 +12810,7 @@ div.text_cell_render {
  border-radius: 2px;
 }
 div.cell.text_cell.rendered.selected {
- font-family: "Lora", serif;
+ font-family: "Merriweather", serif;
  border: medium solid #126dce;
  line-height: 170% !important;
  background: #ffffff;
@@ -12783,7 +12818,7 @@ div.cell.text_cell.rendered.selected {
  border-radius: 2px;
 }
 div.cell.text_cell.unrendered.selected {
- font-family: "Lora", serif;
+ font-family: "Merriweather", serif;
  line-height: 170% !important;
  background: #ffffff;
  background-color: #ffffff;
@@ -12791,7 +12826,7 @@ div.cell.text_cell.unrendered.selected {
  border-radius: 2px;
 }
 div.cell.text_cell.selected {
- font-family: "Lora", serif;
+ font-family: "Merriweather", serif;
  line-height: 170% !important;
  border: medium solid #126dce;
  background: #ffffff;
@@ -12799,7 +12834,7 @@ div.cell.text_cell.selected {
  border-radius: 2px;
 }
 .edit_mode div.cell.text_cell.selected {
- font-family: "Lora", serif;
+ font-family: "Merriweather", serif;
  line-height: 170% !important;
  background: #ffffff;
  background-color: #ffffff;
@@ -12809,7 +12844,7 @@ div.cell.text_cell.selected {
 div.text_cell.unrendered,
 div.text_cell.unrendered.selected,
 div.edit_mode div.text_cell.unrendered {
- font-family: "Lora", serif;
+ font-family: "Merriweather", serif;
  line-height: 170% !important;
  background: #ffffff;
  background-color: #ffffff;
@@ -12838,7 +12873,7 @@ div.cell.text_cell.unrendered .input_prompt {
  width: 0ex !important;
 }
 div.rendered_html code {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt;
  padding-top: 3px;
  color: #303030;
@@ -12852,7 +12887,7 @@ samp {
  white-space: pre-wrap;
 }
 code {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt !important;
  line-height: 170% !important;
  color: #353535;
@@ -12883,7 +12918,7 @@ div.rendered_html {
 }
 div.rendered_html pre,
 div.text_cell_render pre {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt !important;
  line-height: 170% !important;
  color: #353535;
@@ -12950,6 +12985,28 @@ div.rendered_html h5 {
  color: #2f2f2f;
  font-weight: lighter;
  text-decoration: underline;
+}
+div.cell.jupyter-soft-selected {
+ border-left-color: #2c85f7;
+ border-right-color: #2c85f7;
+ border-left-width: 0;
+ padding-left: 6px;
+ border-right-width: 2px;
+ background: linear-gradient(to right,#2c85f7 -40px,#2c85f7 7px,#2c85f7 7px,#2c85f7 100%);
+}
+div.cell.selected.jupyter-soft-selected {
+ border-left-width: 0;
+ padding-left: 6px;
+ background: linear-gradient(to right,#2c85f7 -40px,#2c85f7 7px,#2c85f7 7px,#2c85f7 100%);
+}
+div#_vivaldi-spatnav-focus-indicator._vivaldi-spatnav-focus-indicator {
+ position: absolute;
+ z-index: 9999999999;
+ top: 0px;
+ left: 0px;
+ box-shadow: none;
+ pointer-events: none;
+ border-radius: 2px;
 }
 .rendered_html table,
 .rendered_html tr,
@@ -13182,13 +13239,13 @@ span.bg-danger.text-danger {
  box-shadow: inset 0 1px 1px rgba(0,0,0,0.025);
 }
 .kse-input-group-pretty > kbd {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  color: #303030;
  font-weight: normal;
  background: transparent;
 }
 .kse-input-group-pretty > kbd {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  color: #303030;
  font-weight: normal;
  background: transparent;
@@ -13233,7 +13290,7 @@ label#Keyword-Filter {
  border-color: #e9e9e9;
 }
 input.raw_input {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt !important;
  color: #303030;
  background-color: #efefef;
@@ -13305,8 +13362,8 @@ body > div.modal.cmd-palette.typeahead-field {
 .typeahead-container button:focus,
 .typeahead-container button:hover {
  color: #2f2f2f;
- background-color: #ff7823;
- border-color: #ff7823;
+ background-color: #2c85f7;
+ border-color: #2c85f7;
 }
 .typeahead-list > li.typeahead-group.active > a,
 .typeahead-list > li.typeahead-group > a,
@@ -13387,13 +13444,13 @@ body > div.modal.cmd-palette.in > div {
 }
 .typeahead-container strong {
  font-weight: bolder;
- color: #ff7823;
+ color: #2c85f7;
 }
 #find-and-replace #replace-preview .match,
 #find-and-replace #replace-preview .insert {
  color: #ffffff;
- background-color: #ff7823;
- border-color: #ff7823;
+ background-color: #2c85f7;
+ border-color: #2c85f7;
  border-style: solid;
  border-width: 1px;
  border-radius: 0px;
@@ -13410,7 +13467,7 @@ body > div.modal.cmd-palette.in > div {
 }
 div.CodeMirror,
 div.CodeMirror pre {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt;
  line-height: 170%;
  color: #303030;
@@ -13428,7 +13485,7 @@ span.ansiblue {
  color: #009e07;
 }
 span.ansigray {
- color: #ff7823;
+ color: #2c85f7;
 }
 span.ansigreen {
  color: #333333;
@@ -13440,7 +13497,7 @@ span.ansicyan {
  color: #055be0;
 }
 span.ansiyellow {
- color: #ff7823;
+ color: #2c85f7;
 }
 span.ansired {
  color: #de143d;
@@ -13455,7 +13512,7 @@ div.js-error {
  color: #de143d;
 }
 .ipython_tooltip {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt;
  line-height: 170%;
  border: 2px solid #dadada;
@@ -13469,7 +13526,7 @@ div.js-error {
  z-index: 1000;
 }
 .ipython_tooltip .tooltiptext pre {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt;
  line-height: 170%;
  background: #eeeeee;
@@ -13491,7 +13548,7 @@ div.tooltiptext.bigtooltip {
  max-width: 800px;
 }
 .cm-s-ipython.CodeMirror {
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt;
  background: #efefef;
  color: #303030;
@@ -13639,13 +13696,13 @@ div.cell.text_cell .cm-s-default span.cm-variable-3 {
  padding: 0px;
  margin: 0px;
  overflow: auto;
- font-family: "Droid Sans Mono", monospace;
+ font-family: "Source Code Pro", monospace;
  font-size: 11pt;
  color: #303030;
  width: auto;
 }
 div#maintoolbar {
- display: none !important;
+ margin-left: 8px !important;
 }
 #header-container {
  display: none !important;
@@ -13786,10 +13843,12 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[1]:</div>
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.2 64bit [MSC v.1900 64 bit (AMD64)]</td></tr><tr><td>IPython</td><td>5.3.0</td></tr><tr><td>OS</td><td>Windows 10 10.0.14393 SP0</td></tr><tr><td>numpy</td><td>1.11.3</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Thu Mar 30 10:14:06 2017 Hora de verano romance</td></tr></table>
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Thu Mar 30 16:12:11 2017 UTC</td></tr></table>
 </div>
 
 </div>
@@ -13994,48 +14053,52 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>             precision    recall  f1-score   support
 
-    Block_0      0.639     0.167     0.264       138
-    Block_8      0.658     0.333     0.442        75
-   Block_16      0.333     0.057     0.097        88
-   Block_32      0.300     0.029     0.053       103
-   Block_64      0.532     0.141     0.223       177
-  Block_128      0.478     0.080     0.137       138
-  Block_256      0.688     0.176     0.280       125
-  Block_512      0.500     0.081     0.139        62
- Block_1024      0.778     0.135     0.230        52
- Block_2048      0.962     0.805     0.876       220
-    Blosclz      0.959     0.858     0.906       275
-        Lz4      0.961     0.923     0.942       455
-      Lz4hc      0.950     0.835     0.889       115
+    Block_0      0.643     0.148     0.240       122
+    Block_8      0.700     0.329     0.448        85
+   Block_16      0.571     0.043     0.080        93
+   Block_32      0.333     0.042     0.075        95
+   Block_64      0.644     0.141     0.231       206
+  Block_128      0.483     0.111     0.181       126
+  Block_256      0.533     0.125     0.203       128
+  Block_512      0.333     0.028     0.052        71
+ Block_1024      0.600     0.105     0.179        57
+ Block_2048      0.934     0.723     0.815       195
+    Blosclz      0.954     0.888     0.920       278
+        Lz4      0.961     0.944     0.952       465
+      Lz4hc      0.944     0.908     0.926       131
      Snappy      0.000     0.000     0.000         0
-       Zstd      0.991     0.973     0.982       333
-    Shuffle      0.946     0.934     0.940       409
- Bitshuffle      0.802     0.775     0.789        89
-        CL1      0.823     0.710     0.762       334
-        CL2      0.690     0.212     0.324       137
-        CL3      0.444     0.042     0.077        95
-        CL4      0.875     0.206     0.333        68
-        CL5      1.000     0.048     0.091        42
-        CL6      0.857     0.303     0.448        99
-        CL7      0.545     0.092     0.158        65
-        CL8      0.806     0.234     0.362       107
-        CL9      0.882     0.584     0.703       231
+       Zstd      0.993     0.951     0.971       304
+    Shuffle      0.931     0.954     0.942       410
+ Bitshuffle      0.883     0.671     0.763        79
+        CL1      0.825     0.687     0.750       323
+        CL2      0.627     0.226     0.332       164
+        CL3      0.250     0.011     0.021        92
+        CL4      0.933     0.200     0.329        70
+        CL5      0.000     0.000     0.000        41
+        CL6      0.812     0.299     0.437        87
+        CL7      0.778     0.137     0.233        51
+        CL8      0.923     0.188     0.312       128
+        CL9      0.837     0.577     0.683       222
 
-avg / total      0.806     0.573     0.630      4032
+avg / total      0.792     0.562     0.615      4023
 
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py:1113: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
   &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
-C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py:1115: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples.
+/home/shurberto/miniconda3/lib/python3.5/site-packages/sklearn/metrics/classification.py:1115: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples.
   &#39;recall&#39;, &#39;true&#39;, average, warn_for)
 </pre>
 </div>
@@ -14061,11 +14124,13 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[10]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.17996604414261461</pre>
+<pre>0.15959252971137522</pre>
 </div>
 
 </div>
@@ -14094,9 +14159,11 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.1799660441426146
+<pre>0.15959252971137522
 </pre>
 </div>
 </div>
@@ -14122,21 +14189,25 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
   &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
-C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py:1115: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no true samples.
+/home/shurberto/miniconda3/lib/python3.5/site-packages/sklearn/metrics/classification.py:1115: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no true samples.
   &#39;recall&#39;, &#39;true&#39;, average, warn_for)
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[12]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.63001015846405417</pre>
+<pre>0.61539676641731844</pre>
 </div>
 
 </div>
@@ -14161,7 +14232,9 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[13]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14227,11 +14300,13 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.6889643463497516</pre>
+<pre>0.6845500848896476</pre>
 </div>
 
 </div>
@@ -14274,11 +14349,13 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[15]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.5292869269949066</pre>
+<pre>0.5275891341256367</pre>
 </div>
 
 </div>
@@ -14289,41 +14366,7 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">my_score3</span><span class="p">(</span><span class="n">Yreal</span><span class="p">,</span> <span class="n">Ypred</span><span class="p">):</span>
-    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Yreal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="n">score</span> <span class="o">+=</span> <span class="p">(</span><span class="n">Ytest</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">==</span> <span class="n">Ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,:])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="mi">26</span>
-    <span class="k">return</span> <span class="n">score</span><span class="o">/</span><span class="n">Yreal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">my_score3</span><span class="p">(</span><span class="n">Ytest</span><span class="p">,</span> <span class="n">Ypred</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.93470027425884161</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">ShuffleSplit</span>
@@ -14372,14 +14415,18 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 1 folds for each of 96 candidates, totalling 96 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=-1)]: Done   5 tasks      | elapsed:   17.3s
 [Parallel(n_jobs=-1)]: Done  10 tasks      | elapsed:   34.2s
@@ -14395,14 +14442,18 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Wall time: 12min 36s
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[22]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14435,7 +14486,7 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <span class="n">score_param</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">])):</span>
     <span class="k">if</span> <span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.19</span><span class="p">:</span>
-        <span class="n">tup</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">tup</span> <span class="o">=</span> <span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
         <span class="n">score_param</span> <span class="o">+=</span> <span class="p">[</span><span class="n">tup</span><span class="p">]</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span>
     <span class="s1">&#39;&lt;table&gt;&lt;tr&gt;</span><span class="si">{}</span><span class="s1">&lt;/tr&gt;&lt;/table&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -14453,7 +14504,9 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 
 <div class="output_html rendered_html output_subarea ">
 <table><tr><td>0.192699490662</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'criterion': 'gini', 'min_samples_leaf': 1, 'bootstrap': True}</td></tr><tr><td>0.195246179966</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'gini', 'bootstrap': True}</td></tr><tr><td>0.199066213922</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': True}</td></tr><tr><td>0.196095076401</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'criterion': 'entropy', 'min_samples_leaf': 1, 'bootstrap': True}</td></tr><tr><td>0.227504244482</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'criterion': 'gini', 'min_samples_leaf': 1, 'bootstrap': False}</td></tr><tr><td>0.227504244482</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'gini', 'bootstrap': False}</td></tr><tr><td>0.230050933786</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': False}</td></tr><tr><td>0.227928692699</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'criterion': 'entropy', 'min_samples_leaf': 1, 'bootstrap': False}</td></tr><tr><td>0.212224108659</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': 'balanced', 'criterion': 'gini', 'min_samples_leaf': 1, 'bootstrap': False}</td></tr><tr><td>0.216468590832</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': 'balanced', 'min_samples_leaf': 1, 'criterion': 'gini', 'bootstrap': False}</td></tr><tr><td>0.20882852292</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': 'balanced', 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': False}</td></tr><tr><td>0.210101867572</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': 'balanced', 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': False}</td></tr></table>
@@ -14516,14 +14569,18 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 1 folds for each of 10 candidates, totalling 10 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=-1)]: Done   5 out of  10 | elapsed:   59.2s remaining:   59.2s
 [Parallel(n_jobs=-1)]: Done   7 out of  10 | elapsed:  1.2min remaining:   29.9s
@@ -14532,7 +14589,9 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[71]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[71]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14556,6 +14615,683 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Final-del-notebook">Final del notebook<a class="anchor-link" href="#Final-del-notebook">&#182;</a></h2><p>Pasamos a desarrollar en la máquina remota de lineo, que es más potente, dejaremos un pequeño script lanzado y probaremos la persistencia</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;balanced&#39;</span><span class="p">]}</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_rfc</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid_rfc</span><span class="p">,</span> <span class="s1">&#39;grid_rfc_estimators.pkl&#39;</span><span class="p">)</span>
+<span class="c1"># To load</span>
+<span class="c1"># clf = joblib.load(&#39;filename.pkl&#39;) </span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 5 folds for each of 80 candidates, totalling 400 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:   11.5s
+[Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:  2.4min
+[Parallel(n_jobs=-1)]: Done 400 out of 400 | elapsed:  7.1min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[20]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;grid_rfc_estimators.pkl&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">])):</span>
+    <span class="k">if</span> <span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.20</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">+=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">grid_best_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">param_grid</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">index</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
+<span class="n">grid_best_df</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_best_df</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">grid_best_df</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:11: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[55]:</div>
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Score</th>
+      <th>criterion</th>
+      <th>bootstrap</th>
+      <th>class_weight</th>
+      <th>max_features</th>
+      <th>n_estimators</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>57</th>
+      <td>0.231</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>0.231</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>0.230</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>0.230</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>0.230</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>0.230</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>0.229</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>0.229</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>0.228</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>0.228</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>0.227</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>0.227</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>0.227</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>0.225</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>0.225</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>0.225</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>0.223</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>0.218</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>0.218</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>0.217</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>0.216</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>0.216</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>0.216</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>0.216</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>0.215</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>0.215</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>0.214</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>0.214</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>0.214</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>0.212</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>0.212</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>0.212</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>0.211</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>0.211</td>
+      <td>entropy</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>0.210</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>0.210</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>None</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>0.210</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>0.207</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0.202</td>
+      <td>entropy</td>
+      <td>True</td>
+      <td>None</td>
+      <td>10</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0.202</td>
+      <td>entropy</td>
+      <td>True</td>
+      <td>None</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0.202</td>
+      <td>entropy</td>
+      <td>True</td>
+      <td>None</td>
+      <td>10</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0.202</td>
+      <td>entropy</td>
+      <td>True</td>
+      <td>None</td>
+      <td>10</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.201</td>
+      <td>gini</td>
+      <td>True</td>
+      <td>None</td>
+      <td>10</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0.201</td>
+      <td>entropy</td>
+      <td>True</td>
+      <td>None</td>
+      <td>10</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>0.201</td>
+      <td>gini</td>
+      <td>False</td>
+      <td>balanced</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LEtZZZZ-ROCKKKK!">LEtZZZZ ROCKKKK!<a class="anchor-link" href="#LEtZZZZ-ROCKKKK!">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First we define three scoring functions properly</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">my_ponderated_scorer</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">ypred</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.4</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">15</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">15</span><span class="p">:</span><span class="mi">17</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">26</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.2</span>
+    <span class="k">return</span> <span class="n">score</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">my_balanced_scorer</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">ypred</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.25</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.25</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">15</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">15</span><span class="p">:</span><span class="mi">17</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.25</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">26</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.25</span>
+    <span class="k">return</span> <span class="n">score</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">my_2paired_scorer</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">ypred</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">17</span><span class="p">:</span><span class="mi">26</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.5</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">15</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span> <span class="o">==</span> <span class="n">ypred</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">15</span><span class="p">:</span><span class="mi">17</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">score</span> <span class="o">+=</span> <span class="mf">0.5</span>
+    <span class="k">return</span> <span class="n">score</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now we ROCK HARD!!!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+              <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;balanced&#39;</span><span class="p">]}</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">my_balanced_scorer</span><span class="p">,</span> <span class="n">my_ponderated_scorer</span><span class="p">,</span> <span class="n">my_2paired_scorer</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">:</span>
+    <span class="n">grid_rfc</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">score</span><span class="p">)</span>
+    <span class="n">grid_rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">score</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid_rfc</span><span class="p">,</span> <span class="s1">&#39;grid_rfc_depth_default_scorer.pkl&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid_rfc</span><span class="p">,</span> <span class="s1">&#39;grid_rfc_depth_default_&#39;</span> <span class="o">+</span> <span class="n">score</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span>
+        
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 10 folds for each of 2520 candidates, totalling 25200 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    6.9s
+[Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:  1.0min
+[Parallel(n_jobs=-1)]: Done 434 tasks      | elapsed:  3.0min
+[Parallel(n_jobs=-1)]: Done 784 tasks      | elapsed:  4.6min
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
@@ -14572,4 +15308,8 @@ C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\metrics\classification.py
     </div>
   </div>
 </body>
+
+ 
+
+
 </html>

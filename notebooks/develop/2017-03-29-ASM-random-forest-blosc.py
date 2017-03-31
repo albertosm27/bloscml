@@ -183,17 +183,7 @@ def my_score2(Yreal, Ypred):
 my_score2(Ytest, Ypred)
 
 
-# In[16]:
-
-def my_score3(Yreal, Ypred):
-    score = 0
-    for i in range(Yreal.shape[0]):
-        score += (Ytest[i,:] == Ypred[i,:]).astype(int).sum()/26
-    return score/Yreal.shape[0]
-my_score3(Ytest, Ypred)
-
-
-# In[21]:
+# In[17]:
 
 from sklearn.model_selection import ShuffleSplit
 from sklearn.model_selection import GridSearchCV
@@ -231,7 +221,7 @@ from IPython.display import HTML, display
 score_param = []
 for i in range(len(grid_rfc.cv_results_['mean_test_score'])):
     if grid_rfc.cv_results_['mean_test_score'][i] > 0.19:
-        tup = (grid_rfc.cv_results_['mean_test_score'][i], grid_rfc.cv_results_['params'][i])
+        tup = (grid_rfc.cv_results_['mean_test_score'][i], grid_rfc.cv_results_['params'][i].items())
         score_param += [tup]
 display(HTML(
     '<table><tr>{}</tr></table>'.format(
@@ -263,6 +253,108 @@ Image(graph.create_png())
 # In[71]:
 
 rgrid_rfc.fit(X, Y)
+
+
+# ## Final del notebook
+# Pasamos a desarrollar en la máquina remota de lineo, que es más potente, dejaremos un pequeño script lanzado y probaremos la persistencia
+
+# In[20]:
+
+from sklearn.externals import joblib
+param_grid = {'n_estimators': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+              'criterion': ['gini', 'entropy'],
+              'bootstrap': [True, False],
+              'max_features': [10],
+              'class_weight': [None, 'balanced']}
+ss = ShuffleSplit(n_splits=5, test_size=0.5)
+rfc = RandomForestClassifier(n_jobs=-1)
+grid_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=ss, verbose=1, n_jobs=-1)
+grid_rfc.fit(X, Y)
+joblib.dump(grid_rfc, 'grid_rfc_estimators.pkl')
+# To load
+# clf = joblib.load('filename.pkl') 
+
+
+# In[55]:
+
+data = []
+indices = []
+for i in range(len(grid_rfc.cv_results_['mean_test_score'])):
+    if grid_rfc.cv_results_['mean_test_score'][i] > 0.20:
+        row = np.append(grid_rfc.cv_results_['mean_test_score'][i], list(grid_rfc.cv_results_['params'][i].values()))
+        data.append(row)
+        indices += [i]
+grid_best_df = pd.DataFrame(data=data,columns=['Score'] + list(grid_rfc.param_grid.keys()), index=indices)
+grid_best_df['Score'] = grid_best_df['Score'].astype(float)
+grid_best_df.sort(columns=['Score'], ascending=False)
+
+
+# ## LEtZZZZ ROCKKKK!
+
+# First we define three scoring functions properly
+
+# In[58]:
+
+def my_ponderated_scorer(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        if (y[i,0:10] == ypred[i,0:10]).all():
+            score += 0.2
+        if (y[i,10:15] == ypred[i,10:15]).all():
+            score += 0.4
+        if (y[i,15:17] == ypred[i,15:17]).all():
+            score += 0.2
+        if (y[i,17:26] == ypred[i,17:26]).all():
+            score += 0.2
+    return score/y.shape[0]
+
+def my_balanced_scorer(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        if (y[i,0:10] == ypred[i,0:10]).all():
+            score += 0.25
+        if (y[i,10:15] == ypred[i,10:15]).all():
+            score += 0.25
+        if (y[i,15:17] == ypred[i,15:17]).all():
+            score += 0.25
+        if (y[i,17:26] == ypred[i,17:26]).all():
+            score += 0.25
+    return score/y.shape[0]
+
+def my_2paired_scorer(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        if (y[i,0:10] == ypred[i,0:10]).all() and (y[i,17:26] == ypred[i,17:26]).all():
+            score += 0.5
+        if (y[i,10:15] == ypred[i,10:15]).all() and (y[i,15:17] == ypred[i,15:17]).all():
+            score += 0.5
+    return score/y.shape[0]
+
+
+# And now we ROCK HARD!!!
+
+# In[ ]:
+
+param_grid = {'n_estimators': [20, 30, 40, 50, 60, 70, 80, 90, 100],
+              'max_depth': [None, 5, 10, 15, 20, 25, 30],
+              'criterion': ['gini', 'entropy'],
+              'bootstrap': [True, False],
+              'max_features': [5, 7, 10, 15, 20],
+              'class_weight': [None, 'balanced']}
+ss = ShuffleSplit(n_splits=10, test_size=0.5)
+rfc = RandomForestClassifier(n_jobs=-1)
+scores = [None, my_balanced_scorer, my_ponderated_scorer, my_2paired_scorer]
+for score in scores:
+    grid_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=ss, verbose=1, n_jobs=-1, scoring=score)
+    grid_rfc.fit(X, Y)
+    if score == None:
+        joblib.dump(grid_rfc, 'grid_rfc_depth_default_scorer.pkl')
+    else:
+        joblib.dump(grid_rfc, 'grid_rfc_depth_default_' + score.__name__ + '.pkl')
+        
 
 
 # In[ ]:
