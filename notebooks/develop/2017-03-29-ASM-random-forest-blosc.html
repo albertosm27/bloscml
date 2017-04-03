@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>2017-03-29-ASM-random-forest-blosc</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2017-03-29-ASM-random-forest-blosc</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11,8 +13,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1107,6 +1109,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2535,6 +2538,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3025,6 +3029,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8755,9 +8760,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8960,14 +8962,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8990,16 +8986,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9136,9 +9122,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9228,9 +9211,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9275,9 +9255,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9574,7 +9551,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9595,6 +9571,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11265,7 +11246,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11577,7 +11558,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11591,9 +11571,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11654,10 +11631,8 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
-.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11668,11 +11643,9 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -13843,9 +13816,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[1]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Thu Mar 30 16:12:11 2017 UTC</td></tr></table>
@@ -14053,9 +14024,7 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>             precision    recall  f1-score   support
 
@@ -14092,9 +14061,7 @@ avg / total      0.792     0.562     0.615      4023
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
   &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
@@ -14124,9 +14091,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[10]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14159,9 +14124,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>0.15959252971137522
 </pre>
@@ -14189,9 +14152,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/sklearn/metrics/classification.py:1113: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples.
   &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
@@ -14201,9 +14162,7 @@ avg / total      0.792     0.562     0.615      4023
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[12]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14232,9 +14191,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[13]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14300,9 +14257,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[14]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14349,9 +14304,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[15]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14415,18 +14368,14 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 1 folds for each of 96 candidates, totalling 96 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=-1)]: Done   5 tasks      | elapsed:   17.3s
 [Parallel(n_jobs=-1)]: Done  10 tasks      | elapsed:   34.2s
@@ -14442,18 +14391,14 @@ avg / total      0.792     0.562     0.615      4023
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Wall time: 12min 36s
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[22]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14504,9 +14449,7 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table><tr><td>0.192699490662</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'criterion': 'gini', 'min_samples_leaf': 1, 'bootstrap': True}</td></tr><tr><td>0.195246179966</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'gini', 'bootstrap': True}</td></tr><tr><td>0.199066213922</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': True}</td></tr><tr><td>0.196095076401</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'criterion': 'entropy', 'min_samples_leaf': 1, 'bootstrap': True}</td></tr><tr><td>0.227504244482</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'criterion': 'gini', 'min_samples_leaf': 1, 'bootstrap': False}</td></tr><tr><td>0.227504244482</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'gini', 'bootstrap': False}</td></tr><tr><td>0.230050933786</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': None, 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': False}</td></tr><tr><td>0.227928692699</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': None, 'criterion': 'entropy', 'min_samples_leaf': 1, 'bootstrap': False}</td></tr><tr><td>0.212224108659</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': 'balanced', 'criterion': 'gini', 'min_samples_leaf': 1, 'bootstrap': False}</td></tr><tr><td>0.216468590832</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': 'balanced', 'min_samples_leaf': 1, 'criterion': 'gini', 'bootstrap': False}</td></tr><tr><td>0.20882852292</td><td>{'max_features': 10, 'n_estimators': 100, 'class_weight': 'balanced', 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': False}</td></tr><tr><td>0.210101867572</td><td>{'max_features': 10, 'n_estimators': 500, 'class_weight': 'balanced', 'min_samples_leaf': 1, 'criterion': 'entropy', 'bootstrap': False}</td></tr></table>
@@ -14569,18 +14512,14 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 1 folds for each of 10 candidates, totalling 10 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=-1)]: Done   5 out of  10 | elapsed:   59.2s remaining:   59.2s
 [Parallel(n_jobs=-1)]: Done   7 out of  10 | elapsed:  1.2min remaining:   29.9s
@@ -14589,9 +14528,7 @@ avg / total      0.792     0.562     0.615      4023
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[71]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[71]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14653,18 +14590,14 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 5 folds for each of 80 candidates, totalling 400 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:   11.5s
 [Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:  2.4min
@@ -14673,9 +14606,7 @@ avg / total      0.792     0.562     0.615      4023
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[20]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14713,18 +14644,14 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:11: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt output_prompt">Out[55]:</div>
-
+<div class="output_area"><div class="prompt output_prompt">Out[55]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -15255,7 +15182,7 @@ avg / total      0.792     0.562     0.615      4023
     <span class="k">if</span> <span class="n">score</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid_rfc</span><span class="p">,</span> <span class="s1">&#39;grid_rfc_depth_default_scorer.pkl&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid_rfc</span><span class="p">,</span> <span class="s1">&#39;grid_rfc_depth_default_&#39;</span> <span class="o">+</span> <span class="n">score</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">grid_rfc</span><span class="p">,</span> <span class="s1">&#39;grid_rfc_depth_default_&#39;</span> <span class="o">+</span> <span class="n">score</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s1">&#39;.pkl&#39;</span><span class="p">)</span>
         
 </pre></div>
 
@@ -15267,18 +15194,14 @@ avg / total      0.792     0.562     0.615      4023
 <div class="output">
 
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 10 folds for each of 2520 candidates, totalling 25200 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area">
-<div class="prompt"></div>
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:    6.9s
 [Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:  1.0min
@@ -15308,8 +15231,4 @@ avg / total      0.792     0.562     0.615      4023
     </div>
   </div>
 </body>
-
- 
-
-
 </html>

@@ -76,7 +76,7 @@ matplotlib.rcParams.update({'font.size': 12})
 # In[3]:
 
 # LOAD WHOLE CSV
-DF = pd.read_csv('../data/blosc_test_data_v2.csv.gz', sep='\t')
+DF = pd.read_csv('../data/blosc_test_data.csv.gz', sep='\t')
 # SORT COLUMNS
 DF = DF[cst.COLS]
 # CHECK MISSING DATA
@@ -233,8 +233,7 @@ cst.custom_pairs(dfaux, cols)
 
 # In[20]:
 
-# TODO N_STREAKS
-cols = ['Range', 'Q_Range']
+cols = ['Range', 'Q_Range', 'N_Streaks']
 dfaux = dfaux.assign(Range=dfaux['Max'] - dfaux['Min'])
 dfaux = dfaux.assign(Q_Range=dfaux['Q3'] - dfaux['Q1'])
 cst.custom_pairs(dfaux, cols)

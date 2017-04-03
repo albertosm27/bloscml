@@ -69,7 +69,7 @@ IN_USER = ['IN_CR', 'IN_CS', 'IN_DS']
 
 # In[4]:
 
-df = pd.read_csv('../data/blosc_test_data_v2.csv.gz', sep='\t')
+df = pd.read_csv('../data/blosc_test_data.csv.gz', sep='\t')
 my_df = df[(df.Filename != 'WRF_India-LSD1.h5') & (df.Filename != 'WRF_India-LSD2.h5') 
            & (df.Filename != 'WRF_India-LSD3.h5') & (df.CL != 0) & (df.CRate > 1.1)]
 
@@ -128,7 +128,7 @@ for chunk_test in chunk_tests_list:
                         aux[aux.Codec == 'lz4'][TEST_FEATURES].values[0])
     # APPEND ROWS TO TRAINING DATA FRAME
     for i in range(len(indices)):
-        in_1, r = divmod(i, 4)
+        in_1, r = divmod((i+1), 4)
         in_2, in_3 = divmod(r, 2)
         training_df = training_df.append(dict(zip(COLS + IN_TESTS + IN_USER,
                                                   np.append(np.append(chunk_test.ix[indices[i]][COLS].values,
@@ -137,7 +137,7 @@ for chunk_test in chunk_tests_list:
                                          ignore_index=True)
 
 
-# # Some tests with the data generated
+# ## Algunas comprobaciones
 
 # In[7]:
 
@@ -205,4 +205,46 @@ print('%d zstd classes from 270' % distinct_total[distinct_total.Codec == 'zstd'
 # In[11]:
 
 training_df.to_csv('../data/training_data.csv', sep='\t', index=False)
+
+
+# ## Comprobación del tamaño de bloque automático
+
+# In[15]:
+
+print("%d from %d" % (training_df[training_df.Block_Size == 0].shape[0], training_df.shape[0]))
+
+
+# In[31]:
+
+count = 0
+report = []
+for indices, row in training_df.iterrows():
+    block = row['Block_Size']
+    if block != 0:
+        aux = df[(df.Filename == row['Filename']) & (df.DataSet == row['DataSet']) &
+                 (df.Table == row['Table']) & (df.Chunk_Number == row['Chunk_Number']) &
+                 (df.Codec == row['Codec']) & (df.Filter == row['Filter']) & (df.CL == row["CL"])]
+        crate = aux[aux.Block_Size == 0]['CRate'].values[0]
+        result = aux[(aux.CRate == crate) & (aux.Block_Size != 0)]
+        auto_block = result['Block_Size'].values[0]
+        if auto_block == block:
+            count += 1
+        else:
+            report.append((block, auto_block))
+
+
+# In[34]:
+
+print("%d from %d" % (training_df[training_df.Block_Size == 0].shape[0] + count, training_df.shape[0]))
+
+
+# In[38]:
+
+for line in report:
+    print("Winner --> %d | Predicted --> %d" % line)
+
+
+# In[ ]:
+
+
 

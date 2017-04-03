@@ -13,11 +13,10 @@ COLOR_PALETTE = {'blosclz': '#5AC8FA', 'lz4': '#4CD964', 'lz4hc': '#FF3B30', 'sn
 MARKER_DICT = {'noshuffle': 'o', 'shuffle': 'v', 'bitshuffle': 's'}
 
 # DIFFERENT COLUMN LISTS FROM THE DATAFRAME FOR SELECTING SPECIFIC INFO
-# TODO N_STREAKS
 COLS = ['Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt',
-        'Min', 'Max', 'Q1', 'Q3', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed']  # 'N_Streaks']
+        'Min', 'Max', 'Q1', 'Q3', 'N_Streaks', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed']
 DESC_SET = ['DataSet', 'DType', 'Table', 'Chunk_Size']
-CHUNK_FEATURES = ['Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt', 'Min', 'Max', 'Q1', 'Q3']  # 'N_Streaks']
+CHUNK_FEATURES = ['Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt', 'Min', 'Max', 'Q1', 'Q3', 'N_Streaks']
 TEST_FEATURES = ['CRate', 'CSpeed', 'DSpeed']
 ALL_FEATURES = CHUNK_FEATURES + TEST_FEATURES
 
