@@ -76,65 +76,12 @@ my_df = df[(df.Filename != 'WRF_India-LSD1.h5') & (df.Filename != 'WRF_India-LSD
 
 # In[5]:
 
-# DATAFRAME WITH DISTINCT CHUNKS
-chunks_df = my_df.drop_duplicates(subset=CHUNK_ID)
-print("%d rows" % chunks_df.shape[0])
-chunk_tests_list = []
-# FOR EACH CHUNK
-for index, row in chunks_df.iterrows():
-    # DATAFRAME WITH CHUNK TESTS
-    chunk_tests_list.append(my_df[(my_df.Filename == row["Filename"]) & (my_df.DataSet == row["DataSet"]) &
-                        (my_df.Table == row["Table"]) & (my_df.Chunk_Number == row["Chunk_Number"])])
+get_ipython().run_cell_magic('time', '', '# DATAFRAME WITH DISTINCT CHUNKS\nchunks_df = my_df.drop_duplicates(subset=CHUNK_ID)\nprint("%d rows" % chunks_df.shape[0])\nchunk_tests_list = []\n# FOR EACH CHUNK\nfor index, row in chunks_df.iterrows():\n    # DATAFRAME WITH CHUNK TESTS\n    chunk_tests_list.append(my_df[(my_df.Filename == row["Filename"]) & (my_df.DataSet == row["DataSet"]) &\n                        (my_df.Table == row["Table"]) & (my_df.Chunk_Number == row["Chunk_Number"])])')
 
 
 # In[6]:
 
-training_df = pd.DataFrame()
-for chunk_test in chunk_tests_list:
-    # EXTRACT MAX MIN AND SOME AUX MAX INDICES
-    i_max_crate, i_max_c_speed, i_max_d_speed = chunk_test['CRate'].idxmax(), chunk_test['CSpeed'].idxmax(),                                                chunk_test['DSpeed'].idxmax()
-    max_crate, max_c_speed, max_d_speed = (chunk_test.ix[i_max_crate]['CRate'], chunk_test.ix[i_max_c_speed]['CSpeed'],
-                                           chunk_test.ix[i_max_d_speed]['DSpeed'])
-
-    min_crate, min_c_speed, min_d_speed = (chunk_test['CRate'].min(), chunk_test['CSpeed'].min(),
-                                           chunk_test['DSpeed'].min())
-    # NORMALIZED COLUMNS
-    chunk_test = chunk_test.assign(N_CRate=(chunk_test['CRate'] - min_crate) / (max_crate - min_crate),
-                                   N_CSpeed=(chunk_test['CSpeed'] - min_c_speed) / (max_c_speed - min_c_speed),
-                                   N_DSpeed=(chunk_test['DSpeed'] - min_d_speed) / (max_d_speed - min_d_speed))
-    # DISTANCE FUNC COLUMNS
-    chunk_test = chunk_test.assign(Distance_1=(chunk_test['N_CRate'] - 1)**2 + (chunk_test['N_CSpeed'] - 1)**2,
-                                   Distance_2=(chunk_test['N_CRate'] - 1) ** 2 + (chunk_test['N_DSpeed'] - 1) ** 2,
-                                   Distance_3=(chunk_test['N_CRate'] - 1) ** 2 + (chunk_test['N_DSpeed'] - 1) ** 2 +
-                                              (chunk_test['N_CSpeed'] - 1) ** 2,
-                                   Distance_4=(chunk_test['N_CSpeed'] - 1) ** 2 + (chunk_test['N_DSpeed'] - 1) ** 2
-                                   )
-    # BALANCED INDICES
-    i_balanced_c_speed, i_balanced_d_speed, i_balanced, i_balanced_speeds = (chunk_test['Distance_1'].idxmin(),
-                                                                             chunk_test['Distance_2'].idxmin(),
-                                                                             chunk_test['Distance_3'].idxmin(),
-                                                                             chunk_test['Distance_4'].idxmin())
-    indices = [i_max_d_speed, i_max_c_speed, i_balanced_speeds, i_max_crate, i_balanced_d_speed, i_balanced_c_speed,
-               i_balanced]
-    # TYPE FILTER FOR LZ_DATA
-    d_type = chunk_test.iloc[0]['DType']
-    filter_name = 'noshuffle'
-    if 'float' in d_type or 'int' in d_type:
-        filter_name = 'shuffle'
-    aux = df[(df.CL == 1) & (df.Block_Size == 0) & (df.Filter == filter_name) &
-             (df.Filename == chunk_test.iloc[0]['Filename']) & (df.DataSet == chunk_test.iloc[0]['DataSet']) &
-             (df.Table == chunk_test.iloc[0]['Table']) & (df.Chunk_Number == chunk_test.iloc[0]['Chunk_Number'])]
-    lz_data = np.append(aux[aux.Codec == 'blosclz'][TEST_FEATURES].values[0],
-                        aux[aux.Codec == 'lz4'][TEST_FEATURES].values[0])
-    # APPEND ROWS TO TRAINING DATA FRAME
-    for i in range(len(indices)):
-        in_1, r = divmod((i+1), 4)
-        in_2, in_3 = divmod(r, 2)
-        training_df = training_df.append(dict(zip(COLS + IN_TESTS + IN_USER,
-                                                  np.append(np.append(chunk_test.ix[indices[i]][COLS].values,
-                                                                      lz_data),
-                                                            [in_1, in_2, in_3]))),
-                                         ignore_index=True)
+get_ipython().run_cell_magic('time', '', "training_df = pd.DataFrame()\nfor chunk_test in chunk_tests_list:\n    # EXTRACT MAX MIN AND SOME AUX MAX INDICES\n    i_max_crate, i_max_c_speed, i_max_d_speed = chunk_test['CRate'].idxmax(), chunk_test['CSpeed'].idxmax(),\\\n                                                chunk_test['DSpeed'].idxmax()\n    max_crate, max_c_speed, max_d_speed = (chunk_test.ix[i_max_crate]['CRate'], chunk_test.ix[i_max_c_speed]['CSpeed'],\n                                           chunk_test.ix[i_max_d_speed]['DSpeed'])\n\n    min_crate, min_c_speed, min_d_speed = (chunk_test['CRate'].min(), chunk_test['CSpeed'].min(),\n                                           chunk_test['DSpeed'].min())\n    # NORMALIZED COLUMNS\n    chunk_test = chunk_test.assign(N_CRate=(chunk_test['CRate'] - min_crate) / (max_crate - min_crate),\n                                   N_CSpeed=(chunk_test['CSpeed'] - min_c_speed) / (max_c_speed - min_c_speed),\n                                   N_DSpeed=(chunk_test['DSpeed'] - min_d_speed) / (max_d_speed - min_d_speed))\n    # DISTANCE FUNC COLUMNS\n    chunk_test = chunk_test.assign(Distance_1=(chunk_test['N_CRate'] - 1)**2 + (chunk_test['N_CSpeed'] - 1)**2,\n                                   Distance_2=(chunk_test['N_CRate'] - 1) ** 2 + (chunk_test['N_DSpeed'] - 1) ** 2,\n                                   Distance_3=(chunk_test['N_CRate'] - 1) ** 2 + (chunk_test['N_DSpeed'] - 1) ** 2 +\n                                              (chunk_test['N_CSpeed'] - 1) ** 2,\n                                   Distance_4=(chunk_test['N_CSpeed'] - 1) ** 2 + (chunk_test['N_DSpeed'] - 1) ** 2\n                                   )\n    # BALANCED INDICES\n    i_balanced_c_speed, i_balanced_d_speed, i_balanced, i_balanced_speeds = (chunk_test['Distance_1'].idxmin(),\n                                                                             chunk_test['Distance_2'].idxmin(),\n                                                                             chunk_test['Distance_3'].idxmin(),\n                                                                             chunk_test['Distance_4'].idxmin())\n    indices = [i_max_d_speed, i_max_c_speed, i_balanced_speeds, i_max_crate, i_balanced_d_speed, i_balanced_c_speed,\n               i_balanced]\n    # TYPE FILTER FOR LZ_DATA\n    d_type = chunk_test.iloc[0]['DType']\n    filter_name = 'noshuffle'\n    if 'float' in d_type or 'int' in d_type:\n        filter_name = 'shuffle'\n    aux = df[(df.CL == 1) & (df.Block_Size == 0) & (df.Filter == filter_name) &\n             (df.Filename == chunk_test.iloc[0]['Filename']) & (df.DataSet == chunk_test.iloc[0]['DataSet']) &\n             (df.Table == chunk_test.iloc[0]['Table']) & (df.Chunk_Number == chunk_test.iloc[0]['Chunk_Number'])]\n    lz_data = np.append(aux[aux.Codec == 'blosclz'][TEST_FEATURES].values[0],\n                        aux[aux.Codec == 'lz4'][TEST_FEATURES].values[0])\n    # APPEND ROWS TO TRAINING DATA FRAME\n    for i in range(len(indices)):\n        in_1, r = divmod((i+1), 4)\n        in_2, in_3 = divmod(r, 2)\n        training_df = training_df.append(dict(zip(COLS + IN_TESTS + IN_USER,\n                                                  np.append(np.append(chunk_test.ix[indices[i]][COLS].values,\n                                                                      lz_data),\n                                                            [in_1, in_2, in_3]))),\n                                         ignore_index=True)")
 
 
 # ## Algunas comprobaciones
@@ -144,31 +91,31 @@ for chunk_test in chunk_tests_list:
 print('DISTINCT MAX RATE')
 distinct_max_rate = training_df[(training_df.IN_CR == 1) & (training_df.IN_CS == 0) & (training_df.IN_DS == 0)]                    .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_max_rate.shape[0])
-display(distinct_max_rate)
+display(distinct_max_rate.head())
 print('DISTINCT MAX C.SPEED')
 distinct_max_c_speed = training_df[(training_df.IN_CR == 0) & (training_df.IN_CS == 1) & (training_df.IN_DS == 0)]                       .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_max_c_speed.shape[0])
-display(distinct_max_c_speed)
+display(distinct_max_c_speed.head())
 print('DISTINCT MAX D.SPEED')
 distinct_max_d_speed = training_df[(training_df.IN_CR == 0) & (training_df.IN_CS == 0) & (training_df.IN_DS == 1)]                      .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_max_d_speed.shape[0])
-display(distinct_max_d_speed)
+display(distinct_max_d_speed.head())
 print('DISTINCT BALANCED CSPEED')
 distinct_balanced_c_speed = training_df[(training_df.IN_CR == 1) & (training_df.IN_CS == 1) & (training_df.IN_DS == 0)]                            .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_balanced_c_speed.shape[0])
-display(distinct_balanced_c_speed)
+display(distinct_balanced_c_speed.head())
 print('DISTINCT BALANCED DSPEED')
 distinct_balanced_d_speed = training_df[(training_df.IN_CR == 1) & (training_df.IN_CS == 0) & (training_df.IN_DS == 1)]                            .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_balanced_d_speed.shape[0])
-display(distinct_balanced_d_speed)
+display(distinct_balanced_d_speed.head())
 print('DISTINCT BALANCED SPEED')
 distinct_balanced_speed = training_df[(training_df.IN_CR == 0) & (training_df.IN_CS == 1) & (training_df.IN_DS == 1)]                          .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_balanced_speed.shape[0])
-display(distinct_balanced_speed)
+display(distinct_balanced_speed.head())
 print('DISTINCT BALANCED')
 distinct_balanced = training_df[(training_df.IN_CR == 1) & (training_df.IN_CS == 1) & (training_df.IN_DS == 1)]                    .drop_duplicates(subset=OUT_OPTIONS)[OUT_OPTIONS + TEST_FEATURES]
 print('%s rows' % distinct_balanced.shape[0])
-display(distinct_balanced)
+display(distinct_balanced.head())
 
 
 # In[8]:
@@ -202,46 +149,77 @@ print('%d lz4hc classes from 270' % distinct_total[distinct_total.Codec == 'lz4h
 print('%d zstd classes from 270' % distinct_total[distinct_total.Codec == 'zstd'].shape[0])
 
 
+# ## Tamaño de bloque automático
+
 # In[11]:
-
-training_df.to_csv('../data/training_data.csv', sep='\t', index=False)
-
-
-# ## Comprobación del tamaño de bloque automático
-
-# In[15]:
 
 print("%d from %d" % (training_df[training_df.Block_Size == 0].shape[0], training_df.shape[0]))
 
 
-# In[31]:
+# In[12]:
 
-count = 0
-report = []
-for indices, row in training_df.iterrows():
-    block = row['Block_Size']
-    if block != 0:
-        aux = df[(df.Filename == row['Filename']) & (df.DataSet == row['DataSet']) &
-                 (df.Table == row['Table']) & (df.Chunk_Number == row['Chunk_Number']) &
-                 (df.Codec == row['Codec']) & (df.Filter == row['Filter']) & (df.CL == row["CL"])]
-        crate = aux[aux.Block_Size == 0]['CRate'].values[0]
-        result = aux[(aux.CRate == crate) & (aux.Block_Size != 0)]
-        auto_block = result['Block_Size'].values[0]
-        if auto_block == block:
-            count += 1
-        else:
-            report.append((block, auto_block))
+get_ipython().run_cell_magic('time', '', 'count = 0\nfor i, row in training_df.iterrows():\n    block = row[\'Block_Size\']\n    aux = df[(df.Filename == row[\'Filename\']) & (df.DataSet == row[\'DataSet\']) &\n             (df.Table == row[\'Table\']) & (df.Chunk_Number == row[\'Chunk_Number\']) &\n             (df.Codec == row[\'Codec\']) & (df.Filter == row[\'Filter\']) & (df.CL == row["CL"])]\n    crate = aux[aux.Block_Size == 0][\'CRate\'].values[0]\n    auto_block = aux[(aux.CRate == crate) & (aux.Block_Size != 0)][\'Block_Size\'].values[0]\n    if block != 0:\n        if auto_block == block:\n            count += 1\n    else:\n        training_df.loc[i, \'Block_Size\'] = auto_block')
 
 
-# In[34]:
+# In[13]:
 
 print("%d from %d" % (training_df[training_df.Block_Size == 0].shape[0] + count, training_df.shape[0]))
 
 
-# In[38]:
+# In[15]:
 
-for line in report:
-    print("Winner --> %d | Predicted --> %d" % line)
+training_df.drop_duplicates(subset=['Block_Size'])
+
+
+# ## Preparación de inputs para scikit-learn
+
+# In[16]:
+
+from sklearn.preprocessing import binarize 
+from sklearn.preprocessing import OneHotEncoder
+df = df.assign(is_Table=binarize(df['Table'].values.reshape(-1,1), 0), 
+               is_Columnar=binarize(df['Table'].values.reshape(-1,1), 1),
+               is_Int=df['DType'].str.contains('int').astype(int),
+               is_Float=df['DType'].str.contains('float').astype(int),
+               is_String=(df['DType'].str.contains('S') | df['DType'].str.contains('U')).astype(int))
+import re
+def aux_func(s):
+    n = int(re.findall('\d+', s)[0])
+    isNum = re.findall('int|float', s)
+    if len(isNum) > 0:
+        return n // 8
+    else:
+        return n
+df['Type_Size'] = [aux_func(s) for s in df['DType']]
+
+
+# ## Preparación de outputs para scikit-learn
+
+# In[17]:
+
+df = df.assign(Blosclz=(df['Codec'] == 'blosclz').astype(int),
+               Lz4=(df['Codec'] == 'lz4').astype(int),
+               Lz4hc=(df['Codec'] == 'lz4hc').astype(int),
+               Snappy=(df['Codec'] == 'snappy').astype(int),
+               Zstd=(df['Codec'] == 'zstd').astype(int),
+               Shuffle=(df['Filter'] == 'shuffle').astype(int),
+               Bitshuffle=(df['Filter'] == 'bitshuffle').astype(int))
+enc_cl = OneHotEncoder()
+enc_cl.fit(df['CL'].values.reshape(-1, 1))
+new_cls = enc_cl.transform(df['CL'].values.reshape(-1, 1)).toarray()
+enc_block = OneHotEncoder()
+enc_block.fit(df['Block_Size'].values.reshape(-1, 1))
+new_blocks = enc_block.transform(df['Block_Size'].values.reshape(-1, 1)).toarray()
+for i in range(9):
+    cl_label = 'CL' + str(i+1)
+    block_label = 'Block_' + str(2**(i+3))
+    df[cl_label] = new_cls[:, i]
+    df[block_label] = new_blocks[:, i]
+
+
+# In[18]:
+
+training_df.to_csv('../data/training_data.csv', sep='\t', index=False)
 
 
 # In[ ]:

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>2017-04-03-ASM-Random-forest-blosc</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2017-04-03-ASM-Random-forest-blosc</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -13,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1109,7 +1107,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2538,7 +2535,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3029,7 +3025,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8760,6 +8755,9 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
+[dir="rtl"] #ipython_notebook {
+  float: right !important;
+}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8962,8 +8960,14 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
+[dir="rtl"] #tabs li {
+  float: right;
+}
 ul#tabs {
   margin-bottom: 4px;
+}
+[dir="rtl"] ul#tabs {
+  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8986,6 +8990,16 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
+}
+[dir="rtl"] .list_toolbar .tree-buttons {
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-right {
+  padding-top: 1px;
+  float: left !important;
+}
+[dir="rtl"] .list_toolbar .pull-left {
+  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9122,6 +9136,9 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
+[dir="rtl"] #tree-selector a {
+  float: right;
+}
 #button-select-all {
   min-width: 50px;
 }
@@ -9211,6 +9228,9 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
+[dir="rtl"] #new-menu {
+  text-align: right;
+}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9255,6 +9275,9 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
+}
+[dir="rtl"] #running .col-sm-8 {
+  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9551,6 +9574,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9571,11 +9595,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11246,7 +11265,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 20ex;
+  width: 21ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11558,6 +11577,7 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
+  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11571,6 +11591,9 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
+}
+.terminal-app .terminal .xterm-rows {
+  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11631,8 +11654,10 @@ ul.typeahead-list > li > a {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -11643,9 +11668,11 @@ ul.typeahead-list > li > a {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
@@ -13783,7 +13810,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -13804,20 +13831,12 @@ div#notebook {
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-The version_information extension is already loaded. To reload it, use:
-  %reload_ext version_information
-</pre>
-</div>
-</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[1]:</div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.2 64bit [MSC v.1900 64 bit (AMD64)]</td></tr><tr><td>IPython</td><td>5.3.0</td></tr><tr><td>OS</td><td>Windows 10 10.0.14393 SP0</td></tr><tr><td>numpy</td><td>1.11.3</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td>scikit-learn</td><td>0.18.1</td></tr><tr><td colspan='2'>Mon Apr 03 12:02:23 2017 Hora de verano romance</td></tr></table>
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td>scikit-learn</td><td>0.18.1</td></tr><tr><td colspan='2'>Tue Apr 04 07:09:55 2017 UTC</td></tr></table>
 </div>
 
 </div>
@@ -13828,7 +13847,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -13856,7 +13875,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">my_ponderated_scorer</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -13905,7 +13924,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;grid_rfc_depth_default_scorer.pkl.gz&#39;</span><span class="p">)</span>
@@ -13918,7 +13937,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">param_grid</span>
@@ -13932,7 +13951,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[5]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13952,7 +13973,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span>
@@ -13966,7 +13987,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[41]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[6]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13981,7 +14004,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -14004,14 +14027,18 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\Shurberto\Anaconda3\lib\site-packages\ipykernel\__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[7]:</div>
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -14020,434 +14047,434 @@ The version_information extension is already loaded. To reload it, use:
     <tr style="text-align: right;">
       <th></th>
       <th>Score</th>
-      <th>max_depth</th>
-      <th>max_features</th>
-      <th>criterion</th>
-      <th>class_weight</th>
-      <th>n_estimators</th>
       <th>bootstrap</th>
+      <th>n_estimators</th>
+      <th>class_weight</th>
+      <th>criterion</th>
+      <th>max_features</th>
+      <th>max_depth</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>574</th>
       <td>0.241</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>575</th>
       <td>0.240</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>502</th>
       <td>0.240</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>501</th>
       <td>0.239</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>573</th>
       <td>0.239</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>407</th>
       <td>0.239</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>405</th>
       <td>0.239</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>500</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>572</th>
       <td>0.238</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>503</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>403</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>570</th>
       <td>0.238</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>499</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>406</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>404</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>498</th>
       <td>0.238</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>479</th>
       <td>0.237</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>478</th>
       <td>0.237</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>571</th>
       <td>0.237</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>477</th>
       <td>0.237</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>475</th>
       <td>0.236</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>497</th>
       <td>0.236</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>476</th>
       <td>0.236</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>401</th>
       <td>0.236</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>474</th>
       <td>0.236</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>402</th>
       <td>0.235</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>569</th>
       <td>0.235</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>496</th>
       <td>0.235</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>473</th>
       <td>0.235</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>472</th>
       <td>0.234</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>568</th>
       <td>0.234</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>400</th>
       <td>0.232</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>694</th>
       <td>0.232</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>balanced</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>balanced</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>494</th>
       <td>0.231</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>567</th>
       <td>0.231</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>490</th>
       <td>0.231</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>598</th>
       <td>0.231</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>balanced</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>balanced</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>566</th>
       <td>0.230</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>495</th>
       <td>0.230</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>492</th>
       <td>0.230</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>695</th>
       <td>0.230</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>balanced</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>balanced</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>691</th>
       <td>0.230</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>balanced</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>balanced</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
   </tbody>
 </table>
@@ -14462,7 +14489,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;grid_rfc_depth_default_my_balanced_scorer.pkl.gz&#39;</span><span class="p">)</span>
@@ -14475,7 +14502,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">param_grid</span>
@@ -14489,7 +14516,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[9]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14509,7 +14538,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span>
@@ -14523,7 +14552,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[10]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14538,7 +14569,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -14561,14 +14592,18 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\Shurberto\Anaconda3\lib\site-packages\ipykernel\__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -14577,434 +14612,434 @@ The version_information extension is already loaded. To reload it, use:
     <tr style="text-align: right;">
       <th></th>
       <th>Score</th>
-      <th>max_depth</th>
-      <th>max_features</th>
-      <th>criterion</th>
-      <th>class_weight</th>
-      <th>n_estimators</th>
       <th>bootstrap</th>
+      <th>n_estimators</th>
+      <th>class_weight</th>
+      <th>criterion</th>
+      <th>max_features</th>
+      <th>max_depth</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>502</th>
       <td>0.677</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>573</th>
       <td>0.677</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>503</th>
       <td>0.677</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>575</th>
       <td>0.677</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>574</th>
       <td>0.676</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>501</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>406</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>500</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>498</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>405</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>407</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>404</th>
       <td>0.676</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>572</th>
       <td>0.676</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>402</th>
       <td>0.675</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>571</th>
       <td>0.675</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>476</th>
       <td>0.675</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>477</th>
       <td>0.675</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>499</th>
       <td>0.675</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>478</th>
       <td>0.675</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>570</th>
       <td>0.675</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>479</th>
       <td>0.675</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>403</th>
       <td>0.675</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>475</th>
       <td>0.674</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>569</th>
       <td>0.674</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>401</th>
       <td>0.673</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>497</th>
       <td>0.673</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>568</th>
       <td>0.673</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>474</th>
       <td>0.673</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>473</th>
       <td>0.672</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>472</th>
       <td>0.672</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>567</th>
       <td>0.672</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>495</th>
       <td>0.671</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>496</th>
       <td>0.671</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>400</th>
       <td>0.671</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>494</th>
       <td>0.671</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>492</th>
       <td>0.671</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>565</th>
       <td>0.671</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>566</th>
       <td>0.670</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>399</th>
       <td>0.670</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>563</th>
       <td>0.670</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>564</th>
       <td>0.670</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>493</th>
       <td>0.670</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
   </tbody>
 </table>
@@ -15019,7 +15054,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;grid_rfc_depth_default_my_ponderated_scorer.pkl.gz&#39;</span><span class="p">)</span>
@@ -15032,7 +15067,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">param_grid</span>
@@ -15046,7 +15081,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[13]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -15066,7 +15103,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span>
@@ -15080,7 +15117,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[45]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -15095,7 +15134,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -15118,14 +15157,18 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\Shurberto\Anaconda3\lib\site-packages\ipykernel\__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[15]:</div>
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -15134,314 +15177,314 @@ The version_information extension is already loaded. To reload it, use:
     <tr style="text-align: right;">
       <th></th>
       <th>Score</th>
-      <th>max_depth</th>
-      <th>max_features</th>
-      <th>criterion</th>
-      <th>class_weight</th>
-      <th>n_estimators</th>
       <th>bootstrap</th>
+      <th>n_estimators</th>
+      <th>class_weight</th>
+      <th>criterion</th>
+      <th>max_features</th>
+      <th>max_depth</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>503</th>
       <td>0.729</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>574</th>
       <td>0.729</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>501</th>
       <td>0.729</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>575</th>
       <td>0.729</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>502</th>
       <td>0.729</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>573</th>
       <td>0.729</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>572</th>
       <td>0.729</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>406</th>
       <td>0.728</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>571</th>
       <td>0.728</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>405</th>
       <td>0.728</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>499</th>
       <td>0.728</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>478</th>
       <td>0.728</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>407</th>
       <td>0.728</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>479</th>
       <td>0.728</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>570</th>
       <td>0.728</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>500</th>
       <td>0.727</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>477</th>
       <td>0.727</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>476</th>
       <td>0.727</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>404</th>
       <td>0.727</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>498</th>
       <td>0.727</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>475</th>
       <td>0.727</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>474</th>
       <td>0.727</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>569</th>
       <td>0.727</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>403</th>
       <td>0.727</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>473</th>
       <td>0.726</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>401</th>
       <td>0.726</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>497</th>
       <td>0.726</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>402</th>
       <td>0.726</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>494</th>
       <td>0.725</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>568</th>
       <td>0.725</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>...</th>
@@ -15456,302 +15499,302 @@ The version_information extension is already loaded. To reload it, use:
     <tr>
       <th>566</th>
       <td>0.725</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>567</th>
       <td>0.725</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>472</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>397</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>565</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>564</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>493</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>492</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>495</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>563</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>470</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>491</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>562</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>561</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>398</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>396</th>
       <td>0.724</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>469</th>
       <td>0.724</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>471</th>
       <td>0.723</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>400</th>
       <td>0.723</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>399</th>
       <td>0.723</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>395</th>
       <td>0.723</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>490</th>
       <td>0.723</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>467</th>
       <td>0.723</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>468</th>
       <td>0.723</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>466</th>
       <td>0.722</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>394</th>
       <td>0.722</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>393</th>
       <td>0.722</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>489</th>
       <td>0.721</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>465</th>
       <td>0.721</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>560</th>
       <td>0.721</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>20</td>
       <td>False</td>
+      <td>20</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
   </tbody>
 </table>
@@ -15767,7 +15810,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;grid_rfc_depth_default_my_2paired_scorer.pkl.gz&#39;</span><span class="p">)</span>
@@ -15780,7 +15823,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">param_grid</span>
@@ -15794,7 +15837,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[17]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -15814,7 +15859,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span><span class="o">.</span><span class="n">best_score_</span>
@@ -15828,7 +15873,9 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[18]:</div>
+
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -15843,7 +15890,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -15866,14 +15913,18 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\Shurberto\Anaconda3\lib\site-packages\ipykernel\__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:10: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[19]:</div>
+
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
@@ -15882,404 +15933,404 @@ The version_information extension is already loaded. To reload it, use:
     <tr style="text-align: right;">
       <th></th>
       <th>Score</th>
-      <th>max_depth</th>
-      <th>max_features</th>
-      <th>criterion</th>
-      <th>class_weight</th>
-      <th>n_estimators</th>
       <th>bootstrap</th>
+      <th>n_estimators</th>
+      <th>class_weight</th>
+      <th>criterion</th>
+      <th>max_features</th>
+      <th>max_depth</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>575</th>
       <td>0.564</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>407</th>
       <td>0.564</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>574</th>
       <td>0.564</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>503</th>
       <td>0.564</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>573</th>
       <td>0.563</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>406</th>
       <td>0.563</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>572</th>
       <td>0.563</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>502</th>
       <td>0.563</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>479</th>
       <td>0.563</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>500</th>
       <td>0.563</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>405</th>
       <td>0.563</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>501</th>
       <td>0.563</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>478</th>
       <td>0.563</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>475</th>
       <td>0.563</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>477</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>404</th>
       <td>0.562</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>566</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>499</th>
       <td>0.562</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>571</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>563</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>495</th>
       <td>0.562</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>474</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>498</th>
       <td>0.562</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>565</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>570</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>402</th>
       <td>0.562</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>403</th>
       <td>0.562</td>
-      <td>nan</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>50</td>
       <td>False</td>
+      <td>50</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>564</th>
       <td>0.562</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>567</th>
       <td>0.561</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>476</th>
       <td>0.561</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>494</th>
       <td>0.561</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>493</th>
       <td>0.561</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>569</th>
       <td>0.561</td>
-      <td>15.000</td>
-      <td>15</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>30</td>
       <td>False</td>
+      <td>30</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>399</th>
       <td>0.561</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>562</th>
       <td>0.561</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>40</td>
       <td>False</td>
+      <td>40</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
     <tr>
       <th>398</th>
       <td>0.561</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>80</td>
       <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>492</th>
       <td>0.560</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>entropy</td>
-      <td>None</td>
-      <td>60</td>
       <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>397</th>
       <td>0.560</td>
-      <td>nan</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>70</td>
       <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>nan</td>
     </tr>
     <tr>
       <th>471</th>
       <td>0.560</td>
-      <td>15.000</td>
-      <td>10</td>
-      <td>gini</td>
-      <td>None</td>
-      <td>90</td>
       <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>gini</td>
+      <td>10</td>
+      <td>15.000</td>
     </tr>
   </tbody>
 </table>
@@ -16294,36 +16345,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_ponderated_scorer</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[46]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.4519210358735401</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/training_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -16336,7 +16358,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">binarize</span> 
@@ -16364,7 +16386,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Blosclz</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;blosclz&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
@@ -16396,13 +16418,13 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">IN_OPTIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IN_CR&#39;</span><span class="p">,</span> <span class="s1">&#39;IN_CS&#39;</span><span class="p">,</span> <span class="s1">&#39;IN_DS&#39;</span><span class="p">,</span> <span class="s1">&#39;is_Table&#39;</span><span class="p">,</span> <span class="s1">&#39;is_Columnar&#39;</span><span class="p">,</span> <span class="s1">&#39;is_Int&#39;</span><span class="p">,</span> <span class="s1">&#39;is_Float&#39;</span><span class="p">,</span> <span class="s1">&#39;is_String&#39;</span><span class="p">,</span> <span class="s1">&#39;Type_Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Chunk_Size&#39;</span><span class="p">,</span>
               <span class="s1">&#39;Mean&#39;</span><span class="p">,</span> <span class="s1">&#39;Median&#39;</span><span class="p">,</span> <span class="s1">&#39;Sd&#39;</span><span class="p">,</span> <span class="s1">&#39;Skew&#39;</span><span class="p">,</span> <span class="s1">&#39;Kurt&#39;</span><span class="p">,</span> <span class="s1">&#39;Min&#39;</span><span class="p">,</span> <span class="s1">&#39;Max&#39;</span><span class="p">,</span> <span class="s1">&#39;Q1&#39;</span><span class="p">,</span> <span class="s1">&#39;Q3&#39;</span><span class="p">,</span> <span class="s1">&#39;BLZ_CRate&#39;</span><span class="p">,</span> <span class="s1">&#39;BLZ_CSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;BLZ_DSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;LZ4_CRate&#39;</span><span class="p">,</span>
               <span class="s1">&#39;LZ4_CSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;LZ4_DSpeed&#39;</span><span class="p">]</span>
-<span class="n">OUT_OPTIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Block_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_8&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_16&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_32&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_64&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_128&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_256&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_512&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_1024&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_2048&#39;</span><span class="p">,</span>
+<span class="n">OUT_OPTIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Block_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_8&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_16&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_32&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_64&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_128&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_256&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_512&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_1024&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_2048&#39;</span><span class="p">,,</span>
                <span class="s1">&#39;Blosclz&#39;</span><span class="p">,</span> <span class="s1">&#39;Lz4&#39;</span><span class="p">,</span> <span class="s1">&#39;Lz4hc&#39;</span><span class="p">,</span> <span class="s1">&#39;Snappy&#39;</span><span class="p">,</span> <span class="s1">&#39;Zstd&#39;</span><span class="p">,</span> <span class="s1">&#39;Shuffle&#39;</span><span class="p">,</span> <span class="s1">&#39;Bitshuffle&#39;</span><span class="p">,</span>
                <span class="s1">&#39;CL1&#39;</span><span class="p">,</span> <span class="s1">&#39;CL2&#39;</span><span class="p">,</span> <span class="s1">&#39;CL3&#39;</span><span class="p">,</span> <span class="s1">&#39;CL4&#39;</span><span class="p">,</span> <span class="s1">&#39;CL5&#39;</span><span class="p">,</span> <span class="s1">&#39;CL6&#39;</span><span class="p">,</span> <span class="s1">&#39;CL7&#39;</span><span class="p">,</span> <span class="s1">&#39;CL8&#39;</span><span class="p">,</span> <span class="s1">&#39;CL9&#39;</span><span class="p">]</span>
 <span class="n">OUT_CODEC</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Blosclz&#39;</span><span class="p">,</span> <span class="s1">&#39;Lz4&#39;</span><span class="p">,</span> <span class="s1">&#39;Lz4hc&#39;</span><span class="p">,</span> <span class="s1">&#39;Snappy&#39;</span><span class="p">,</span> <span class="s1">&#39;Zstd&#39;</span><span class="p">]</span>
@@ -16415,7 +16437,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[142]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">IN_OPTIONS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">OUT_CODEC</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -16428,7 +16450,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">ShuffleSplit</span>
@@ -16450,7 +16472,7 @@ The version_information extension is already loaded. To reload it, use:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
@@ -16464,86 +16486,1836 @@ The version_information extension is already loaded. To reload it, use:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Fitting 10 folds for each of 75 candidates, totalling 750 fits
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done  34 tasks      | elapsed:   21.9s
+[Parallel(n_jobs=-1)]: Done 184 tasks      | elapsed:  2.2min
+[Parallel(n_jobs=-1)]: Done 434 tasks      | elapsed:  5.3min
+[Parallel(n_jobs=-1)]: Done 750 out of 750 | elapsed:  9.3min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[27]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=ShuffleSplit(n_splits=10, random_state=None, test_size=0.25, train_size=None),
+       error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
+            max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
+            min_impurity_split=1e-07, min_samples_leaf=1,
+            min_samples_split=2, min_weight_fraction_leaf=0.0,
+            n_estimators=10, n_jobs=-1, oob_score=False, random_state=None,
+            verbose=0, warm_start=False),
+       fit_params={}, iid=True, n_jobs=-1,
+       param_grid={&#39;n_estimators&#39;: [60, 70, 80, 90, 100], &#39;bootstrap&#39;: [False], &#39;class_weight&#39;: [None], &#39;criterion&#39;: [&#39;entropy&#39;], &#39;max_features&#39;: [15, 20, 25], &#39;max_depth&#39;: [None, 15, 20, 25, 30]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
+       scoring=None, verbose=1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[28]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9623938879456706</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[29]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;bootstrap&#39;: False,
+ &#39;class_weight&#39;: None,
+ &#39;criterion&#39;: &#39;entropy&#39;,
+ &#39;max_depth&#39;: 20,
+ &#39;max_features&#39;: 15,
+ &#39;n_estimators&#39;: 100}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">grid_rfc</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">])):</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.96</span><span class="p">:</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">+=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">grid_best_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">param_grid</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">index</span><span class="o">=</span><span class="n">indices</span><span class="p">)</span>
+<span class="n">grid_best_df</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_best_df</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">grid_best_df</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/shurberto/miniconda3/lib/python3.5/site-packages/ipykernel/__main__.py:11: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[31]:</div>
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Score</th>
+      <th>n_estimators</th>
+      <th>bootstrap</th>
+      <th>class_weight</th>
+      <th>criterion</th>
+      <th>max_features</th>
+      <th>max_depth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>34</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>100</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>20.000</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>100</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>30.000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>100</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>100</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>30.000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>30.000</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>25.000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>20.000</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>20.000</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>20.000</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0.962</td>
+      <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>25.000</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>30.000</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>25.000</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>30.000</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>20.000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>90</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>70</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>25.000</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>80</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>15.000</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>60</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>0.961</td>
+      <td>False</td>
+      <td>100</td>
+      <td>None</td>
+      <td>entropy</td>
+      <td>15</td>
+      <td>25.000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[140]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span>
+                             <span class="n">max_features</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[146]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+<span class="n">ss</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[147]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.95755518,  0.9516129 ,  0.95288625,  0.95458404,  0.95755518,
+        0.9533107 ,  0.95882852,  0.94949066,  0.96052632,  0.95288625])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[148]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: </span><span class="si">%0.2f</span><span class="s2"> (+/- </span><span class="si">%0.2f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Accuracy: 0.95 (+/- 0.01)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">rfc</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[94]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.95755518,  0.95840407,  0.95755518,  0.95500849,  0.95840407,
+        0.96519525,  0.96095076,  0.96943973,  0.96010187,  0.96689304])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: </span><span class="si">%0.2f</span><span class="s2"> (+/- </span><span class="si">%0.2f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Accuracy: 0.96 (+/- 0.01)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[132]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">],</span>
+              <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]}</span>
+<span class="n">grid_rfc</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 10 folds for each of 1 candidates, totalling 10 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done   6 out of  10 | elapsed:    7.5s remaining:    5.0s
+[Parallel(n_jobs=-1)]: Done  10 out of  10 | elapsed:    9.9s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[132]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=ShuffleSplit(n_splits=10, random_state=None, test_size=0.5, train_size=None),
+       error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params={}, iid=True, n_jobs=-1,
+       param_grid={&#39;n_estimators&#39;: [80], &#39;bootstrap&#39;: [False], &#39;class_weight&#39;: [None], &#39;criterion&#39;: [&#39;entropy&#39;], &#39;max_features&#39;: [15], &#39;max_depth&#39;: [20]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
+       scoring=None, verbose=1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[133]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[133]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OUT_FILTER</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Shuffle&#39;</span><span class="p">,</span> <span class="s1">&#39;Bitshuffle&#39;</span><span class="p">]</span>
+<span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux</span><span class="p">[:,:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">aux</span><span class="p">[:,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">grid_rfc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[109]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">aux</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">OUT_FILTER</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ss</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[111]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[111]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.94227504,  0.96519525,  0.96434635,  0.95415959,  0.9533107 ,
+        0.96264856,  0.95670628,  0.9533107 ,  0.94651952,  0.96774194])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: </span><span class="si">%0.2f</span><span class="s2"> (+/- </span><span class="si">%0.2f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Accuracy: 0.96 (+/- 0.02)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">],</span>
+              <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]}</span>
+<span class="n">grid_rfc2</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_rfc2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 10 folds for each of 1 candidates, totalling 10 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done   6 out of  10 | elapsed:    2.3s remaining:    1.5s
+[Parallel(n_jobs=-1)]: Done  10 out of  10 | elapsed:    2.8s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[113]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=ShuffleSplit(n_splits=10, random_state=None, test_size=0.25, train_size=None),
+       error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params={}, iid=True, n_jobs=-1,
+       param_grid={&#39;n_estimators&#39;: [80], &#39;bootstrap&#39;: [False], &#39;class_weight&#39;: [None], &#39;criterion&#39;: [&#39;entropy&#39;], &#39;max_features&#39;: [15], &#39;max_depth&#39;: [20]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
+       scoring=None, verbose=1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc2</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[114]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.95764006791171474</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[115]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OUT_LEVELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CL1&#39;</span><span class="p">,</span> <span class="s1">&#39;CL2&#39;</span><span class="p">,</span> <span class="s1">&#39;CL3&#39;</span><span class="p">,</span> <span class="s1">&#39;CL4&#39;</span><span class="p">,</span> <span class="s1">&#39;CL5&#39;</span><span class="p">,</span> <span class="s1">&#39;CL6&#39;</span><span class="p">,</span> <span class="s1">&#39;CL7&#39;</span><span class="p">,</span> <span class="s1">&#39;CL8&#39;</span><span class="p">,</span> <span class="s1">&#39;CL9&#39;</span><span class="p">]</span>
+<span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux</span><span class="p">[:,:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">aux</span><span class="p">[:,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">grid_rfc2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">aux</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">OUT_LEVELS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">rfc</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[119]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[119]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.54923599,  0.56451613,  0.55602716,  0.54499151,  0.56960951,
+        0.56960951,  0.52207131,  0.56791171,  0.55602716,  0.56621392])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: </span><span class="si">%0.2f</span><span class="s2"> (+/- </span><span class="si">%0.2f</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Accuracy: 0.56 (+/- 0.03)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">],</span>
+              <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]}</span>
+<span class="n">grid_rfc3</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_rfc3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 10 folds for each of 1 candidates, totalling 10 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done   6 out of  10 | elapsed:   12.4s remaining:    8.2s
+[Parallel(n_jobs=-1)]: Done  10 out of  10 | elapsed:   15.6s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[121]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=ShuffleSplit(n_splits=10, random_state=None, test_size=0.25, train_size=None),
+       error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params={}, iid=True, n_jobs=-1,
+       param_grid={&#39;n_estimators&#39;: [80], &#39;bootstrap&#39;: [False], &#39;class_weight&#39;: [None], &#39;criterion&#39;: [&#39;entropy&#39;], &#39;max_features&#39;: [15], &#39;max_depth&#39;: [20]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
+       scoring=None, verbose=1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[122]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc3</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[122]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.54779286926994908</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc3</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[123]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OUT_BLOCKS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Block_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_8&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_16&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_32&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_64&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_128&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_256&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_512&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_1024&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_2048&#39;</span><span class="p">]</span>
+<span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux</span><span class="p">[:,:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">aux</span><span class="p">[:,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">grid_rfc3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">aux</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">OUT_BLOCKS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">KeyboardInterrupt</span>                         Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-51-8a467bbbd049&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>grid_rfc<span class="ansi-yellow-intense-fg ansi-bold">.</span>fit<span class="ansi-yellow-intense-fg ansi-bold">(</span>X<span class="ansi-yellow-intense-fg ansi-bold">,</span> Y<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-126-4585d35bf4ab&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> X <span class="ansi-blue-fg">=</span> aux
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>Y <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">[</span>OUT_BLOCKS<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>values
 
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\model_selection\_search.py</span> in <span class="ansi-cyan-fg">fit</span><span class="ansi-blue-intense-fg ansi-bold">(self, X, y, groups)</span>
-<span class="ansi-green-fg">    943</span>             train<span class="ansi-yellow-intense-fg ansi-bold">/</span>test set<span class="ansi-yellow-intense-fg ansi-bold">.</span>
-<span class="ansi-green-fg">    944</span>         &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 945</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fit<span class="ansi-yellow-intense-fg ansi-bold">(</span>X<span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">,</span> groups<span class="ansi-yellow-intense-fg ansi-bold">,</span> ParameterGrid<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>param_grid<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    946</span> 
-<span class="ansi-green-fg">    947</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\model_selection\_search.py</span> in <span class="ansi-cyan-fg">_fit</span><span class="ansi-blue-intense-fg ansi-bold">(self, X, y, groups, parameter_iterable)</span>
-<span class="ansi-green-fg">    562</span>                                   return_times<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> return_parameters<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-fg">    563</span>                                   error_score=self.error_score)
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 564</span><span class="ansi-yellow-intense-fg ansi-bold">           </span><span class="ansi-green-intense-fg ansi-bold">for</span> parameters <span class="ansi-green-intense-fg ansi-bold">in</span> parameter_iterable
-<span class="ansi-green-fg">    565</span>           for train, test in cv_iter)
-<span class="ansi-green-fg">    566</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\externals\joblib\parallel.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, iterable)</span>
-<span class="ansi-green-fg">    766</span>                 <span class="ansi-red-intense-fg ansi-bold"># consumption.</span>
-<span class="ansi-green-fg">    767</span>                 self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_iterating <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">False</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 768</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>retrieve<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    769</span>             <span class="ansi-red-intense-fg ansi-bold"># Make sure that we get a last message telling us we are done</span>
-<span class="ansi-green-fg">    770</span>             elapsed_time <span class="ansi-yellow-intense-fg ansi-bold">=</span> time<span class="ansi-yellow-intense-fg ansi-bold">.</span>time<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">-</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_start_time
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\externals\joblib\parallel.py</span> in <span class="ansi-cyan-fg">retrieve</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    717</span>                     ensure_ready <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_managed_backend
-<span class="ansi-green-fg">    718</span>                     backend<span class="ansi-yellow-intense-fg ansi-bold">.</span>abort_everything<span class="ansi-yellow-intense-fg ansi-bold">(</span>ensure_ready<span class="ansi-yellow-intense-fg ansi-bold">=</span>ensure_ready<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 719</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-green-intense-fg ansi-bold">raise</span> exception
-<span class="ansi-green-fg">    720</span> 
-<span class="ansi-green-fg">    721</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> iterable<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\site-packages\sklearn\externals\joblib\parallel.py</span> in <span class="ansi-cyan-fg">retrieve</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    680</span>                 <span class="ansi-red-intense-fg ansi-bold"># check if timeout supported in backend future implementation</span>
-<span class="ansi-green-fg">    681</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;timeout&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> getfullargspec<span class="ansi-yellow-intense-fg ansi-bold">(</span>job<span class="ansi-yellow-intense-fg ansi-bold">.</span>get<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>args<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 682</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_output<span class="ansi-yellow-intense-fg ansi-bold">.</span>extend<span class="ansi-yellow-intense-fg ansi-bold">(</span>job<span class="ansi-yellow-intense-fg ansi-bold">.</span>get<span class="ansi-yellow-intense-fg ansi-bold">(</span>timeout<span class="ansi-yellow-intense-fg ansi-bold">=</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>timeout<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    683</span>                 <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    684</span>                     self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_output<span class="ansi-yellow-intense-fg ansi-bold">.</span>extend<span class="ansi-yellow-intense-fg ansi-bold">(</span>job<span class="ansi-yellow-intense-fg ansi-bold">.</span>get<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\multiprocessing\pool.py</span> in <span class="ansi-cyan-fg">get</span><span class="ansi-blue-intense-fg ansi-bold">(self, timeout)</span>
-<span class="ansi-green-fg">    600</span> 
-<span class="ansi-green-fg">    601</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> get<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> timeout<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 602</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>wait<span class="ansi-yellow-intense-fg ansi-bold">(</span>timeout<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    603</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>ready<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    604</span>             <span class="ansi-green-intense-fg ansi-bold">raise</span> TimeoutError
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\multiprocessing\pool.py</span> in <span class="ansi-cyan-fg">wait</span><span class="ansi-blue-intense-fg ansi-bold">(self, timeout)</span>
-<span class="ansi-green-fg">    597</span> 
-<span class="ansi-green-fg">    598</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> wait<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> timeout<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 599</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_event<span class="ansi-yellow-intense-fg ansi-bold">.</span>wait<span class="ansi-yellow-intense-fg ansi-bold">(</span>timeout<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    600</span> 
-<span class="ansi-green-fg">    601</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> get<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> timeout<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\threading.py</span> in <span class="ansi-cyan-fg">wait</span><span class="ansi-blue-intense-fg ansi-bold">(self, timeout)</span>
-<span class="ansi-green-fg">    547</span>             signaled <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_flag
-<span class="ansi-green-fg">    548</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> signaled<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 549</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>signaled <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_cond<span class="ansi-yellow-intense-fg ansi-bold">.</span>wait<span class="ansi-yellow-intense-fg ansi-bold">(</span>timeout<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    550</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> signaled
-<span class="ansi-green-fg">    551</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\Shurberto\Anaconda3\lib\threading.py</span> in <span class="ansi-cyan-fg">wait</span><span class="ansi-blue-intense-fg ansi-bold">(self, timeout)</span>
-<span class="ansi-green-fg">    291</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>    <span class="ansi-red-intense-fg ansi-bold"># restore state no matter what (e.g., KeyboardInterrupt)</span>
-<span class="ansi-green-fg">    292</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> timeout <span class="ansi-green-intense-fg ansi-bold">is</span> <span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 293</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>waiter<span class="ansi-yellow-intense-fg ansi-bold">.</span>acquire<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    294</span>                 gotit <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">True</span>
-<span class="ansi-green-fg">    295</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-red-intense-fg ansi-bold">KeyboardInterrupt</span>: </pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;OUT_BLOCKS&#39; is not defined</pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">],</span>
+              <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">],</span>
+              <span class="s1">&#39;criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;entropy&#39;</span><span class="p">],</span>
+              <span class="s1">&#39;bootstrap&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">],</span>
+              <span class="s1">&#39;max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span>
+              <span class="s1">&#39;class_weight&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">]}</span>
+<span class="n">grid_rfc3</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">rfc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">ss</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_rfc3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 10 folds for each of 1 candidates, totalling 10 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done   6 out of  10 | elapsed:   10.7s remaining:    7.2s
+[Parallel(n_jobs=-1)]: Done  10 out of  10 | elapsed:   13.5s finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[128]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=ShuffleSplit(n_splits=10, random_state=None, test_size=0.25, train_size=None),
+       error_score=&#39;raise&#39;,
+       estimator=RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+       fit_params={}, iid=True, n_jobs=-1,
+       param_grid={&#39;n_estimators&#39;: [80], &#39;bootstrap&#39;: [False], &#39;class_weight&#39;: [None], &#39;criterion&#39;: [&#39;entropy&#39;], &#39;max_features&#39;: [15], &#39;max_depth&#39;: [20]},
+       pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=True,
+       scoring=None, verbose=1)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[129]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc3</span><span class="o">.</span><span class="n">best_score_</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[129]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.45823429541595928</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[130]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_rfc3</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[130]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Así pues surge un claro problema, vamos a dividir nuestros datos de entrenamiento de forma equitativa.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[227]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chunks_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DataSet&#39;</span><span class="p">,</span> <span class="s1">&#39;Table&#39;</span><span class="p">,</span> <span class="s1">&#39;Chunk_Number&#39;</span><span class="p">])</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">spliter</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i_train</span><span class="p">,</span> <span class="n">i_test</span> <span class="ow">in</span> <span class="n">spliter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">chunks_df</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">aux_train</span> <span class="o">=</span> <span class="n">chunks_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i_train</span><span class="p">][[</span><span class="s1">&#39;DataSet&#39;</span><span class="p">,</span> <span class="s1">&#39;Table&#39;</span><span class="p">,</span> <span class="s1">&#39;Chunk_Number&#39;</span><span class="p">]]</span>
+    <span class="n">aux_test</span> <span class="o">=</span> <span class="n">chunks_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i_test</span><span class="p">][[</span><span class="s1">&#39;DataSet&#39;</span><span class="p">,</span> <span class="s1">&#39;Table&#39;</span><span class="p">,</span> <span class="s1">&#39;Chunk_Number&#39;</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">aux_train</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">DataSet</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;DataSet&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Table</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+                             <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Chunk_Number</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Chunk_Number&#39;</span><span class="p">])])</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">aux_test</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">test_data</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">DataSet</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;DataSet&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Table</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+                             <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Chunk_Number</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Chunk_Number&#39;</span><span class="p">])])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[246]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">IN_OPTIONS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">train_data</span><span class="p">[</span><span class="n">OUT_FILTER</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[247]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Xtest</span><span class="p">,</span> <span class="n">Ytest</span> <span class="o">=</span> <span class="n">test_data</span><span class="p">[</span><span class="n">IN_OPTIONS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">test_data</span><span class="p">[</span><span class="n">OUT_FILTER</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[230]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span>
+                             <span class="n">max_features</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[231]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[231]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[232]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">Ytest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[232]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.95767195767195767</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[233]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OUT_FILTER</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[233]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;Shuffle&#39;, &#39;Bitshuffle&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[234]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux</span><span class="p">[:,:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">aux</span><span class="p">[:,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rfc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">aux2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ytest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux2</span><span class="p">[:,:</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Xtest</span>
+<span class="n">aux2</span><span class="p">[:,</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ytest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rfc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[235]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">Xtest</span> <span class="o">=</span> <span class="n">aux</span><span class="p">,</span> <span class="n">aux2</span>
+<span class="n">Y</span><span class="p">,</span> <span class="n">Ytest</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">OUT_FILTER</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">test_data</span><span class="p">[</span><span class="n">OUT_FILTER</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[236]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc2</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span>
+                             <span class="n">max_features</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rfc2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[236]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[237]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">Ytest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[237]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.94126984126984126</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[238]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OUT_LEVELS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CL1&#39;</span><span class="p">,</span> <span class="s1">&#39;CL2&#39;</span><span class="p">,</span> <span class="s1">&#39;CL3&#39;</span><span class="p">,</span> <span class="s1">&#39;CL4&#39;</span><span class="p">,</span> <span class="s1">&#39;CL5&#39;</span><span class="p">,</span> <span class="s1">&#39;CL6&#39;</span><span class="p">,</span> <span class="s1">&#39;CL7&#39;</span><span class="p">,</span> <span class="s1">&#39;CL8&#39;</span><span class="p">,</span> <span class="s1">&#39;CL9&#39;</span><span class="p">]</span>
+<span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux</span><span class="p">[:,:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">aux</span><span class="p">[:,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rfc2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">aux2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ytest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux2</span><span class="p">[:,:</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Xtest</span>
+<span class="n">aux2</span><span class="p">[:,</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ytest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rfc2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[239]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">Xtest</span> <span class="o">=</span> <span class="n">aux</span><span class="p">,</span> <span class="n">aux2</span>
+<span class="n">Y</span><span class="p">,</span> <span class="n">Ytest</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">OUT_LEVELS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">test_data</span><span class="p">[</span><span class="n">OUT_LEVELS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[240]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc3</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span>
+                             <span class="n">max_features</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rfc3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[240]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[241]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc3</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">Ytest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[241]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.49682539682539684</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[242]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OUT_BLOCKS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Block_0&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_8&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_16&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_32&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_64&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_128&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_256&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_512&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_1024&#39;</span><span class="p">,</span> <span class="s1">&#39;Block_2048&#39;</span><span class="p">]</span>
+<span class="n">aux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux</span><span class="p">[:,:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">aux</span><span class="p">[:,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rfc3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">aux2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ytest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">aux2</span><span class="p">[:,:</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Xtest</span>
+<span class="n">aux2</span><span class="p">[:,</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">Xtest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ytest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">rfc3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[243]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">Xtest</span> <span class="o">=</span> <span class="n">aux</span><span class="p">,</span> <span class="n">aux2</span>
+<span class="n">Y</span><span class="p">,</span> <span class="n">Ytest</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">OUT_BLOCKS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">test_data</span><span class="p">[</span><span class="n">OUT_BLOCKS</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[244]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc4</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span>
+                             <span class="n">max_features</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rfc4</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[244]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>RandomForestClassifier(bootstrap=False, class_weight=None,
+            criterion=&#39;entropy&#39;, max_depth=20, max_features=15,
+            max_leaf_nodes=None, min_impurity_split=1e-07,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=70, n_jobs=-1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[245]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfc4</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">Ytest</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt output_prompt">Out[245]:</div>
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.38835978835978835</pre>
+</div>
+
 </div>
 
 </div>
@@ -16566,4 +18338,8 @@ The version_information extension is already loaded. To reload it, use:
     </div>
   </div>
 </body>
+
+ 
+
+
 </html>
