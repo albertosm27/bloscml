@@ -18,7 +18,7 @@ def my_brier_scorer(predictor, X, y):
         aux = np.square(sorted_probs[i] - y[i])
         score += np.mean(aux[0:5]) + np.mean(aux[5:8]) + \
             np.mean(aux[8:17]) + np.mean(aux[17:26])
-    return score / y.shape[0]
+    return -score / y.shape[0]
 
 
 def my_accuracy_scorer(predictor, X, y):

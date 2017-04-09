@@ -77,7 +77,7 @@ def plot_learning_curve(estimator, title, X, y, scoring, ylim=None, cv=None,
     return plt
 
 
-def plot_validation_curve(rfc, X, Y, param_name, param_range, cv, scoring):
+def plot_validation_curve(rfc, X, Y, param_name, param_range, scoring, ylim,  cv):
     train_scores, test_scores = validation_curve(rfc, X, Y,
                                                  param_name=param_name,
                                                  param_range=param_range,
@@ -89,11 +89,13 @@ def plot_validation_curve(rfc, X, Y, param_name, param_range, cv, scoring):
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
 
+    plt.figure()
     plt.title("Validation Curve with Random Forest")
     plt.xlabel(param_name)
-    plt.ylabel("Score %s" % str(scoring))
-    plt.ylim(0.0, 1.1)
+    plt.ylabel("Score %s" % scoring.__name__)
+    plt.ylim(*ylim)
     lw = 2
+    plt.grid()
 
     plt.plot(param_range, train_scores_mean, label="Training score",
              color="#FF9500", lw=lw)

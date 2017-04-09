@@ -67,6 +67,7 @@ def main():
                 outer_scores.append(score(clf, X[test_index], Y[test_index]))
             nested_scores[i] = np.mean(outer_scores)
             nested_estimators.append(winner_estimators)
+            count += 1
         joblib.dump(non_nested_scores, 'non_nested_scores_' +
                     score.__name__ + '.pkl')
         joblib.dump(nested_scores, 'nested_scores_' +
