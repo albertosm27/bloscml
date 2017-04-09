@@ -6,8 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import ShuffleSplit
 from sklearn.externals import joblib
-from .scoring_functions import my_accuracy_scorer
-from .scoring_functions import my_brier_scorer
+from scoring_functions import my_accuracy_scorer
+from scoring_functions import my_brier_scorer
 
 
 NUM_TRIALS = 30
@@ -65,7 +65,7 @@ def main():
                 clf.fit(X[train_index], Y[train_index])
                 winner_estimators.append(clf.best_estimator_)
                 outer_scores.append(score(clf, X[test_index], Y[test_index]))
-            nested_scores.append(np.mean(outer_scores))
+            nested_scores[i] = np.mean(outer_scores)
             nested_estimators.append(winner_estimators)
         joblib.dump(non_nested_scores, 'non_nested_scores_' +
                     score.__name__ + '.pkl')
