@@ -1,22 +1,23 @@
-# IMPORTS, GLOBAL VARIABLES AND FUNCTION DEFINITION
-import itertools
-from turtledemo.__main__ import font_sizes
 
+import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 from scipy.stats.stats import pearsonr
 
 # DICTIONARIES FOR BUILDING PERSONALIZED GRAPHS
-COLOR_PALETTE = {'blosclz': '#5AC8FA', 'lz4': '#4CD964', 'lz4hc': '#FF3B30', 'snappy': '#FFCC00',
-                 'zlib': '#FF9500', 'zstd': '#5856D6'}
+COLOR_PALETTE = {'blosclz': '#5AC8FA', 'lz4': '#4CD964', 'lz4hc': '#FF3B30',
+                 'snappy': '#FFCC00', 'zlib': '#FF9500', 'zstd': '#5856D6'}
 MARKER_DICT = {'noshuffle': 'o', 'shuffle': 'v', 'bitshuffle': 's'}
 
 # DIFFERENT COLUMN LISTS FROM THE DATAFRAME FOR SELECTING SPECIFIC INFO
-COLS = ['Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt',
-        'Min', 'Max', 'Q1', 'Q3', 'N_Streaks', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed', 'DSpeed']
+COLS = ['Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size',
+        'Mean', 'Median', 'Sd', 'Skew', 'Kurt', 'Min', 'Max', 'Q1', 'Q3',
+        'N_Streaks', 'Block_Size', 'Codec', 'Filter', 'CL', 'CRate', 'CSpeed',
+        'DSpeed']
 DESC_SET = ['DataSet', 'DType', 'Table', 'Chunk_Size']
-CHUNK_FEATURES = ['Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt', 'Min', 'Max', 'Q1', 'Q3', 'N_Streaks']
+CHUNK_FEATURES = ['Chunk_Size', 'Mean', 'Median', 'Sd',
+                  'Skew', 'Kurt', 'Min', 'Max', 'Q1', 'Q3', 'N_Streaks']
 TEST_FEATURES = ['CRate', 'CSpeed', 'DSpeed']
 ALL_FEATURES = CHUNK_FEATURES + TEST_FEATURES
 
@@ -76,7 +77,8 @@ def custom_centered_scatter(ax, x, y):
     y_lim = outlier_lim(y)
     x_, y_ = [], []
     for i in range(len(x)):
-        if x_lim[0] <= x.iloc[i] <= x_lim[1] and y_lim[0] <= y.iloc[i] <= y_lim[1]:
+        if (x_lim[0] <= x.iloc[i] <= x_lim[1] and
+                y_lim[0] <= y.iloc[i] <= y_lim[1]):
             x_.append(x.iloc[i])
             y_.append(y.iloc[i])
     ax.scatter(x_, y_, color='#007AFF', marker='.', linewidth=3)
@@ -95,7 +97,8 @@ def custom_centered_scatter(ax, x, y):
 def custom_pearson_scatter(ax, x_, y_, c_, m_, title, dtype):
     """Customized scatter plot for correlations."""
 
-    for x, y, c, m, size in zip(x_, y_, c_, m_, np.asarray(list((itertools.repeat([10, 16], len(c_))))).flatten()):
+    for x, y, c, m, size in zip(x_, y_, c_, m_, np.asarray(
+            list((itertools.repeat([10, 16], len(c_))))).flatten()):
         ax.plot(x, y, alpha=0.8, c=c, marker=m, linewidth=3, markersize=size)
     ax.set_axisbelow(True)
     ax.yaxis.grid(color='#CECED2')
@@ -113,7 +116,8 @@ def custom_sc_legend(fig):
     """Customized legend for the correlation plots."""
 
     handles = [mlines.Line2D([], [], color=color, marker='o', linestyle=' ',
-                             markersize=10, label=label) for label, color in COLOR_PALETTE.items()]
+                             markersize=10, label=label)
+               for label, color in COLOR_PALETTE.items()]
     handles += [mlines.Line2D([], [], color='k', marker='o', linestyle=' ',
                               markersize=10, label='NOSHUFFLE'),
                 mlines.Line2D([], [], color='k', marker='v', linestyle=' ',
@@ -125,14 +129,17 @@ def custom_sc_legend(fig):
                 mlines.Line2D([], [], color='k', marker='o', linestyle=' ',
                               markersize=16, label='Compression Level 9')]
     labels = [label for label in COLOR_PALETTE.keys()]
-    labels += ['NOSHUFFLE', 'SHUFFLE', 'BITSHUFFLE', 'Compression Level 1', 'Compression Level 9']
-    fig.legend(handles=handles, labels=labels, loc='lower left', ncol=2, bbox_to_anchor=(1, 0.05))
+    labels += ['NOSHUFFLE', 'SHUFFLE', 'BITSHUFFLE',
+               'Compression Level 1', 'Compression Level 9']
+    fig.legend(handles=handles, labels=labels, loc='lower left',
+               ncol=2, bbox_to_anchor=(1, 0.05))
     fig.tight_layout()
 
     return fig
 
 
-def custom_lineplot_tests(ax, x, rates, c_speeds, d_speeds, title='', cl_mode=False):
+def custom_lineplot_tests(ax, x, rates, c_speeds, d_speeds, title='',
+                          cl_mode=False):
     """Customized line plot for blosc test data."""
 
     ax.plot(x, rates, color='#007AFF', marker='o', markersize=8, linewidth=3)
@@ -145,8 +152,10 @@ def custom_lineplot_tests(ax, x, rates, c_speeds, d_speeds, title='', cl_mode=Fa
                               markersize=8, label='Compression ratio')
     plt.legend(handles=[blue_line], loc=2, bbox_to_anchor=(0., 1.01, 0., .102))
     ax2 = ax.twinx()
-    ax2.plot(x, c_speeds, color='#FF3B30', marker='o', markersize=8, linewidth=3)
-    ax2.plot(x, d_speeds, color='#4CD964', marker='o', markersize=8, linewidth=3)
+    ax2.plot(x, c_speeds, color='#FF3B30',
+             marker='o', markersize=8, linewidth=3)
+    ax2.plot(x, d_speeds, color='#4CD964',
+             marker='o', markersize=8, linewidth=3)
     ax2.set_ylabel('Speed (GB/s)', color='k')
     ax.set_yticks(np.linspace(ax.get_ybound()[0], ax.get_ybound()[1], 6))
     ax2.set_yticks(np.linspace(ax2.get_ybound()[0], ax2.get_ybound()[1], 6))
@@ -154,11 +163,13 @@ def custom_lineplot_tests(ax, x, rates, c_speeds, d_speeds, title='', cl_mode=Fa
                              markersize=8, label='Compression')
     green_line = mlines.Line2D([], [], color='#4CD964', marker='o',
                                markersize=8, label='Decompression')
-    plt.legend(handles=[red_line, green_line], loc=1, bbox_to_anchor=(0., 1.01, 1., .102))
+    plt.legend(handles=[red_line, green_line], loc=1,
+               bbox_to_anchor=(0., 1.01, 1., .102))
     if not cl_mode:
         ax.set_xscale('log', basex=2)
         ax.set_xticks(x)
-        ax.set_xticklabels(['Auto', '8K', '16K', '32K', '64K', '128K', '256K', '512K', '1MB', '2MB'])
+        ax.set_xticklabels(['Auto', '8K', '16K', '32K', '64K',
+                            '128K', '256K', '512K', '1MB', '2MB'])
         ax.set_xlabel('Block Size')
     else:
         ax.set_xticks(x)
@@ -202,24 +213,30 @@ def paint_dtype_boxplots(df):
             pos = i % n
             ax = fig.add_subplot(aux)
             if i < n:
-                custom_boxplot(ax, rates[pos], 'C.Rates-' + TYPES[indices[pos]],
+                custom_boxplot(ax, rates[pos],
+                               'C.Rates-' + TYPES[indices[pos]],
                                'Compression Rates')
             elif i < n * 2:
-                custom_boxplot(ax, c_speeds[pos], 'C.Speeds-' + TYPES[indices[pos]],
+                custom_boxplot(ax, c_speeds[pos],
+                               'C.Speeds-' + TYPES[indices[pos]],
                                'Compression Speeds (GB/s)')
             else:
-                custom_boxplot(ax, d_speeds[pos], 'D.Speeds-' + TYPES[indices[pos]],
+                custom_boxplot(ax, d_speeds[pos],
+                               'D.Speeds-' + TYPES[indices[pos]],
                                'Decompression Speeds (GB/s)')
     else:
         fig = plt.figure(figsize=(20, 8))
         custom_boxplot(fig.add_subplot(131), rates[0],
                        'C.Rates-' + TYPES[indices[0]], 'Compression Rates')
         custom_boxplot(fig.add_subplot(132), c_speeds[0],
-                       'C.Speeds-' + TYPES[indices[0]], 'Compression Speeds (GB/s)')
+                       'C.Speeds-' + TYPES[indices[0]],
+                       'Compression Speeds (GB/s)')
         custom_boxplot(fig.add_subplot(133), d_speeds[0],
-                       'D.Speeds-' + TYPES[indices[0]], 'Decompression Speeds (GB/s)')
+                       'D.Speeds-' + TYPES[indices[0]],
+                       'Decompression Speeds (GB/s)')
     fig.suptitle('Test features boxplots')
-    plt.savefig(FIG_PATH + 'Test features boxplots' + '.png', bbox_inches='tight')
+    plt.savefig(FIG_PATH + 'Test features boxplots' +
+                '.png', bbox_inches='tight')
 
 
 def block_cor_data_builder(df, onlystr, cl_mode):
@@ -241,14 +258,20 @@ def block_cor_data_builder(df, onlystr, cl_mode):
             dfaux = df[df.DType.str.contains(TYPES[i])]
         if dfaux.size > 0:
             if not cl_mode:
-                rates.append([dfaux[dfaux.Block_Size == size]['CRate'].mean() for size in block_values])
-                c_speeds.append([dfaux[dfaux.Block_Size == size]['CSpeed'].mean() for size in block_values])
-                d_speeds.append([dfaux[dfaux.Block_Size == size]['DSpeed'].mean() for size in block_values])
+                rates.append([dfaux[dfaux.Block_Size == size]
+                              ['CRate'].mean() for size in block_values])
+                c_speeds.append([dfaux[dfaux.Block_Size == size]
+                                 ['CSpeed'].mean() for size in block_values])
+                d_speeds.append([dfaux[dfaux.Block_Size == size]
+                                 ['DSpeed'].mean() for size in block_values])
                 indices.append(i)
             else:
-                rates.append([dfaux[dfaux.CL == cl]['CRate'].mean() for cl in list(range(10))[1:]])
-                c_speeds.append([dfaux[dfaux.CL == cl]['CSpeed'].mean() for cl in list(range(10))[1:]])
-                d_speeds.append([dfaux[dfaux.CL == cl]['DSpeed'].mean() for cl in list(range(10))[1:]])
+                rates.append([dfaux[dfaux.CL == cl]['CRate'].mean()
+                              for cl in list(range(10))[1:]])
+                c_speeds.append([dfaux[dfaux.CL == cl]['CSpeed'].mean()
+                                 for cl in list(range(10))[1:]])
+                d_speeds.append([dfaux[dfaux.CL == cl]['DSpeed'].mean()
+                                 for cl in list(range(10))[1:]])
                 indices.append(i)
 
     return rates, c_speeds, d_speeds, indices
@@ -257,7 +280,8 @@ def block_cor_data_builder(df, onlystr, cl_mode):
 def paint_block_cor(df, title='', onlystr=False, cl_mode=False):
     """Paint custom lineplots structured by dtype."""
 
-    rates, c_speeds, d_speeds, indices = block_cor_data_builder(df, onlystr, cl_mode)
+    rates, c_speeds, d_speeds, indices = block_cor_data_builder(
+        df, onlystr, cl_mode)
     if not cl_mode:
         x = [1] + BLOCK_SIZES
     else:
@@ -272,14 +296,18 @@ def paint_block_cor(df, title='', onlystr=False, cl_mode=False):
         pos = 100 + n * 10 + i + 1
         ax = fig.add_subplot(pos)
         custom_lineplot_tests(ax, x, rates=rates[i], c_speeds=c_speeds[i],
-                              d_speeds=d_speeds[i], title='dtype - ' + TYPES[indices[i]], cl_mode=cl_mode)
+                              d_speeds=d_speeds[i],
+                              title='dtype - ' + TYPES[indices[i]],
+                              cl_mode=cl_mode)
     if n > 1:
         fig.tight_layout()
     plt.subplots_adjust(top=0.85)
-    plt.savefig(FIG_PATH + sup_title + ' comparison with ' + title + '.png', bbox_inches='tight')
+    plt.savefig(FIG_PATH + sup_title + ' comparison with ' +
+                title + '.png', bbox_inches='tight')
 
 
-def paint_all_block_cor(df, filter_name, c_level=5, cl_mode=False, block_size=0):
+def paint_all_block_cor(df, filter_name, c_level=5, cl_mode=False,
+                        block_size=0):
     """Paint all custom lineplots for filter."""
 
     if filter_name == 'noshuffle':
@@ -289,19 +317,27 @@ def paint_all_block_cor(df, filter_name, c_level=5, cl_mode=False, block_size=0)
     for codec in df.drop_duplicates(subset=['Codec'])['Codec']:
         if codec == 'blosclz' and filter_name == 'shuffle':
             if not cl_mode:
-                paint_block_cor(df[(df.CL == c_level) & (df.Codec == codec) & (df.Filter == 'bitshuffle')],
-                                codec.upper() + '-BITSHUFFLE-CL' + str(c_level), onlystr, cl_mode)
+                paint_block_cor(df[(df.CL == c_level) & (df.Codec == codec) &
+                                   (df.Filter == 'bitshuffle')],
+                                codec.upper() + '-BITSHUFFLE-CL' +
+                                str(c_level), onlystr, cl_mode)
             else:
                 paint_block_cor(
-                    df[(df.Block_Size == block_size) & (df.Codec == codec) & (df.Filter == 'bitshuffle')],
-                    codec.upper() + '-BITSHUFFLE-BLOCK' + str(block_size), onlystr, cl_mode)
+                    df[(df.Block_Size == block_size) & (
+                        df.Codec == codec) & (df.Filter == 'bitshuffle')],
+                    codec.upper() + '-BITSHUFFLE-BLOCK' + str(block_size),
+                    onlystr, cl_mode)
         if not cl_mode:
-            paint_block_cor(df[(df.CL == c_level) & (df.Codec == codec) & (df.Filter == filter_name)],
-                            codec.upper() + '-' + filter_name.upper() + '-CL' + str(c_level), onlystr, cl_mode)
+            paint_block_cor(df[(df.CL == c_level) & (df.Codec == codec) &
+                               (df.Filter == filter_name)],
+                            codec.upper() + '-' + filter_name.upper() + '-CL' +
+                            str(c_level), onlystr, cl_mode)
         else:
             paint_block_cor(
-                df[(df.Block_Size == block_size) & (df.Codec == codec) & (df.Filter == filter_name)],
-                codec.upper() + '-' + filter_name.upper() + '-BLOCK' + str(block_size), onlystr, cl_mode)
+                df[(df.Block_Size == block_size) & (
+                    df.Codec == codec) & (df.Filter == filter_name)],
+                codec.upper() + '-' + filter_name.upper() + '-BLOCK' +
+                str(block_size), onlystr, cl_mode)
 
 
 def paint_cl_comparison(df, filter_name, codec):
@@ -310,23 +346,28 @@ def paint_cl_comparison(df, filter_name, codec):
     data = []
     c_levels = [1, 3, 6, 9]
     for c_level in c_levels:
-        data.append(block_cor_data_builder(df[(df.CL == c_level) & (df.Codec == codec) & (df.Filter == filter_name)],
+        data.append(block_cor_data_builder(df[(df.CL == c_level) &
+                                              (df.Codec == codec) &
+                                              (df.Filter == filter_name)],
                                            False, False))
     block_sizes = [1] + BLOCK_SIZES
     n = len(data[0][0])
     for i in range(n):
         fig = plt.figure(figsize=(20, 16))
-        fig.suptitle('Compression Level and block size comparison ' + codec.upper() + '-' +
+        fig.suptitle('Compression Level and block size comparison ' +
+                     codec.upper() + '-' +
                      TYPES[data[0][3][i]].upper(), fontsize=16)
         for j in range(4):
             pos = 200 + 20 + j + 1
             ax = fig.add_subplot(pos)
-            custom_lineplot_tests(ax, block_sizes, data[j][0][i], data[j][1][i], data[j][2][i],
+            custom_lineplot_tests(ax, block_sizes, data[j][0][i],
+                                  data[j][1][i], data[j][2][i],
                                   title='C-Level ' + str(c_levels[j]))
         if n > 1:
             fig.tight_layout()
         plt.subplots_adjust(top=0.9, hspace=0.2)
-        plt.savefig(FIG_PATH + 'Compression Level and block size comparison ' + codec.upper() + '-' +
+        plt.savefig(FIG_PATH + 'Compression Level and block size comparison ' +
+                    codec.upper() + '-' +
                     TYPES[data[0][3][i]].upper() + '.png', bbox_inches='tight')
 
 
@@ -340,20 +381,29 @@ def pearson_cor_data_builder(df, cname, clevel):
     markers = [[], [], []]
     for codec in df.drop_duplicates(subset=['Codec'])['Codec']:
         for filt in ['noshuffle', 'shuffle', 'bitshuffle']:
-            df_blz1 = df[(df.Codec == cname) & (df.CL == clevel) & (df.Filter == 'noshuffle')]
+            df_blz1 = df[(df.Codec == cname) & (df.CL == clevel)
+                         & (df.Filter == 'noshuffle')]
             for c_level in [1, 9]:
-                df_codec = df[(df.Codec == codec) & (df.CL == c_level) & (df.Filter == filt)]
+                df_codec = df[(df.Codec == codec) & (
+                    df.CL == c_level) & (df.Filter == filt)]
                 for i in range(3):
                     if i == 2:
-                        dfaux = df_codec[df_codec.DType.str.contains('U') | df_codec.DType.str.contains('S')]
-                        df_blz_aux = df_blz1[df_blz1.DType.str.contains('U') | df_blz1.DType.str.contains('S')]
+                        dfaux = df_codec[df_codec.DType.str.contains(
+                            'U') | df_codec.DType.str.contains('S')]
+                        df_blz_aux = df_blz1[df_blz1.DType.str.contains(
+                            'U') | df_blz1.DType.str.contains('S')]
                     else:
                         dfaux = df_codec[df_codec.DType.str.contains(TYPES[i])]
-                        df_blz_aux = df_blz1[df_blz1.DType.str.contains(TYPES[i])]
+                        df_blz_aux = df_blz1[df_blz1.DType.str.contains(
+                            TYPES[i])]
                     if dfaux.size > 0:
-                        pearson_rates[i].append(pearsonr(df_blz_aux['CRate'], dfaux['CRate']))
-                        pearson_c_speeds[i].append(pearsonr(df_blz_aux['CSpeed'], dfaux['CSpeed']))
-                        codecs_cl[i].append(codec + '-' + filt + '-' + str(c_level) + '-' + TYPES[i])
+                        pearson_rates[i].append(
+                            pearsonr(df_blz_aux['CRate'], dfaux['CRate']))
+                        pearson_c_speeds[i].append(
+                            pearsonr(df_blz_aux['CSpeed'], dfaux['CSpeed']))
+                        codecs_cl[i].append(
+                            codec + '-' + filt + '-' + str(c_level) + '-' +
+                            TYPES[i])
                         colors[i].append(COLOR_PALETTE[codec])
                         markers[i].append(MARKER_DICT[filt])
 
@@ -363,7 +413,8 @@ def pearson_cor_data_builder(df, cname, clevel):
 def paint_codec_pearson_corr(df, cname, clevel):
     """Paint custom graphs for codec correlation."""
 
-    pearson_rates, pearson_c_speeds, codecs_cl, colors, markers = pearson_cor_data_builder(df, cname, clevel)
+    pearson_rates, pearson_c_speeds, codecs_cl, colors, markers = \
+        pearson_cor_data_builder(df, cname, clevel)
 
     for i in range(3):
         if len(pearson_rates[i]) > 0:
@@ -371,9 +422,11 @@ def paint_codec_pearson_corr(df, cname, clevel):
             ax = fig.add_subplot(111)
             custom_pearson_scatter(ax, [x[0] for x in pearson_rates[i]],
                                    [x[0] for x in pearson_c_speeds[i]],
-                                   colors[i], markers[i], cname.upper() + '-CL' + str(clevel), TYPES[i])
+                                   colors[i], markers[i], cname.upper() +
+                                   '-CL' + str(clevel), TYPES[i])
             custom_sc_legend(fig)
-            plt.savefig(FIG_PATH + ax.get_title() + '.png', bbox_inches='tight')
+            plt.savefig(FIG_PATH + ax.get_title() +
+                        '.png', bbox_inches='tight')
 
 
 def custom_pairs(df, col_names):
@@ -392,4 +445,5 @@ def custom_pairs(df, col_names):
     fig.tight_layout()
     fig.suptitle(str(col_names) + ' VS Test Features', fontsize=16)
     plt.subplots_adjust(top=0.95, hspace=0.01, wspace=0)
-    plt.savefig(FIG_PATH + str(col_names) + 'VS Test Features' + '.png', bbox_inches='tight')
+    plt.savefig(FIG_PATH + str(col_names) +
+                'VS Test Features' + '.png', bbox_inches='tight')
