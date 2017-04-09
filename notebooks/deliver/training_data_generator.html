@@ -13957,7 +13957,7 @@ Cada fila se corresponde con los datos de realizar los test de compresión sobre
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Tue Apr 04 17:38:05 2017 UTC</td></tr></table>
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Thu Apr 06 19:32:15 2017 UTC</td></tr></table>
 </div>
 
 </div>
@@ -14048,7 +14048,7 @@ for index, row in chunks_df.iterrows():
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>673 rows
-CPU times: user 1min 24s, sys: 32 ms, total: 1min 24s
+CPU times: user 1min 24s, sys: 52 ms, total: 1min 24s
 Wall time: 1min 24s
 </pre>
 </div>
@@ -14125,7 +14125,7 @@ for chunk_test in chunk_tests_list:
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 2min 42s, sys: 68 ms, total: 2min 42s
+<pre>CPU times: user 2min 42s, sys: 36 ms, total: 2min 42s
 Wall time: 2min 42s
 </pre>
 </div>
@@ -15072,40 +15072,11 @@ Distinct block sizes 10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> from </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="n">training_df</span><span class="o">.</span><span class="n">Block_Size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">training_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>759 from 4711
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-count = 0
+count = training_df[training_df.Block_Size == 0].shape[0]
 for i, row in training_df.iterrows():
     block = row[&#39;Block_Size&#39;]
     aux = df[(df.Filename == row[&#39;Filename&#39;]) &amp; (df.DataSet == row[&#39;DataSet&#39;]) &amp;
@@ -15132,8 +15103,8 @@ for i, row in training_df.iterrows():
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 21min 2s, sys: 252 ms, total: 21min 2s
-Wall time: 21min 2s
+<pre>CPU times: user 21min 3s, sys: 208 ms, total: 21min 3s
+Wall time: 21min 3s
 </pre>
 </div>
 </div>
@@ -15144,10 +15115,10 @@ Wall time: 21min 2s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> from </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="n">training_df</span><span class="o">.</span><span class="n">Block_Size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">count</span><span class="p">,</span> <span class="n">training_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> from </span><span class="si">%d</span><span class="s2"> --&gt; </span><span class="si">%d</span><span class="s2"> </span><span class="si">%%</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">training_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">count</span> <span class="o">/</span> <span class="n">training_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -15162,7 +15133,7 @@ Wall time: 21min 2s
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>482 from 4711
+<pre>482 from 4711 --&gt; 10 %
 </pre>
 </div>
 </div>
@@ -15173,7 +15144,7 @@ Wall time: 21min 2s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">training_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Block_Size&#39;</span><span class="p">])</span>
@@ -15188,7 +15159,7 @@ Wall time: 21min 2s
 
 
 <div class="output_area">
-<div class="prompt output_prompt">Out[15]:</div>
+<div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -15460,16 +15431,16 @@ Wall time: 21min 2s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">binarize</span> 
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">OneHotEncoder</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_Table</span><span class="o">=</span><span class="n">binarize</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span> 
-               <span class="n">is_Columnar</span><span class="o">=</span><span class="n">binarize</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span>
-               <span class="n">is_Int</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">is_Float</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">is_String</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">training_df</span> <span class="o">=</span> <span class="n">training_df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_Table</span><span class="o">=</span><span class="n">binarize</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span> 
+               <span class="n">is_Columnar</span><span class="o">=</span><span class="n">binarize</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span>
+               <span class="n">is_Int</span><span class="o">=</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+               <span class="n">is_Float</span><span class="o">=</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+               <span class="n">is_String</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="k">def</span> <span class="nf">aux_func</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
@@ -15478,7 +15449,7 @@ Wall time: 21min 2s
         <span class="k">return</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">8</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">n</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Type_Size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aux_func</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]]</span>
+<span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Type_Size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">aux_func</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;DType&#39;</span><span class="p">]]</span>
 </pre></div>
 
 </div>
@@ -15497,27 +15468,28 @@ Wall time: 21min 2s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Blosclz</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;blosclz&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">Lz4</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;lz4&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">Lz4hc</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;lz4hc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">Snappy</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;snappy&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">Zstd</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;zstd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">Shuffle</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Filter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;shuffle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
-               <span class="n">Bitshuffle</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Filter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bitshuffle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">training_df</span> <span class="o">=</span> <span class="n">training_df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Blosclz</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;blosclz&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Lz4</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;lz4&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Lz4hc</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;lz4hc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Snappy</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;snappy&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Zstd</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Codec&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;zstd&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Noshuffle</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Filter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;noshuffle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Shuffle</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Filter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;shuffle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+                                 <span class="n">Bitshuffle</span><span class="o">=</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Filter&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;bitshuffle&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
 <span class="n">enc_cl</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
-<span class="n">enc_cl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">new_cls</span> <span class="o">=</span> <span class="n">enc_cl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">enc_cl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">new_cls</span> <span class="o">=</span> <span class="n">enc_cl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;CL&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
 <span class="n">enc_block</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">()</span>
-<span class="n">enc_block</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Block_Size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">new_blocks</span> <span class="o">=</span> <span class="n">enc_block</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Block_Size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">enc_block</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Block_Size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">new_blocks</span> <span class="o">=</span> <span class="n">enc_block</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="s1">&#39;Block_Size&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
     <span class="n">cl_label</span> <span class="o">=</span> <span class="s1">&#39;CL&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">block_label</span> <span class="o">=</span> <span class="s1">&#39;Block_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">cl_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_cls</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">block_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_blocks</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">training_df</span><span class="p">[</span><span class="n">cl_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_cls</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">training_df</span><span class="p">[</span><span class="n">block_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_blocks</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -15527,7 +15499,7 @@ Wall time: 21min 2s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">training_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/training_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

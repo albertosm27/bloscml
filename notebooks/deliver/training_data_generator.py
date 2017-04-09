@@ -151,37 +151,32 @@ print('%d zstd classes from 270' % distinct_total[distinct_total.Codec == 'zstd'
 
 # ## Tamaño de bloque automático
 
-# In[11]:
-
-print("%d from %d" % (training_df[training_df.Block_Size == 0].shape[0], training_df.shape[0]))
-
-
 # In[12]:
 
-get_ipython().run_cell_magic('time', '', 'count = 0\nfor i, row in training_df.iterrows():\n    block = row[\'Block_Size\']\n    aux = df[(df.Filename == row[\'Filename\']) & (df.DataSet == row[\'DataSet\']) &\n             (df.Table == row[\'Table\']) & (df.Chunk_Number == row[\'Chunk_Number\']) &\n             (df.Codec == row[\'Codec\']) & (df.Filter == row[\'Filter\']) & (df.CL == row["CL"])]\n    crate = aux[aux.Block_Size == 0][\'CRate\'].values[0]\n    auto_block = aux[(aux.CRate == crate) & (aux.Block_Size != 0)][\'Block_Size\'].values[0]\n    if block != 0:\n        if auto_block == block:\n            count += 1\n    else:\n        training_df.loc[i, \'Block_Size\'] = auto_block')
+get_ipython().run_cell_magic('time', '', 'count = training_df[training_df.Block_Size == 0].shape[0]\nfor i, row in training_df.iterrows():\n    block = row[\'Block_Size\']\n    aux = df[(df.Filename == row[\'Filename\']) & (df.DataSet == row[\'DataSet\']) &\n             (df.Table == row[\'Table\']) & (df.Chunk_Number == row[\'Chunk_Number\']) &\n             (df.Codec == row[\'Codec\']) & (df.Filter == row[\'Filter\']) & (df.CL == row["CL"])]\n    crate = aux[aux.Block_Size == 0][\'CRate\'].values[0]\n    auto_block = aux[(aux.CRate == crate) & (aux.Block_Size != 0)][\'Block_Size\'].values[0]\n    if block != 0:\n        if auto_block == block:\n            count += 1\n    else:\n        training_df.loc[i, \'Block_Size\'] = auto_block')
 
 
-# In[13]:
+# In[18]:
 
-print("%d from %d" % (training_df[training_df.Block_Size == 0].shape[0] + count, training_df.shape[0]))
+print("%d from %d --> %d %%" % (count, training_df.shape[0], count / training_df.shape[0] * 100))
 
 
-# In[15]:
+# In[14]:
 
 training_df.drop_duplicates(subset=['Block_Size'])
 
 
 # ## Preparación de inputs para scikit-learn
 
-# In[16]:
+# In[15]:
 
 from sklearn.preprocessing import binarize 
 from sklearn.preprocessing import OneHotEncoder
-df = df.assign(is_Table=binarize(df['Table'].values.reshape(-1,1), 0), 
-               is_Columnar=binarize(df['Table'].values.reshape(-1,1), 1),
-               is_Int=df['DType'].str.contains('int').astype(int),
-               is_Float=df['DType'].str.contains('float').astype(int),
-               is_String=(df['DType'].str.contains('S') | df['DType'].str.contains('U')).astype(int))
+training_df = training_df.assign(is_Table=binarize(training_df['Table'].values.reshape(-1,1), 0), 
+               is_Columnar=binarize(training_df['Table'].values.reshape(-1,1), 1),
+               is_Int=training_df['DType'].str.contains('int').astype(int),
+               is_Float=training_df['DType'].str.contains('float').astype(int),
+               is_String=(training_df['DType'].str.contains('S') | training_df['DType'].str.contains('U')).astype(int))
 import re
 def aux_func(s):
     n = int(re.findall('\d+', s)[0])
@@ -190,34 +185,35 @@ def aux_func(s):
         return n // 8
     else:
         return n
-df['Type_Size'] = [aux_func(s) for s in df['DType']]
+training_df['Type_Size'] = [aux_func(s) for s in training_df['DType']]
 
 
 # ## Preparación de outputs para scikit-learn
 
-# In[17]:
+# In[16]:
 
-df = df.assign(Blosclz=(df['Codec'] == 'blosclz').astype(int),
-               Lz4=(df['Codec'] == 'lz4').astype(int),
-               Lz4hc=(df['Codec'] == 'lz4hc').astype(int),
-               Snappy=(df['Codec'] == 'snappy').astype(int),
-               Zstd=(df['Codec'] == 'zstd').astype(int),
-               Shuffle=(df['Filter'] == 'shuffle').astype(int),
-               Bitshuffle=(df['Filter'] == 'bitshuffle').astype(int))
+training_df = training_df.assign(Blosclz=(training_df['Codec'] == 'blosclz').astype(int),
+                                 Lz4=(training_df['Codec'] == 'lz4').astype(int),
+                                 Lz4hc=(training_df['Codec'] == 'lz4hc').astype(int),
+                                 Snappy=(training_df['Codec'] == 'snappy').astype(int),
+                                 Zstd=(training_df['Codec'] == 'zstd').astype(int),
+                                 Noshuffle=(training_df['Filter'] == 'noshuffle').astype(int),
+                                 Shuffle=(training_df['Filter'] == 'shuffle').astype(int),
+                                 Bitshuffle=(training_df['Filter'] == 'bitshuffle').astype(int))
 enc_cl = OneHotEncoder()
-enc_cl.fit(df['CL'].values.reshape(-1, 1))
-new_cls = enc_cl.transform(df['CL'].values.reshape(-1, 1)).toarray()
+enc_cl.fit(training_df['CL'].values.reshape(-1, 1))
+new_cls = enc_cl.transform(training_df['CL'].values.reshape(-1, 1)).toarray()
 enc_block = OneHotEncoder()
-enc_block.fit(df['Block_Size'].values.reshape(-1, 1))
-new_blocks = enc_block.transform(df['Block_Size'].values.reshape(-1, 1)).toarray()
+enc_block.fit(training_df['Block_Size'].values.reshape(-1, 1))
+new_blocks = enc_block.transform(training_df['Block_Size'].values.reshape(-1, 1)).toarray()
 for i in range(9):
     cl_label = 'CL' + str(i+1)
     block_label = 'Block_' + str(2**(i+3))
-    df[cl_label] = new_cls[:, i]
-    df[block_label] = new_blocks[:, i]
+    training_df[cl_label] = new_cls[:, i]
+    training_df[block_label] = new_blocks[:, i]
 
 
-# In[18]:
+# In[17]:
 
 training_df.to_csv('../data/training_data.csv', sep='\t', index=False)
 
