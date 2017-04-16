@@ -14,11 +14,10 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.externals import joblib
 from scoring_functions import my_accuracy_scorer
 from scoring_functions import my_brier_scorer
-from scoring_functions import my_accuracy_scorer2
 
 
 NUM_TRIALS = 20
-SCORES = [my_accuracy_scorer, my_accuracy_scorer2, my_brier_scorer]
+SCORES = [my_accuracy_scorer, my_brier_scorer]
 DF = pd.read_csv('../data/training_data.csv', sep='\t')
 IN_OPTIONS = ['IN_CR', 'IN_CS', 'IN_DS', 'is_Table', 'is_Columnar', 'is_Int',
               'is_Float', 'is_String', 'Type_Size', 'Chunk_Size', 'Mean',
@@ -35,23 +34,23 @@ OUT_OPTIONS = OUT_CODEC + OUT_FILTER + OUT_LEVELS + OUT_BLOCKS
 X, Y = scale(DF[IN_OPTIONS].values), DF[OUT_OPTIONS].values
 ESTIMATORS = []
 ESTIMATORS.append(('KNei', KNeighborsClassifier(n_jobs=-1),
-    {'n_neighbors': [5, 10, 15, 30, 50],
-     'weights': ['uniform', 'distance'],
-    }, 3))
+                   {'n_neighbors': [5, 10, 15, 30, 50],
+                    'weights': ['uniform', 'distance'],
+                    }, 2))
 ESTIMATORS.append(('SVC', MultiOutputClassifier(SVC(
     decision_function_shape='ovr')),
     {'estimator__C': [1, 10, 100, 1000],
-     'estimator__gamma': [0.1, 0.01, 0.001]}, 2))
+     'estimator__gamma': [0.1, 0.01, 0.001]}, 1))
 ESTIMATORS.append(('RFC', RandomForestClassifier(
     n_estimators=40, max_depth=14, n_jobs=-1),
     {'criterion': ['gini', 'entropy'],
      'bootstrap': [True, False],
-     'class_weight': [None, 'balanced']}, 3))
+     'class_weight': [None, 'balanced']}, 2))
 ESTIMATORS.append(('ETC', ExtraTreesClassifier(
     n_estimators=40, max_depth=14, n_jobs=-1),
     {'criterion': ['gini', 'entropy'],
      'bootstrap': [True, False],
-     'class_weight': [None, 'balanced']}, 3))
+     'class_weight': [None, 'balanced']}, 2))
 TOTAL = len(ESTIMATORS) * len(SCORES) * NUM_TRIALS - NUM_TRIALS
 
 
