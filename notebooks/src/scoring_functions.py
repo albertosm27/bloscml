@@ -8,7 +8,7 @@ def my_brier_scorer(predictor, X, y):
     score = 0
     for i in range(len(probs[0])):
         list_aux = []
-        for j in range(26):
+        for j in range(25):
             if probs[j][i].shape[0] > 1:
                 list_aux.append(probs[j][i][1])
             else:
@@ -16,8 +16,8 @@ def my_brier_scorer(predictor, X, y):
         sorted_probs.append(list_aux)
     for i in range(y.shape[0]):
         aux = np.square(sorted_probs[i] - y[i])
-        score += np.mean(aux[0:5]) + np.mean(aux[5:8]) + \
-            np.mean(aux[8:17]) + np.mean(aux[17:26])
+        score += np.mean(aux[0:4]) + np.mean(aux[4:7]) + \
+            np.mean(aux[7:16]) + np.mean(aux[16:25])
     return -score / y.shape[0]
 
 
@@ -25,12 +25,25 @@ def my_accuracy_scorer(predictor, X, y):
     ypred = predictor.predict(X)
     score = 0
     for i in range(y.shape[0]):
-        if (y[i, 0:5] == ypred[i, 0:5]).all():
+        if (y[i, 0:4] == ypred[i, 0:4]).all():
             score += 0.25
-        if (y[i, 5:8] == ypred[i, 5:8]).all():
+        if (y[i, 4:7] == ypred[i, 4:7]).all():
             score += 0.25
-        score += (8 - abs(np.argmax(y[i, 8:17] == 1) -
-                          np.argmax(ypred[i, 8:17] == 1))) / 8 * 0.25
-        score += (8 - abs(np.argmax(y[i, 17:26] == 1) -
-                          np.argmax(ypred[i, 17:26] == 1))) / 8 * 0.25
+        score += (8 - abs(np.argmax(y[i, 7:16] == 1) -
+                          np.argmax(ypred[i, 7:16] == 1))) / 8 * 0.25
+        score += (8 - abs(np.argmax(y[i, 16:25] == 1) -
+                          np.argmax(ypred[i, 16:25] == 1))) / 8 * 0.25
     return score / y.shape[0]
+
+def my_accuracy_scorer2(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        if (y[i, 0:7] == ypred[i, 0:7]).all():
+            score += 0.5
+        score += (8 - abs(np.argmax(y[i, 7:16] == 1) -
+                          np.argmax(ypred[i, 7:16] == 1)))**2 / 64 * 0.25
+        score += (8 - abs(np.argmax(y[i, 16:25] == 1) -
+                          np.argmax(ypred[i, 16:25] == 1)))**2 / 64 * 0.25
+    return score / y.shape[0]
+

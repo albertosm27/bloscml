@@ -13941,7 +13941,7 @@ Cada fila se corresponde con los datos de realizar los test de compresión sobre
 <span class="o">%</span><span class="k">autoreload</span> 2
 
 <span class="o">%</span><span class="k">load_ext</span> version_information
-<span class="o">%</span><span class="k">version_information</span> numpy, scipy, matplotlib, pandas
+<span class="o">%</span><span class="k">version_information</span> numpy, pandas
 </pre></div>
 
 </div>
@@ -13957,7 +13957,7 @@ Cada fila se corresponde con los datos de realizar los test de compresión sobre
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>scipy</td><td>0.19.0</td></tr><tr><td>matplotlib</td><td>2.0.0</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Thu Apr 06 19:32:15 2017 UTC</td></tr></table>
+<table><tr><th>Software</th><th>Version</th></tr><tr><td>Python</td><td>3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]</td></tr><tr><td>IPython</td><td>5.1.0</td></tr><tr><td>OS</td><td>Linux 4.9.16 gentoo x86_64 with debian stretch sid</td></tr><tr><td>numpy</td><td>1.12.1</td></tr><tr><td>pandas</td><td>0.19.2</td></tr><tr><td colspan='2'>Mon Apr 10 17:23:15 2017 UTC</td></tr></table>
 </div>
 
 </div>
@@ -13989,8 +13989,7 @@ Cada fila se corresponde con los datos de realizar los test de compresión sobre
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">CHUNK_ID</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Filename&quot;</span><span class="p">,</span> <span class="s2">&quot;DataSet&quot;</span><span class="p">,</span> <span class="s2">&quot;Table&quot;</span><span class="p">,</span> <span class="s2">&quot;Chunk_Number&quot;</span><span class="p">]</span>
-<span class="c1">#CHUNK_FEATURES = [&quot;Table&quot;, &quot;DType&quot;, &quot;Chunk_Size&quot;, &quot;Mean&quot;, &quot;Median&quot;, &quot;Sd&quot;, &quot;Skew&quot;, &quot;Kurt&quot;, &quot;Min&quot;, &quot;Max&quot;, &quot;Q1&quot;, &quot;Q3&quot;, &quot;N_Streaks&quot;]</span>
-<span class="n">CHUNK_FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Table&quot;</span><span class="p">,</span> <span class="s2">&quot;DType&quot;</span><span class="p">,</span> <span class="s2">&quot;Chunk_Size&quot;</span><span class="p">,</span> <span class="s2">&quot;Mean&quot;</span><span class="p">,</span> <span class="s2">&quot;Median&quot;</span><span class="p">,</span> <span class="s2">&quot;Sd&quot;</span><span class="p">,</span> <span class="s2">&quot;Skew&quot;</span><span class="p">,</span> <span class="s2">&quot;Kurt&quot;</span><span class="p">,</span> <span class="s2">&quot;Min&quot;</span><span class="p">,</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">]</span>
+<span class="n">CHUNK_FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Table&quot;</span><span class="p">,</span> <span class="s2">&quot;DType&quot;</span><span class="p">,</span> <span class="s2">&quot;Chunk_Size&quot;</span><span class="p">,</span> <span class="s2">&quot;Mean&quot;</span><span class="p">,</span> <span class="s2">&quot;Median&quot;</span><span class="p">,</span> <span class="s2">&quot;Sd&quot;</span><span class="p">,</span> <span class="s2">&quot;Skew&quot;</span><span class="p">,</span> <span class="s2">&quot;Kurt&quot;</span><span class="p">,</span> <span class="s2">&quot;Min&quot;</span><span class="p">,</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span> <span class="s2">&quot;Q1&quot;</span><span class="p">,</span> <span class="s2">&quot;Q3&quot;</span><span class="p">,</span> <span class="s2">&quot;N_Streaks&quot;</span><span class="p">]</span>
 <span class="n">OUT_OPTIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Block_Size&quot;</span><span class="p">,</span> <span class="s2">&quot;Codec&quot;</span><span class="p">,</span> <span class="s2">&quot;Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;CL&quot;</span><span class="p">]</span>
 <span class="n">TEST_FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CRate&quot;</span><span class="p">,</span> <span class="s2">&quot;CSpeed&quot;</span><span class="p">,</span> <span class="s2">&quot;DSpeed&quot;</span><span class="p">]</span>
 <span class="n">COLS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Filename&quot;</span> <span class="p">,</span> <span class="s2">&quot;DataSet&quot;</span><span class="p">,</span> <span class="s2">&quot;Chunk_Number&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">CHUNK_FEATURES</span> <span class="o">+</span> <span class="n">OUT_OPTIONS</span> <span class="o">+</span> <span class="n">TEST_FEATURES</span>
@@ -14048,8 +14047,8 @@ for index, row in chunks_df.iterrows():
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>673 rows
-CPU times: user 1min 24s, sys: 52 ms, total: 1min 24s
-Wall time: 1min 24s
+CPU times: user 2min 41s, sys: 48 ms, total: 2min 41s
+Wall time: 5min 21s
 </pre>
 </div>
 </div>
@@ -14125,8 +14124,8 @@ for chunk_test in chunk_tests_list:
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 2min 42s, sys: 36 ms, total: 2min 42s
-Wall time: 2min 42s
+<pre>CPU times: user 5min, sys: 56 ms, total: 5min
+Wall time: 9min 52s
 </pre>
 </div>
 </div>
@@ -14954,7 +14953,7 @@ Distinct block sizes 10
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># IMPRIMIMOS A NUESTRO MARCIANO FAVORITO</span>
-<span class="n">display</span><span class="p">(</span><span class="n">distinct_total</span><span class="p">[</span><span class="n">distinct_total</span><span class="o">.</span><span class="n">Codec</span> <span class="o">==</span> <span class="s1">&#39;snappy&#39;</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="n">training_df</span><span class="o">.</span><span class="n">Codec</span> <span class="o">==</span> <span class="s1">&#39;snappy&#39;</span><span class="p">][</span><span class="n">IN_USER</span> <span class="o">+</span> <span class="n">TEST_FEATURES</span> <span class="o">+</span> <span class="n">OUT_OPTIONS</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -14975,35 +14974,44 @@ Distinct block sizes 10
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>IN_CR</th>
+      <th>IN_CS</th>
+      <th>IN_DS</th>
+      <th>CRate</th>
+      <th>CSpeed</th>
+      <th>DSpeed</th>
       <th>Block_Size</th>
       <th>Codec</th>
       <th>Filter</th>
       <th>CL</th>
-      <th>CRate</th>
-      <th>CSpeed</th>
-      <th>DSpeed</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>1681</th>
       <td>0.000</td>
-      <td>snappy</td>
-      <td>noshuffle</td>
-      <td>7.000</td>
+      <td>1.000</td>
+      <td>0.000</td>
       <td>21.195</td>
       <td>20.349</td>
       <td>9.824</td>
+      <td>0.000</td>
+      <td>snappy</td>
+      <td>noshuffle</td>
+      <td>7.000</td>
     </tr>
     <tr>
       <th>4291</th>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>1.000</td>
+      <td>11.049</td>
+      <td>7.158</td>
+      <td>13.803</td>
       <td>128.000</td>
       <td>snappy</td>
       <td>noshuffle</td>
       <td>3.000</td>
-      <td>11.049</td>
-      <td>7.158</td>
-      <td>13.803</td>
     </tr>
   </tbody>
 </table>
@@ -15061,6 +15069,38 @@ Distinct block sizes 10
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ELIMINAMOS SNAPPY</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="p">(</span><span class="n">training_df</span><span class="p">[</span><span class="n">training_df</span><span class="o">.</span><span class="n">Codec</span> <span class="o">==</span> <span class="s1">&#39;snappy&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">aux</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">Filename</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Filename&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">DataSet</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;DataSet&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+             <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Table</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Table&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Chunk_Number</span> <span class="o">==</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;Chunk_Number&#39;</span><span class="p">])</span> <span class="o">&amp;</span>
+             <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Codec</span> <span class="o">!=</span> <span class="s1">&#39;snappy&#39;</span><span class="p">)]</span>
+    <span class="n">i_max_crate</span><span class="p">,</span> <span class="n">i_max_c_speed</span><span class="p">,</span> <span class="n">i_max_d_speed</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;CRate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span> <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;CSpeed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span>\
+                                                <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;DSpeed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+    <span class="n">max_crate</span><span class="p">,</span> <span class="n">max_c_speed</span><span class="p">,</span> <span class="n">max_d_speed</span> <span class="o">=</span> <span class="p">(</span><span class="n">aux</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">i_max_crate</span><span class="p">][</span><span class="s1">&#39;CRate&#39;</span><span class="p">],</span> <span class="n">aux</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">i_max_c_speed</span><span class="p">][</span><span class="s1">&#39;CSpeed&#39;</span><span class="p">],</span>
+                                           <span class="n">aux</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">i_max_d_speed</span><span class="p">][</span><span class="s1">&#39;DSpeed&#39;</span><span class="p">])</span>
+
+    <span class="n">min_crate</span><span class="p">,</span> <span class="n">min_c_speed</span><span class="p">,</span> <span class="n">min_d_speed</span> <span class="o">=</span> <span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;CRate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;CSpeed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                                           <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;DSpeed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="c1"># NORMALIZED COLUMNS</span>
+    <span class="n">aux</span> <span class="o">=</span> <span class="n">aux</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">N_CRate</span><span class="o">=</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;CRate&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_crate</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_crate</span> <span class="o">-</span> <span class="n">min_crate</span><span class="p">),</span>
+                                   <span class="n">N_CSpeed</span><span class="o">=</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;CSpeed&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_c_speed</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_c_speed</span> <span class="o">-</span> <span class="n">min_c_speed</span><span class="p">),</span>
+                                   <span class="n">N_DSpeed</span><span class="o">=</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;DSpeed&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_d_speed</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_d_speed</span> <span class="o">-</span> <span class="n">min_d_speed</span><span class="p">))</span>
+    <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IN_CR&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;N_CRate&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IN_DS&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;N_DSpeed&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>\
+                        <span class="n">row</span><span class="p">[</span><span class="s1">&#39;IN_CS&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">aux</span><span class="p">[</span><span class="s1">&#39;N_CSpeed&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">aux</span><span class="p">[</span><span class="s1">&#39;Distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+    <span class="n">training_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">TEST_FEATURES</span> <span class="o">+</span> <span class="n">OUT_OPTIONS</span><span class="p">]</span> <span class="o">=</span> <span class="n">aux</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">TEST_FEATURES</span> <span class="o">+</span> <span class="n">OUT_OPTIONS</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -15103,8 +15143,8 @@ for i, row in training_df.iterrows():
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 21min 3s, sys: 208 ms, total: 21min 3s
-Wall time: 21min 3s
+<pre>CPU times: user 40min 8s, sys: 388 ms, total: 40min 8s
+Wall time: 1h 20min 15s
 </pre>
 </div>
 </div>
@@ -15115,7 +15155,7 @@ Wall time: 21min 3s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> from </span><span class="si">%d</span><span class="s2"> --&gt; </span><span class="si">%d</span><span class="s2"> </span><span class="si">%%</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">training_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">count</span> <span class="o">/</span> <span class="n">training_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
@@ -15133,7 +15173,7 @@ Wall time: 21min 3s
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>482 from 4711 --&gt; 10 %
+<pre>1241 from 4711 --&gt; 26 %
 </pre>
 </div>
 </div>
@@ -15179,11 +15219,11 @@ Wall time: 21min 3s
       <th>Chunk_Size</th>
       <th>Codec</th>
       <th>...</th>
-      <th>LZ4_DSpeed</th>
       <th>Max</th>
       <th>Mean</th>
       <th>Median</th>
       <th>Min</th>
+      <th>N_Streaks</th>
       <th>Q1</th>
       <th>Q3</th>
       <th>Sd</th>
@@ -15205,11 +15245,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>blosclz</td>
       <td>...</td>
-      <td>7.844</td>
       <td>27.146</td>
       <td>5.762</td>
       <td>3.093</td>
       <td>-14.914</td>
+      <td>101,125.000</td>
       <td>-0.990</td>
       <td>12.773</td>
       <td>8.290</td>
@@ -15229,11 +15269,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>lz4</td>
       <td>...</td>
-      <td>7.844</td>
       <td>27.146</td>
       <td>5.762</td>
       <td>3.093</td>
       <td>-14.914</td>
+      <td>101,125.000</td>
       <td>-0.990</td>
       <td>12.773</td>
       <td>8.290</td>
@@ -15253,11 +15293,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>zstd</td>
       <td>...</td>
-      <td>7.844</td>
       <td>27.146</td>
       <td>5.762</td>
       <td>3.093</td>
       <td>-14.914</td>
+      <td>101,125.000</td>
       <td>-0.990</td>
       <td>12.773</td>
       <td>8.290</td>
@@ -15277,11 +15317,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>lz4hc</td>
       <td>...</td>
-      <td>7.844</td>
       <td>27.146</td>
       <td>5.762</td>
       <td>3.093</td>
       <td>-14.914</td>
+      <td>101,125.000</td>
       <td>-0.990</td>
       <td>12.773</td>
       <td>8.290</td>
@@ -15301,11 +15341,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>lz4</td>
       <td>...</td>
-      <td>8.268</td>
       <td>27.775</td>
       <td>6.145</td>
       <td>4.291</td>
       <td>-10.519</td>
+      <td>118,220.000</td>
       <td>-1.361</td>
       <td>14.216</td>
       <td>8.504</td>
@@ -15325,11 +15365,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>lz4hc</td>
       <td>...</td>
-      <td>8.268</td>
       <td>27.775</td>
       <td>6.145</td>
       <td>4.291</td>
       <td>-10.519</td>
+      <td>118,220.000</td>
       <td>-1.361</td>
       <td>14.216</td>
       <td>8.504</td>
@@ -15349,11 +15389,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>blosclz</td>
       <td>...</td>
-      <td>8.251</td>
       <td>33.807</td>
       <td>6.450</td>
       <td>2.096</td>
       <td>-12.255</td>
+      <td>109,441.000</td>
       <td>-1.446</td>
       <td>14.703</td>
       <td>10.067</td>
@@ -15373,11 +15413,11 @@ Wall time: 21min 3s
       <td>16.000</td>
       <td>lz4</td>
       <td>...</td>
-      <td>7.358</td>
       <td>49.183</td>
       <td>10.937</td>
       <td>7.797</td>
       <td>-14.951</td>
+      <td>122,250.000</td>
       <td>1.882</td>
       <td>19.096</td>
       <td>11.198</td>
@@ -15397,11 +15437,11 @@ Wall time: 21min 3s
       <td>0.738</td>
       <td>zstd</td>
       <td>...</td>
-      <td>8.567</td>
       <td>211,383.000</td>
       <td>46,750.635</td>
       <td>42,412.000</td>
       <td>0.000</td>
+      <td>27,744.000</td>
       <td>121.000</td>
       <td>79,434.750</td>
       <td>42,964.463</td>
@@ -15410,7 +15450,7 @@ Wall time: 21min 3s
     </tr>
   </tbody>
 </table>
-<p>9 rows × 31 columns</p>
+<p>9 rows × 32 columns</p>
 </div>
 </div>
 

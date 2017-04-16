@@ -1,4 +1,5 @@
 
+from collections import Counter
 from matplotlib import pyplot as plt
 import numpy as np
 from sklearn.model_selection import learning_curve
@@ -52,7 +53,7 @@ def plot_learning_curve(estimator, title, X, y, scoring, ylim=None, cv=None,
     if ylim is not None:
         plt.ylim(*ylim)
     plt.xlabel("Training examples")
-    plt.ylabel("Score")
+    plt.ylabel("Score %s" % scoring.__name__)
     train_sizes, train_scores, test_scores = learning_curve(
         estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes,
         scoring=scoring)
@@ -109,3 +110,62 @@ def plot_validation_curve(rfc, X, Y, param_name, param_range, scoring, ylim,  cv
                      color="#007AFF", lw=lw)
     plt.legend(loc="best")
     return plt
+
+
+def plot_nested_cv(non_nested_score, nested_score):
+    score_difference = non_nested_score - nested_score
+
+    print("Average difference of {0:6f} with std. dev. of {1:6f}."
+          .format(score_difference.mean(), score_difference.std()))
+
+    # Plot scores on each trial for nested and non-nested CV
+    plt.figure(figsize=(20, 8))
+    plt.subplot(121)
+    non_nested_scores_line, = plt.plot(non_nested_score, color='#FF3B30')
+    nested_line, = plt.plot(nested_score, color='#007AFF')
+    plt.ylabel("score", fontsize="14")
+    plt.legend([non_nested_scores_line, nested_line],
+               ["Non-Nested CV", "Nested CV"],
+               bbox_to_anchor=(0, 1, 0, 0))
+
+    # Plot bar chart of the difference.
+    plt.subplot(122)
+    difference_plot = plt.bar(range(20), score_difference, color='#007AFF')
+    plt.xlabel("Individual Trial #")
+    plt.legend([difference_plot],
+               ["Non-Nested CV - Nested CV Score"],
+               bbox_to_anchor=(0, 1, .8, 0))
+    plt.ylabel("score difference", fontsize="14")
+    plt.tight_layout()
+    plt.suptitle("Non-Nested and Nested Cross Validation on Iris Dataset",
+                 x=.5, y=1.1, fontsize="15")
+
+    return plt
+
+
+def print_nested_winners(nested_clf, non_nested_clf):
+    crits = []
+    boots = []
+    weights = []
+    for est in non_nested_clf:
+        aux_dict = est.get_params()
+        crits.append(aux_dict.get('criterion'))
+        boots.append(aux_dict.get('bootstrap'))
+        weights.append(aux_dict.get('class_weight'))
+    print('Non Nested Winners')
+    print(Counter(crits))
+    print(Counter(boots))
+    print(Counter(weights))
+    crits = []
+    boots = []
+    weights = []
+    for estimators in nested_clf:
+        for est in estimators:
+            aux_dict = est.get_params()
+            crits.append(aux_dict.get('criterion'))
+            boots.append(aux_dict.get('bootstrap'))
+            weights.append(aux_dict.get('class_weight'))
+    print('Nested Winners')
+    print(Counter(crits))
+    print(Counter(boots))
+    print(Counter(weights))

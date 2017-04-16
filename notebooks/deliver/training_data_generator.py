@@ -43,7 +43,7 @@ get_ipython().magic('load_ext autoreload')
 get_ipython().magic('autoreload 2')
 
 get_ipython().magic('load_ext version_information')
-get_ipython().magic('version_information numpy, scipy, matplotlib, pandas')
+get_ipython().magic('version_information numpy, pandas')
 
 
 # In[2]:
@@ -58,8 +58,7 @@ pd.options.display.float_format = '{:,.3f}'.format
 # In[3]:
 
 CHUNK_ID = ["Filename", "DataSet", "Table", "Chunk_Number"]
-#CHUNK_FEATURES = ["Table", "DType", "Chunk_Size", "Mean", "Median", "Sd", "Skew", "Kurt", "Min", "Max", "Q1", "Q3", "N_Streaks"]
-CHUNK_FEATURES = ["Table", "DType", "Chunk_Size", "Mean", "Median", "Sd", "Skew", "Kurt", "Min", "Max", "Q1", "Q3"]
+CHUNK_FEATURES = ["Table", "DType", "Chunk_Size", "Mean", "Median", "Sd", "Skew", "Kurt", "Min", "Max", "Q1", "Q3", "N_Streaks"]
 OUT_OPTIONS = ["Block_Size", "Codec", "Filter", "CL"]
 TEST_FEATURES = ["CRate", "CSpeed", "DSpeed"]
 COLS = ["Filename" , "DataSet", "Chunk_Number"] + CHUNK_FEATURES + OUT_OPTIONS + TEST_FEATURES
@@ -136,7 +135,7 @@ display(distinct_total.describe())
 # In[9]:
 
 # IMPRIMIMOS A NUESTRO MARCIANO FAVORITO
-display(distinct_total[distinct_total.Codec == 'snappy'])
+display(training_df[training_df.Codec == 'snappy'][IN_USER + TEST_FEATURES + OUT_OPTIONS])
 
 
 # Snappy está moribundo. Por tanto podríamos considerar que tenemos 488/1080 opciones totales y sin contar el tamaño de bloque 97/108.
@@ -149,6 +148,28 @@ print('%d lz4hc classes from 270' % distinct_total[distinct_total.Codec == 'lz4h
 print('%d zstd classes from 270' % distinct_total[distinct_total.Codec == 'zstd'].shape[0])
 
 
+# In[11]:
+
+# ELIMINAMOS SNAPPY
+for i, row in (training_df[training_df.Codec == 'snappy']).iterrows():
+    aux = df[(df.Filename == row['Filename']) & (df.DataSet == row['DataSet']) &
+             (df.Table == row['Table']) & (df.Chunk_Number == row['Chunk_Number']) &
+             (df.Codec != 'snappy')]
+    i_max_crate, i_max_c_speed, i_max_d_speed = aux['CRate'].idxmax(), aux['CSpeed'].idxmax(),                                                aux['DSpeed'].idxmax()
+    max_crate, max_c_speed, max_d_speed = (aux.ix[i_max_crate]['CRate'], aux.ix[i_max_c_speed]['CSpeed'],
+                                           aux.ix[i_max_d_speed]['DSpeed'])
+
+    min_crate, min_c_speed, min_d_speed = (aux['CRate'].min(), aux['CSpeed'].min(),
+                                           aux['DSpeed'].min())
+    # NORMALIZED COLUMNS
+    aux = aux.assign(N_CRate=(aux['CRate'] - min_crate) / (max_crate - min_crate),
+                                   N_CSpeed=(aux['CSpeed'] - min_c_speed) / (max_c_speed - min_c_speed),
+                                   N_DSpeed=(aux['DSpeed'] - min_d_speed) / (max_d_speed - min_d_speed))
+    aux['Distance'] = row['IN_CR']*(aux['N_CRate'] - 1) ** 2 + row['IN_DS']*(aux['N_DSpeed'] - 1) ** 2 +                        row['IN_CS']*(aux['N_CSpeed'] - 1) ** 2
+    index = aux['Distance'].idxmin()
+    training_df.loc[i, TEST_FEATURES + OUT_OPTIONS] = aux.ix[index][TEST_FEATURES + OUT_OPTIONS]
+
+
 # ## Tamaño de bloque automático
 
 # In[12]:
@@ -156,7 +177,7 @@ print('%d zstd classes from 270' % distinct_total[distinct_total.Codec == 'zstd'
 get_ipython().run_cell_magic('time', '', 'count = training_df[training_df.Block_Size == 0].shape[0]\nfor i, row in training_df.iterrows():\n    block = row[\'Block_Size\']\n    aux = df[(df.Filename == row[\'Filename\']) & (df.DataSet == row[\'DataSet\']) &\n             (df.Table == row[\'Table\']) & (df.Chunk_Number == row[\'Chunk_Number\']) &\n             (df.Codec == row[\'Codec\']) & (df.Filter == row[\'Filter\']) & (df.CL == row["CL"])]\n    crate = aux[aux.Block_Size == 0][\'CRate\'].values[0]\n    auto_block = aux[(aux.CRate == crate) & (aux.Block_Size != 0)][\'Block_Size\'].values[0]\n    if block != 0:\n        if auto_block == block:\n            count += 1\n    else:\n        training_df.loc[i, \'Block_Size\'] = auto_block')
 
 
-# In[18]:
+# In[13]:
 
 print("%d from %d --> %d %%" % (count, training_df.shape[0], count / training_df.shape[0] * 100))
 
