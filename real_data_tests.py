@@ -8,7 +8,8 @@ from scipy.stats.stats import pearsonr
 from mpl_toolkits.mplot3d import Axes3D
 from graphic_features import test_codec
 
-MEGA32 = int((1*2**20)/4)
+MEGA32 = int((1 * 2**20) / 4)
+
 
 def chunk_32_generator(buffer):
     """
@@ -25,11 +26,12 @@ def chunk_32_generator(buffer):
         out : array
             A part of 1MB of extracted from the original buffer.
     """
-    max,r = divmod(buffer.size, MEGA32)
+    max, r = divmod(buffer.size, MEGA32)
     for i in range(max):
-        yield buffer[i * MEGA32 : (i + 1) * MEGA32]
+        yield buffer[i * MEGA32: (i + 1) * MEGA32]
     if (r != 0):
         yield buffer[max * MEGA32: buffer.size]
+
 
 def outlier_detection(array):
     """
@@ -58,12 +60,14 @@ def outlier_detection(array):
             indices.append(i)
     return indices
 
-C_LEVELS = (1,9)
+
+C_LEVELS = (1, 9)
 CODECS = ('blosclz', 'lz4')
 FILE_NAME = 'F:DADES/WRF_India-LSD1.h5'
 
 f = tables.open_file(FILE_NAME)
-buffer = f.root.U[:].reshape(functools.reduce(lambda x, y: x*y, f.root.U.shape))
+buffer = f.root.U[:].reshape(functools.reduce(
+    lambda x, y: x * y, f.root.U.shape))
 # for child in f.root._f_walknodes():
 #     child[:].reshape(child.size)
 f.close()
@@ -100,6 +104,8 @@ for i, chunk in enumerate(chunk_32_generator(buffer)):
     tzlib[i], rzlib[i] = test_codec(chunk, 'zlib', blosc.SHUFFLE, 1)
 
 # Outliers removal
+
+
 def outlier_removal(indices):
     print('Removing outliers at: ', indices)
     np.delete(tblz, indices)
@@ -110,6 +116,7 @@ def outlier_removal(indices):
     np.delete(tlz4hc, indices)
     np.delete(tsnappy, indices)
     np.delete(tzlib, indices)
+
 
 outlier_removal(outlier_detection(tblz))
 outlier_removal(outlier_detection(tblz9))
@@ -122,7 +129,8 @@ outlier_removal(outlier_detection(tzlib))
 
 for codec in CODECS:
     for c_level in C_LEVELS:
-        print('CORRELATIONS WITH ', codec.upper(), ' AND COMPRESSION LEVEL ', c_level)
+        print('CORRELATIONS WITH ', codec.upper(),
+              ' AND COMPRESSION LEVEL ', c_level)
         # PEARSON R
         if (codec == 'lz4'):
             codec_aux = 'blosclz'
@@ -158,36 +166,36 @@ for codec in CODECS:
         print("Pearson ", codec, "- zlib: ", pearsonr(times, tzlib), '\n')
 
 # 2D GRAPHICS
-f, axarr = plt.subplots(3,2)
-axarr[0,0].scatter(rblz, rzstd, c='red')
-axarr[0,0].set_title('RATES: blosclz VS zstd')
+f, axarr = plt.subplots(3, 2)
+axarr[0, 0].scatter(rblz, rzstd, c='red')
+axarr[0, 0].set_title('RATES: blosclz VS zstd')
 
-axarr[0,1].scatter(tblz, tzstd, c='red')
-axarr[0,1].set_title('TIMES: blosclz VS zstd')
+axarr[0, 1].scatter(tblz, tzstd, c='red')
+axarr[0, 1].set_title('TIMES: blosclz VS zstd')
 
-axarr[1,0].scatter(rblz, rlz4, c='red')
-axarr[1,0].set_title('RATES: blosclz VS lz4')
+axarr[1, 0].scatter(rblz, rlz4, c='red')
+axarr[1, 0].set_title('RATES: blosclz VS lz4')
 
-axarr[1,1].scatter(tblz, tlz4, c='red')
-axarr[1,1].set_title('TIMES: blosclz VS lz4')
+axarr[1, 1].scatter(tblz, tlz4, c='red')
+axarr[1, 1].set_title('TIMES: blosclz VS lz4')
 
-axarr[2,0].scatter(rblz, rlz4hc, c='red')
-axarr[2,0].set_title('RATES: blosclz VS lz4hc')
+axarr[2, 0].scatter(rblz, rlz4hc, c='red')
+axarr[2, 0].set_title('RATES: blosclz VS lz4hc')
 
-axarr[2,1].scatter(tblz, tlz4hc, c='red')
-axarr[2,1].set_title('TIMES: blosclz VS lz4hc')
+axarr[2, 1].scatter(tblz, tlz4hc, c='red')
+axarr[2, 1].set_title('TIMES: blosclz VS lz4hc')
 
-f2, axarr2 = plt.subplots(2,2)
-axarr2[0,0].scatter(rblz, rsnappy, c='red')
-axarr2[0,0].set_title('RATES: blosclz VS snappy')
+f2, axarr2 = plt.subplots(2, 2)
+axarr2[0, 0].scatter(rblz, rsnappy, c='red')
+axarr2[0, 0].set_title('RATES: blosclz VS snappy')
 
-axarr2[0,1].scatter(tblz, tsnappy, c='red')
-axarr2[0,1].set_title('TIMES: blosclz VS snappy')
+axarr2[0, 1].scatter(tblz, tsnappy, c='red')
+axarr2[0, 1].set_title('TIMES: blosclz VS snappy')
 
-axarr2[1,0].scatter(rblz, rzlib, c='red')
-axarr2[1,0].set_title('RATES: blosclz VS zlib')
+axarr2[1, 0].scatter(rblz, rzlib, c='red')
+axarr2[1, 0].set_title('RATES: blosclz VS zlib')
 
-axarr2[1,1].scatter(tblz, tzlib, c='red')
-axarr2[1,1].set_title('TIMES: blosclz VS zlib')
+axarr2[1, 1].scatter(tblz, tzlib, c='red')
+axarr2[1, 1].set_title('TIMES: blosclz VS zlib')
 
 plt.show()
