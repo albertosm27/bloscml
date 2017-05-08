@@ -126,15 +126,18 @@ def file_reader(filename):
                                     col = child.col(col_name)
                                     if col.size * col.dtype.itemsize > MINIMUM_SIZE:
                                         yield child._v_pathname + '.' + col_name, col.dtype, 1, \
-                                              col[:].reshape(functools.reduce(lambda x, y: x * y, col.shape))
-                                        col_shape = child.description.__getattribute__(col_name).shape
+                                            col[:].reshape(functools.reduce(
+                                                lambda x, y: x * y, col.shape))
+                                        col_shape = child.description.__getattribute__(
+                                            col_name).shape
                                         if len(col_shape) > 1 or (len(col_shape) > 0 and col_shape[0] > 1):
                                             yield child._v_pathname + '.' + col_name, col.dtype, 2, \
-                                                  np.moveaxis(col, 0, -1)[:]\
-                                                  .reshape(functools.reduce(lambda x, y: x * y, col.shape))
+                                                np.moveaxis(col, 0, -1)[:]\
+                                                .reshape(functools.reduce(lambda x, y: x * y, col.shape))
                             else:
                                 yield child._v_pathname, child.dtype, 0, \
-                                  child[:].reshape(functools.reduce(lambda x, y: x * y, child.shape))
+                                    child[:].reshape(functools.reduce(
+                                        lambda x, y: x * y, child.shape))
                     elif hasattr(child, '_v_children'):
                         group_queue.put(child)
             except TypeError:
@@ -188,7 +191,8 @@ def extract_chunk_features(chunk):
             np.nanpercentile(chunk, 25), np.nanpercentile(chunk, 75)
     else:
         return np.mean(chunk), np.median(chunk), np.std(chunk), stats.skew(chunk), stats.kurtosis(chunk),\
-            np.min(chunk), np.max(chunk), np.percentile(chunk, 25), np.percentile(chunk, 75)
+            np.min(chunk), np.max(chunk), np.percentile(
+                chunk, 25), np.percentile(chunk, 75)
 
 
 def calculate_streaks(chunk, median):
@@ -215,8 +219,9 @@ def calculate_streaks(chunk, median):
             above = not above
     return streaks
 
-FILENAMES = ('WRF_India.h5', '3B-MO.GPM-blosc-lz4-9.h5', 'GSSTF_NCEP.3-2000-zlib-5.h5', 'msft-dc-blosc9.h5')
-PATH = '/home/francesc/datasets/'
+
+FILENAMES = ('HiSPARC.h5',)
+PATH = '/home/francesc/datasets/tests/'
 BLOCK_SIZES = (0, MINIMUM_SIZE, KB16, KB32, KB64, KB128, KB256, KB512, MB, MB2)
 C_LEVELS = range(1, 10)
 COLS = ['Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', 'Mean', 'Median', 'Sd', 'Skew', 'Kurt',
@@ -224,7 +229,8 @@ COLS = ['Filename', 'DataSet', 'Table', 'DType', 'Chunk_Number', 'Chunk_Size', '
 blosc.set_nthreads(4)
 
 if not os.path.isfile('blosc_test_data.csv'):
-    pd.DataFrame(columns=COLS).to_csv('blosc_test_data.csv', sep='\t', index=False)
+    pd.DataFrame(columns=COLS).to_csv(
+        'blosc_test_data.csv', sep='\t', index=False)
 
 for filename in FILENAMES:
     for path, d_type, table, buffer in file_reader(PATH + filename):
@@ -241,7 +247,8 @@ for filename in FILENAMES:
                 chunk_features = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             else:
                 chunk_features = extract_chunk_features(chunk)
-                chunk_features += (calculate_streaks(chunk, chunk_features[1]),)
+                chunk_features += (calculate_streaks(chunk,
+                                                     chunk_features[1]),)
             df = pd.DataFrame()
             for block_size in BLOCK_SIZES:
                 blosc.set_blocksize(block_size)
@@ -250,11 +257,14 @@ for filename in FILENAMES:
                         for clevel in C_LEVELS:
                             row_data = (filename, path, table, d_type, i + 1,
                                         chunk.size * chunk.dtype.itemsize / MB) \
-                                       + chunk_features \
-                                       + (block_size / 2**10, codec, blosc.filters[filter], clevel) \
-                                       + test_codec(chunk, codec, filter, clevel)
-                            df = df.append(dict(zip(COLS, row_data)), ignore_index=True)
-            print("%5.2f%% %-s %-s t%-s chunk %d completed" % ((i + 1)/n_chunks*100, filename, path, table, (i + 1)))
+                                + chunk_features \
+                                + (block_size / 2**10, codec, blosc.filters[filter], clevel) \
+                                + test_codec(chunk, codec,
+                                             filter, clevel)
+                            df = df.append(
+                                dict(zip(COLS, row_data)), ignore_index=True)
+            print("%5.2f%% %-s %-s t%-s chunk %d completed" %
+                  ((i + 1) / n_chunks * 100, filename, path, table, (i + 1)))
             with open('blosc_test_data.csv', 'a') as f:
                 df = df[COLS]
                 df.to_csv(f, sep='\t', index=False, header=False)

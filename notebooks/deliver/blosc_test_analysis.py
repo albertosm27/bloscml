@@ -76,11 +76,11 @@ matplotlib.rcParams.update({'font.size': 12})
 # In[3]:
 
 # LOAD WHOLE CSV
-DF = pd.read_csv('../data/blosc_test_data.csv.gz', sep='\t')
+my_df = pd.read_csv('../data/blosc_test_data_final.csv.gz', sep='\t')
 # SORT COLUMNS
-DF = DF[cst.COLS]
+my_df = my_df[cst.COLS]
 # CHECK MISSING DATA
-if not DF.isnull().any().any():
+if not my_df.isnull().any().any():
     print('No missing data')
 else:
     print("Missing data")
@@ -89,28 +89,25 @@ else:
 # In[4]:
 
 # SUMMARY OF THE DATAFRAME 
-display(DF[cst.COLS[5:]].describe())
+display(my_df[cst.COLS[5:]].describe())
 
 
-# Filtramos el csv para eliminar ficheros que utilizan técnicas de compresión con pérdidas.
-
-# In[5]:
-
-my_df = DF[(DF.Filename != 'WRF_India-LSD1.h5') & (DF.Filename != 'WRF_India-LSD2.h5') & (DF.Filename != 'WRF_India-LSD3.h5')]
-
+# Como se puede observar hay mucha variabilidad en nuestros datos, lo cual es bueno.
 
 # Veamos cuantos conjuntos de datos tiene el fichero.
 
-# In[6]:
+# In[5]:
 
 sets = my_df.drop_duplicates(subset=['DataSet', 'Table'])[cst.DESC_SET]
-display(sets)
+print('First ten datasets')
+display(sets.head(n=10))
 print('There are %d datasets' % (sets.shape[0]))
 
 
+# ## Tablas de referencia de los conjuntos de datos
 # Procedemos a mostrar un resumen de las características extraídas de cada conjunto de datos.
 
-# In[7]:
+# In[6]:
 
 for dataset in sets.drop_duplicates(subset=['DataSet'])['DataSet']:
         set_info = sets[sets.DataSet == dataset]
@@ -123,17 +120,22 @@ for dataset in sets.drop_duplicates(subset=['DataSet'])['DataSet']:
             display(aux_set[cst.CHUNK_FEATURES])
 
 
+# No entraremos en detalles sobre cada conjunto de datos, simplemente nos conviene tener estas tablas como referencia rápida en caso de detectar anomalías en algún conjunto en concreto.
+
+# ## Detección d
 # Para evitar que los diagramas de caja esten plagados de datos atípicos, procedemos a filtrar con el codec blosclz, filtro shuffle, nivel de compresión 5 y tamaño de bloque automático para buscar con detenimiento datos atípicos.
 
-# In[8]:
+# In[7]:
 
-df_outliers = my_df[(my_df.Block_Size == 0) & (my_df.CL == 5) & (my_df.Codec == 'blosclz') & (my_df.Filter == 'noshuffle')]
+df_outliers = my_df[(my_df.Block_Size == 0) & (my_df.CL == 5) &
+                    (my_df.Codec == 'blosclz') &
+                    (my_df.Filter == 'noshuffle')]
 cst.paint_dtype_boxplots(df_outliers)
 
 
 # Mostramos a continuación los datos atípicos
 
-# In[9]:
+# In[20]:
 
 for i in range(2):
     dfaux = df_outliers[df_outliers.DType.str.contains(cst.TYPES[i])]
@@ -141,59 +143,76 @@ for i in range(2):
         cr_lim = cst.outlier_lim(dfaux['CRate'])
         cs_lim = cst.outlier_lim(dfaux['CSpeed'])
         ds_lim = cst.outlier_lim(dfaux['DSpeed'])
-        result = dfaux[(dfaux.CRate < cr_lim[0]) | (dfaux.CRate > cr_lim[1]) |
-                      (dfaux.CSpeed < cs_lim[0]) | (dfaux.CSpeed > cs_lim[1]) |
-                      (dfaux.DSpeed < ds_lim[0]) | (dfaux.DSpeed > ds_lim[1])][cst.ALL_FEATURES]
+        result = dfaux[(dfaux.CRate < cr_lim[0]) | 
+                       (dfaux.CRate > cr_lim[1]) |
+                       (dfaux.CSpeed < cs_lim[0]) | 
+                       (dfaux.CSpeed > cs_lim[1]) |
+                       (dfaux.DSpeed < ds_lim[0]) | 
+                       (dfaux.DSpeed > ds_lim[1])][cst.ALL_FEATURES]
         if result.size > 0:
-            print('%d %s OUTLIERS' % (result.shape[0], cst.TYPES[i].upper()))
-            display(result)
+            print('%d %s OUTLIERS' % (result.shape[0],
+                                      cst.TYPES[i].upper()))
+            display(result.head())
 
 
-# No mostramos los datos atípicos de tipo string dado que no extraemos ninguna característica de chunk que podamos comentar, nos centraremos en ellos cuando busquemos correlaciones entre blosclz y el resto de codecs.  
-# En cuanto a los datos atípicos observamos que la mayoría son series números idénticos o muy parecidos, siempre con un rango intercuartílico de 0.
+# No mostramos los datos atípicos de tipo string dado que no extraemos ninguna característica de chunk que podamos comentar.  
+# En cuanto a los datos atípicos observamos que la mayoría son series de números idénticos o muy parecidos, siempre con un rango intercuartílico de 0.
 
 # ## Correlaciones Block Size
 # Aquí pretendemos observar la correlación entre el tamaño de bloque y las medidas de compresión, para ello filtramos los datos por tipo, codec, filtro, nivel de compresión y tamaño de bloque; y calculamos la media de su ratio de compresión y velocidades de compresión/decompresión.
 # 
+# Las gráficas presentan los ratios de compresión (en azul) y las velocidades de compresión y de descompresión (en rojo y verde) medios para cada tamaño de bloque. Primero mostramos estos datos para los datos de tipo float y de tipo int.
 
-# In[10]:
+# In[9]:
 
 cst.paint_all_block_cor(my_df, 'shuffle', c_level=5)
 
 
-# In[11]:
+# Aquí se muestran los mismos gráficos pero para los datos del tipo cadenas de texto
+
+# In[10]:
 
 cst.paint_all_block_cor(my_df, 'noshuffle')
 
 
-# In[12]:
+# Como podemos observar, al aumentar el tamaño de bloque suele aumentar el ratio de compresión pero parece converger hasta un límite entre los tamaños de 512 KB y 2 MB. Además cuando el tamaño de bloque es menor en general las velocidades son más rápidas.
+# 
+# Por otro lado destaca el comportamiento de Snappy pues no parece comprimir muy bien con respecto al resto. Por otro lado Zlib parece ser inferior en todo a Zstd.
+
+# Aquí se presentan las mismas gráficas pero alterando el nivel de compresión para ver como afecta al tamaño de bloque.
+
+# In[11]:
 
 cst.paint_cl_comparison(my_df, 'shuffle', 'blosclz')
 
 
-# In[13]:
+# In[12]:
 
 cst.paint_cl_comparison(my_df, 'shuffle', 'lz4')
 
 
+# Los resultados son los esperados el comportamiento es en general el mismo, simplemente suben los ratio de compresión y bajan las velocidades a medida que aumenta el nivel de compresión. Por otra parte destaca el comportamiento del tamaño de bloque automático observamos que está programado para que aumente conjuntamente con el nivel de compresión.
+
 # ## Comparación de niveles de compresión
 # Al igual que en el anterior caso hacemos los mismos gráficos pero observando el nivel de compresión.
 
-# In[14]:
+# In[13]:
 
 # BLOCK SIZE --> CL
 cst.paint_all_block_cor(my_df, 'shuffle', block_size=256, cl_mode=True)
 
 
-# In[15]:
+# In[14]:
 
 cst.paint_all_block_cor(my_df, 'noshuffle', block_size=256, cl_mode=True)
 
 
+# Destaca el comportamiento de Snappy de nuevo vuelve a ser el más raro de todos, el nivel de compresión no cambia nada. Por otro lado Zlib tiene un cambio brusco a partir del nivel de compresión 3, esto se debe a que a partir de ese nivel activa métodos más potentes a la hora de comprimir. Finalmente Zstd parece hacer lo mismo que Zlib, pero parece que en los últimos niveles de compresión no funciona bien, pues pierde ratio de compresión.
+
 # ## Tablas columnares VS Tablas normales
 # En el caso de que los datos esten en forma de tabla, si la tabla contiene más de una columna se realizan dos pruebas de compresión, una guardando los datos como tabla normal, fila por fila y otra guardándolos columnarmente.
 
-# In[16]:
+# In[15]:
 
 df_col = my_df[my_df.Table == 2]
 if df_col.size > 0:
@@ -205,33 +224,45 @@ if df_col.size > 0:
         col_table = dfaux[dfaux.Table == 2][cst.TEST_FEATURES]
         col_table.columns = ['COL_CRate', 'COL_CSpeed', 'COL_DSpeed']
         result = pd.concat([normal_table, col_table])
-        result = result[['N_CRate', 'COL_CRate', 'N_CSpeed', 'COL_CSpeed','N_DSpeed', 'COL_DSpeed']]
+        result = result[['N_CRate', 'COL_CRate', 'N_CSpeed', 
+                         'COL_CSpeed','N_DSpeed', 'COL_DSpeed']]
         print(sets[sets.DataSet == dataset][cst.DESC_SET])
         display(result.describe())
 
 
-# ## Correlaciones Blosclz-CL1 VS Otros
-# Para poder visualizar todas estas correlaciones calculamos directamente el coeficiente de pearson y su p-valor asociado entre los datos de blosclz con nivel de compresión 1 y el resto.
+# Como era de esperar, parece que las tablas columnares son más comprimibles. Aunque hay casos en los que se comprimen igual, nunca se comprimen menos.
 
-# In[17]:
+# ## Correlaciones Blosclz-CL1 VS Otros
+# Para poder visualizar todas estas correlaciones calculamos directamente el coeficiente de pearson asociado entre los datos de blosclz con nivel de compresión 1 y el resto.
+
+# In[16]:
 
 cst.paint_codec_pearson_corr(my_df, 'blosclz', 1)
 
 
-# In[18]:
+# Aquí hacemos los mismo para LZ4
+
+# In[17]:
 
 cst.paint_codec_pearson_corr(my_df, 'lz4', 1)
 
 
-# In[19]:
+# Los resultados son bastante buenos, además era de esperar. Aunque LZ4 tiene mejores resultados ambas opciones parecen lo suficientemente buenas.
 
-dfaux = my_df[(my_df.Codec == 'lz4') & (my_df.Block_Size == 256) & (my_df.Filter == 'shuffle') &
-              (my_df.CL == 5) & (my_df.DType.str.contains('float') | my_df.DType.str.contains('int'))]
+# ## Correlaciónes entre características de chunk y pruebas de compresión
+# Aquí se trata de observar las correlaciones entre características de chunk seleccionadas y las pruebas de compresiones. Para ello se utiliza un gráfico de pares personalizado. Además los datos se filtran por codec, filtro, nivel de compresión y tamaño de bloque, sino no tendría sentido los gráficos debido a la enorme variabilidad que habría.
+
+# In[18]:
+
+dfaux = my_df[(my_df.Codec == 'lz4') & (my_df.Block_Size == 256) &
+              (my_df.Filter == 'shuffle') & (my_df.CL == 5) &
+              (my_df.DType.str.contains('float') |
+               my_df.DType.str.contains('int'))]
 cols = ['Mean', 'Sd', 'Skew', 'Kurt']
 cst.custom_pairs(dfaux, cols)
 
 
-# In[20]:
+# In[19]:
 
 cols = ['Range', 'Q_Range', 'N_Streaks']
 dfaux = dfaux.assign(Range=dfaux['Max'] - dfaux['Min'])
@@ -239,7 +270,4 @@ dfaux = dfaux.assign(Q_Range=dfaux['Q3'] - dfaux['Q1'])
 cst.custom_pairs(dfaux, cols)
 
 
-# In[ ]:
-
-
-
+# Aunque se podría plantear decir que a mayor rango y número de rachas disminuye el ratio de compresión, no sería muy adecuado sacar conclusiones de estos gráficos. Hay demasiada variabilidad en los datos en sí como para extraer conclusiones de un simple gráfico, será mejor que estas correlaciones las busquen los algoritmos de clasificación en sí.

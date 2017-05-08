@@ -315,7 +315,7 @@ def paint_all_block_cor(df, filter_name, c_level=5, cl_mode=False,
     else:
         onlystr = False
     for codec in df.drop_duplicates(subset=['Codec'])['Codec']:
-        if codec == 'blosclz' and filter_name == 'shuffle':
+        if (codec == 'blosclz' or codec == 'lz4') and filter_name == 'shuffle':
             if not cl_mode:
                 paint_block_cor(df[(df.CL == c_level) & (df.Codec == codec) &
                                    (df.Filter == 'bitshuffle')],

@@ -4,9 +4,11 @@ from matplotlib import pyplot as plt
 import numpy as np
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import validation_curve
+from sklearn.model_selection import cross_val_score
+import scoring_functions as sf
 
 
-def plot_learning_curve(estimator, title, X, y, scoring, ylim=None, cv=None,
+def plot_learning_curve(ax, estimator, title, X, y, scoring, ylim=None, cv=None,
                         n_jobs=1, train_sizes=np.linspace(.1, 1.0, 5)):
     """
     Generate a simple plot of the test and training learning curve.
@@ -48,12 +50,11 @@ def plot_learning_curve(estimator, title, X, y, scoring, ylim=None, cv=None,
     n_jobs : integer, optional
         Number of jobs to run in parallel (default 1).
     """
-    plt.figure()
-    plt.title(title)
+    ax.set_title(title)
     if ylim is not None:
-        plt.ylim(*ylim)
-    plt.xlabel("Training examples")
-    plt.ylabel("Score %s" % scoring.__name__)
+        ax.set_ylim(*ylim)
+    ax.set_xlabel("Training examples")
+    ax.set_ylabel("Score %s" % scoring.__name__)
     train_sizes, train_scores, test_scores = learning_curve(
         estimator, X, y, cv=cv, n_jobs=n_jobs, train_sizes=train_sizes,
         scoring=scoring)
@@ -61,25 +62,28 @@ def plot_learning_curve(estimator, title, X, y, scoring, ylim=None, cv=None,
     train_scores_std = np.std(train_scores, axis=1)
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
-    plt.grid()
+    ax.yaxis.grid(color='#CECED2')
+    ax.xaxis.grid(color='#CECED2')
 
-    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
-                     train_scores_mean + train_scores_std, alpha=0.1,
-                     color="#FF3B30")
-    plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
-                     test_scores_mean + test_scores_std, alpha=0.1,
-                     color="#4CD964")
-    plt.plot(train_sizes, train_scores_mean, 'o-', color="#FF3B30",
-             label="Training score")
-    plt.plot(train_sizes, test_scores_mean, 'o-', color="#4CD964",
-             label="Cross-validation score")
+    ax.fill_between(train_sizes, train_scores_mean - train_scores_std,
+                    train_scores_mean + train_scores_std, alpha=0.1,
+                    color="#FF3B30")
+    ax.fill_between(train_sizes, test_scores_mean - test_scores_std,
+                    test_scores_mean + test_scores_std, alpha=0.1,
+                    color="#4CD964")
+    ax.plot(train_sizes, train_scores_mean, 'o-', color="#FF3B30",
+            label="Training score")
+    ax.plot(train_sizes, test_scores_mean, 'o-', color="#4CD964",
+            label="Cross-validation score")
 
     plt.legend(loc="best")
-    return plt
+
+    return ax
 
 
-def plot_validation_curve(rfc, X, Y, param_name, param_range, scoring, ylim,  cv):
-    train_scores, test_scores = validation_curve(rfc, X, Y,
+def plot_validation_curve(ax, estimator, X, Y, param_name, param_range,
+                          scoring, ylim,  cv):
+    train_scores, test_scores = validation_curve(estimator, X, Y,
                                                  param_name=param_name,
                                                  param_range=param_range,
                                                  cv=cv, scoring=scoring,
@@ -90,33 +94,34 @@ def plot_validation_curve(rfc, X, Y, param_name, param_range, scoring, ylim,  cv
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
 
-    plt.figure()
-    plt.title("Validation Curve with Random Forest")
-    plt.xlabel(param_name)
-    plt.ylabel("Score %s" % scoring.__name__)
-    plt.ylim(*ylim)
+    ax.set_title("Validation Curve")
+    ax.set_xlabel(param_name)
+    ax.set_ylabel("Score %s" % scoring.__name__)
+    ax.set_ylim(*ylim)
     lw = 2
-    plt.grid()
+    ax.yaxis.grid(color='#CECED2')
+    ax.xaxis.grid(color='#CECED2')
 
-    plt.plot(param_range, train_scores_mean, label="Training score",
-             color="#FF9500", lw=lw)
-    plt.fill_between(param_range, train_scores_mean - train_scores_std,
-                     train_scores_mean + train_scores_std, alpha=0.2,
-                     color="#FF9500", lw=lw)
-    plt.plot(param_range, test_scores_mean, label="Cross-validation score",
-             color="#007AFF", lw=lw)
-    plt.fill_between(param_range, test_scores_mean - test_scores_std,
-                     test_scores_mean + test_scores_std, alpha=0.2,
-                     color="#007AFF", lw=lw)
+    ax.plot(param_range, train_scores_mean, label="Training score",
+            color="#FF9500", lw=lw)
+    ax.fill_between(param_range, train_scores_mean - train_scores_std,
+                    train_scores_mean + train_scores_std, alpha=0.2,
+                    color="#FF9500", lw=lw)
+    ax.plot(param_range, test_scores_mean, label="Cross-validation score",
+            color="#007AFF", lw=lw)
+    ax.fill_between(param_range, test_scores_mean - test_scores_std,
+                    test_scores_mean + test_scores_std, alpha=0.2,
+                    color="#007AFF", lw=lw)
     plt.legend(loc="best")
-    return plt
+
+    return ax
 
 
 def plot_nested_cv(non_nested_score, nested_score):
     score_difference = non_nested_score - nested_score
 
-    print("Average difference of {0:6f} with std. dev. of {1:6f}."
-          .format(score_difference.mean(), score_difference.std()))
+    print('Average difference of %.6f with std. dev. of %.6f.'
+          % (score_difference.mean(), score_difference.std()))
 
     # Plot scores on each trial for nested and non-nested CV
     plt.figure(figsize=(20, 8))
@@ -137,35 +142,86 @@ def plot_nested_cv(non_nested_score, nested_score):
                bbox_to_anchor=(0, 1, .8, 0))
     plt.ylabel("score difference", fontsize="14")
     plt.tight_layout()
-    plt.suptitle("Non-Nested and Nested Cross Validation on Iris Dataset",
+    plt.suptitle("Non-Nested and Nested Cross Validation",
                  x=.5, y=1.1, fontsize="15")
 
     return plt
 
 
 def print_nested_winners(nested_clf, non_nested_clf):
-    crits = []
-    boots = []
-    weights = []
+    clf_name = non_nested_clf[0].__class__.__name__
+    if (clf_name == 'RandomForestClassifier' or clf_name == 'ExtraTreesClassifier'):
+        params = ('criterion', 'bootstrap', 'class_weight')
+    elif (clf_name == "MultiOutputClassifier"):
+        params = ('estimator__C', 'estimator__gamma')
+    else:
+        params = ('n_neighbors', 'weights')
+    values = [[] for i in range(len(params))]
     for est in non_nested_clf:
         aux_dict = est.get_params()
-        crits.append(aux_dict.get('criterion'))
-        boots.append(aux_dict.get('bootstrap'))
-        weights.append(aux_dict.get('class_weight'))
+        for i in range(len(params)):
+            values[i].append(aux_dict.get(params[i]))
     print('Non Nested Winners')
-    print(Counter(crits))
-    print(Counter(boots))
-    print(Counter(weights))
-    crits = []
-    boots = []
-    weights = []
+    for i in range(len(params)):
+        print('%-s --> %-s' % (params[i], Counter(values[i])))
+    values = [[] for i in range(len(params))]
     for estimators in nested_clf:
         for est in estimators:
             aux_dict = est.get_params()
-            crits.append(aux_dict.get('criterion'))
-            boots.append(aux_dict.get('bootstrap'))
-            weights.append(aux_dict.get('class_weight'))
+            for i in range(len(params)):
+                values[i].append(aux_dict.get(params[i]))
     print('Nested Winners')
-    print(Counter(crits))
-    print(Counter(boots))
-    print(Counter(weights))
+    for i in range(len(params)):
+        print('%-s --> %-s' % (params[i], Counter(values[i])))
+
+
+class ReportList(list):
+    def _repr_html_(self):
+        html = ["<table><caption><b>Report</b></caption><thead><tr><th>Name</th>\
+        <th>Score</th></tr>"]
+        for i, row in enumerate(self):
+            html.append("<tr>")
+            html.append("<td>%s</td>" % (row[0]))
+            if i < 6:
+                html.append(
+                    "<td>%.4f +/-(%.4f)</td>" % (row[1][0],
+                                                 row[1][1]))
+            else:
+                html.append(
+                    "<td>%.4f +/-(%.4f) &nbsp; ~ &nbsp; \
+                    %.4f +/-(%.4f)</td>" % (row[1][0],
+                                            row[1][1],
+                                            row[1][2],
+                                            row[1][3]))
+            html.append("</tr>")
+        html.append("</table>")
+        return ''.join(html)
+
+
+SCORES = [sf.balanced, sf.brier, None, sf.codec, sf.filter_,
+          sf.codec_filter, sf.c_level, sf.block, sf.cl_block]
+NICE_SCORES = [sf.c_level_nice, sf.block_nice, sf.cl_block_nice]
+
+
+def cross_val_report(estimator, cv, X, y, no_brier=False):
+    report = ReportList()
+    for i, scoring in enumerate(SCORES):
+        if scoring is None:
+            name = 'normal'
+            scores = cross_val_score(estimator, cv=cv, X=X, y=y,
+                                     scoring=scoring)
+            values = [scores.mean(), scores.std()]
+        elif no_brier and scoring.__name__ == 'brier':
+            values = [0, 0]
+            name = scoring.__name__
+        else:
+            scores = cross_val_score(estimator, cv=cv, X=X, y=y,
+                                     scoring=scoring)
+            values = [scores.mean(), scores.std()]
+            name = scoring.__name__
+        if (i > 5):
+            scores = cross_val_score(estimator, cv=cv, X=X, y=y,
+                                     scoring=NICE_SCORES[i - 6])
+            values.extend([scores.mean(), scores.std()])
+        report.append([name, values])
+    return report

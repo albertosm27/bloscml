@@ -12,12 +12,12 @@ from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import ShuffleSplit
 from sklearn.externals import joblib
-from scoring_functions import my_accuracy_scorer
-from scoring_functions import my_brier_scorer
+from scoring_functions import balanced
+from scoring_functions import brier
 
 
 NUM_TRIALS = 20
-SCORES = [my_accuracy_scorer, my_brier_scorer]
+SCORES = [balanced, brier]
 DF = pd.read_csv('../data/training_data.csv', sep='\t')
 IN_OPTIONS = ['IN_CR', 'IN_CS', 'IN_DS', 'is_Table', 'is_Columnar', 'is_Int',
               'is_Float', 'is_String', 'Type_Size', 'Chunk_Size', 'Mean',

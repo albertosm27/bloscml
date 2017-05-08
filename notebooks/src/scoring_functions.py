@@ -1,8 +1,10 @@
 
 import numpy as np
+import random
+import pandas as pd
 
 
-def my_brier_scorer(predictor, X, y):
+def brier(predictor, X, y):
     probs = predictor.predict_proba(X)
     sorted_probs = []
     score = 0
@@ -21,7 +23,7 @@ def my_brier_scorer(predictor, X, y):
     return -score / y.shape[0]
 
 
-def my_accuracy_scorer(predictor, X, y):
+def balanced(predictor, X, y):
     ypred = predictor.predict(X)
     score = 0
     for i in range(y.shape[0]):
@@ -34,7 +36,16 @@ def my_accuracy_scorer(predictor, X, y):
     return score / y.shape[0]
 
 
-def codec_accuracy(predictor, X, y):
+def codec_filter(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        if (y[i, 0:7] == ypred[i, 0:7]).all():
+            score += 1
+    return score / y.shape[0]
+
+
+def codec(predictor, X, y):
     ypred = predictor.predict(X)
     score = 0
     for i in range(y.shape[0]):
@@ -43,7 +54,7 @@ def codec_accuracy(predictor, X, y):
     return score / y.shape[0]
 
 
-def filter_accuracy(predictor, X, y):
+def filter_(predictor, X, y):
     ypred = predictor.predict(X)
     score = 0
     for i in range(y.shape[0]):
@@ -52,7 +63,7 @@ def filter_accuracy(predictor, X, y):
     return score / y.shape[0]
 
 
-def cl_accuracy(predictor, X, y):
+def c_level(predictor, X, y):
     ypred = predictor.predict(X)
     score = 0
     for i in range(y.shape[0]):
@@ -61,10 +72,48 @@ def cl_accuracy(predictor, X, y):
     return score / y.shape[0]
 
 
-def block_accuracy(predictor, X, y):
+def c_level_nice(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        score += (8 - abs(np.argmax(y[i, 7:16] == 1) -
+                          np.argmax(ypred[i, 7:16] == 1)))**2 / 64
+    return score / y.shape[0]
+
+
+def block(predictor, X, y):
     ypred = predictor.predict(X)
     score = 0
     for i in range(y.shape[0]):
         if (y[i, 16:25] == ypred[i, 16:25]).all():
             score += 1
+    return score / y.shape[0]
+
+
+def block_nice(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        score += (8 - abs(np.argmax(y[i, 16:25] == 1) -
+                          np.argmax(ypred[i, 16:25] == 1)))**2 / 64
+    return score / y.shape[0]
+
+
+def cl_block(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        if (y[i, 7:25] == ypred[i, 7:25]).all():
+            score += 1
+    return score / y.shape[0]
+
+
+def cl_block_nice(predictor, X, y):
+    ypred = predictor.predict(X)
+    score = 0
+    for i in range(y.shape[0]):
+        score += (8 - abs(np.argmax(y[i, 7:16] == 1) -
+                          np.argmax(ypred[i, 7:16] == 1)))**2 / 64 * 0.5
+        score += (8 - abs(np.argmax(y[i, 16:25] == 1) -
+                          np.argmax(ypred[i, 16:25] == 1)))**2 / 64 * 0.5
     return score / y.shape[0]
