@@ -1,28 +1,20 @@
 # Machine Learning for Blosc #
 
-Please put here any reference to the newcomers to the project (please use the [Markdown](https://bitbucket.org/tutorials/markdowndemo) format).
+This is my final degree project which objective is to explore the application of classification algorithms for Blosc meta compressor.
 
 ### What is BloscML? ###
 
-BloscML is a set of scripts that will allow to automatically select the different parameters in Blosc (filters, codecs, compression levels...)
-for different datasets.
+BloscML is a set of scripts and jupyter notebooks which show the analysis of the compressible features of the data to apply supervised classification algorithms
+for tuning all the configuration options of the Blosc compressor (codec, compression level, block size, pre-compression filters).
+
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+Mainly you need to install Python with the packages python-blosc and scikit-learn.
+The datasets used for the analysis unfortunately are too big to make them available here but all the results obtained from them are inside notebooks/data.
+The interesting work for the "quick" readers is inside notebooks/deliver, unfortunately the work done is in Spanish (possibly translatable on request) 
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+Author: Alberto Sabater Morales alberto3pt@gmail.com
+Blosc organization: https://github.com/Blosc
