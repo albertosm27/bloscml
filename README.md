@@ -17,5 +17,5 @@ The interesting work for the "quick" readers is inside notebooks/deliver, unfort
 
 ### Who do I talk to? ###
 
-Author: Alberto Sabater Morales alberto3pt@gmail.com
+Author: Alberto Sabater Morales alberto3pt@gmail.com  
 Blosc organization: https://github.com/Blosc
