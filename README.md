@@ -4,7 +4,8 @@ This is my final degree project which objective is to explore the application of
 
 ### What is BloscML? ###
 
-BloscML is a set of scripts and jupyter notebooks which show the analysis of the compressible features of the data to apply supervised classification algorithms
+BloscML is a research project for the application of classification algorithms to the [Blosc](http://blosc.org/pages/blosc-in-depth/) compressor options.  
+It consists of a set of scripts and jupyter notebooks which show the analysis of the compressible features of the data to apply supervised classification algorithms
 for tuning all the configuration options of the Blosc compressor (codec, compression level, block size, pre-compression filters).
 
 
