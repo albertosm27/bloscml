@@ -1,6 +1,6 @@
 # Machine Learning for Blosc #
 
-This is my final degree project which objective is to explore the application of classification algorithms for Blosc meta compressor.
+This is my [Final Degree Project](http://repositori.uji.es/xmlui/handle/10234/174211) whose objective is to explore the application of classification algorithms for Blosc meta compressor.
 
 ### What is BloscML? ###
 
